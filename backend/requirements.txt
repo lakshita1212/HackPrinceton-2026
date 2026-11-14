@@ -5,3 +5,4 @@ python-dotenv>=1.0
 deepagents
 langchain-groq
 langchain-google-genai
+fastembed>=0.9

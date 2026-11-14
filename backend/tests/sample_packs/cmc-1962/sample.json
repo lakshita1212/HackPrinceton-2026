@@ -1,0 +1,86 @@
+{
+  "pack": "cmc-1962",
+  "note": "TEST FIXTURE ONLY. A handful of facts for testing the pipeline. The real pack lives in backend/packs/cmc-1962/.",
+  "facts": [
+    {
+      "id": "t-bg-01",
+      "date": "1962-09-04",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "The President publicly warned that if offensive ground-to-ground missiles were placed in Cuba, the gravest issues would arise.",
+      "quote": null,
+      "source": {"title": "Presidential statement on Cuba, Sept 4", "citation": "Statement by the President, Sept 4, 1962, Public Papers of the Presidents", "url": null, "kind": "archival"}
+    },
+    {
+      "id": "t-1016-01",
+      "date": "1962-10-16",
+      "roles": ["official", "historian"],
+      "text": "The President was briefed that U-2 photographs taken on October 14 show Soviet medium-range ballistic missile sites under construction in Cuba. A small group of advisers began meeting in secret.",
+      "quote": null,
+      "source": {"title": "ExComm meeting, Oct 16", "citation": "Foreign Relations of the United States, 1961-1963, Vol. XI, Cuban Missile Crisis", "url": "https://history.state.gov/historicaldocuments/frus1961-63v11", "kind": "archival"}
+    },
+    {
+      "id": "t-1016-02",
+      "date": "1962-10-16",
+      "roles": ["citizen", "journalist"],
+      "text": "The news on October 16 carried nothing about missiles in Cuba; the discovery was being kept secret.",
+      "quote": null,
+      "source": {"title": "Public news coverage, Oct 16", "citation": "Summary of contemporary newspaper coverage", "url": null, "kind": "narration"}
+    },
+    {
+      "id": "t-1022-01",
+      "date": "1962-10-22",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "In a televised address, the President told the nation that Soviet offensive missile sites had been found in Cuba and announced a naval quarantine of offensive military equipment shipped to Cuba.",
+      "quote": "It shall be the policy of this Nation to regard any nuclear missile launched from Cuba against any nation in the Western Hemisphere as an attack by the Soviet Union on the United States, requiring a full retaliatory response upon the Soviet Union.",
+      "source": {"title": "President's address on Cuba, Oct 22", "citation": "Radio and Television Report to the American People on the Soviet Arms Buildup in Cuba, Oct 22, 1962, JFK Presidential Library", "url": "https://www.jfklibrary.org/learn/about-jfk/historic-speeches/address-during-the-cuban-missile-crisis", "kind": "archival"}
+    },
+    {
+      "id": "t-1022-02",
+      "date": "1962-10-22",
+      "roles": ["official", "historian"],
+      "text": "US military forces worldwide were moved to DEFCON 3, a heightened state of readiness.",
+      "quote": null,
+      "source": {"title": "Military readiness, Oct 22", "citation": "National Security Archive, Cuban Missile Crisis chronology", "url": "https://nsarchive.gwu.edu/", "kind": "narration"}
+    },
+    {
+      "id": "t-1023-01",
+      "date": "1962-10-23",
+      "roles": ["citizen", "journalist", "historian"],
+      "text": "Newspapers reported families stocking up on canned food, bottled water and batteries, and some stores ran short.",
+      "quote": null,
+      "source": {"title": "Shoppers stock up", "citation": "Summary of contemporary newspaper coverage, Oct 23-24, 1962", "url": null, "kind": "narration"}
+    },
+    {
+      "id": "t-1024-01",
+      "date": "1962-10-24",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "The naval quarantine of Cuba went into effect, and Soviet ships were reported heading toward the quarantine line.",
+      "quote": null,
+      "source": {"title": "Quarantine takes effect, Oct 24", "citation": "Proclamation 3504; contemporary press coverage", "url": null, "kind": "narration"}
+    },
+    {
+      "id": "t-1027-01",
+      "date": "1962-10-27",
+      "roles": ["journalist", "official", "historian"],
+      "text": "A US U-2 reconnaissance plane was shot down over Cuba and its pilot, Major Rudolf Anderson Jr., was killed.",
+      "quote": null,
+      "source": {"title": "U-2 shot down, Oct 27", "citation": "National Security Archive, Cuban Missile Crisis chronology", "url": "https://nsarchive.gwu.edu/", "kind": "narration"}
+    },
+    {
+      "id": "t-1028-01",
+      "date": "1962-10-28",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "Soviet Premier Khrushchev announced on Radio Moscow that the missiles in Cuba would be dismantled and returned to the Soviet Union.",
+      "quote": null,
+      "source": {"title": "Khrushchev's Radio Moscow message, Oct 28", "citation": "Khrushchev message of Oct 28, 1962, FRUS 1961-1963 Vol. VI", "url": "https://history.state.gov/historicaldocuments/frus1961-63v06", "kind": "archival"}
+    },
+    {
+      "id": "t-hist-01",
+      "date": "1992-01-01",
+      "roles": ["historian"],
+      "text": "Decades later it was revealed that the US had privately agreed to remove its Jupiter missiles from Turkey as part of ending the crisis, and that Soviet forces in Cuba had also had tactical nuclear weapons.",
+      "quote": null,
+      "source": {"title": "Later revelations", "citation": "National Security Archive; proceedings of the 1989 Moscow and 1992 Havana conferences", "url": "https://nsarchive.gwu.edu/", "kind": "narration"}
+    }
+  ]
+}

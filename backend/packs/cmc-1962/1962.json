@@ -1,0 +1,501 @@
+{
+  "pack": "cmc-1962",
+  "day": "1962-10-16",
+  "facts": [
+    {
+      "id": "cmc-bg-01",
+      "date": "1961-07-25",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "In a televised speech about the Berlin crisis, President Kennedy asked Congress for more civil defense money. He also announced a program to find, mark and stock fallout shelter space in existing buildings.",
+      "quote": null,
+      "source": {
+        "title": "JFK address on the Berlin crisis, July 25, 1961",
+        "citation": "John F. Kennedy, 'Radio and Television Report to the American People on the Berlin Crisis,' July 25, 1961. Public Papers of the Presidents: John F. Kennedy, 1961 (Washington: GPO, 1962). Text and audio held at the John F. Kennedy Presidential Library.",
+        "url": null,
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-bg-02",
+      "date": "1961-12-01",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "The Defense Department's Office of Civil Defense put out a 46-page booklet called 'Fallout Protection: What to Know and Do About Nuclear Attack.' It explained the dangers of a nuclear attack and what families could do to protect themselves.",
+      "quote": null,
+      "source": {
+        "title": "OCD booklet 'Fallout Protection' (H-6), Dec 1961",
+        "citation": "U.S. Department of Defense, Office of Civil Defense, Fallout Protection: What to Know and Do About Nuclear Attack, Handbook H-6 (Washington: GPO, December 1961), with a preface by Secretary of Defense Robert S. McNamara.",
+        "url": null,
+        "kind": "archival"
+      },
+      "confidence": "medium",
+      "note": "The booklet is dated December 1961, but I could not find the exact release day, so the date is set to the first of the month."
+    },
+    {
+      "id": "cmc-bg-03",
+      "date": "1962-08-31",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "Republican Senator Kenneth Keating of New York told the Senate that Soviet troops had arrived in Cuba and were probably working on or near a missile base. He urged President Kennedy to act.",
+      "quote": null,
+      "source": {
+        "title": "Keating Senate speech, Aug 31, 1962",
+        "citation": "Senator Kenneth Keating, 'Soviet Activities in Cuba,' Congressional Record, 87th Congress, 2nd session, vol. 108 (August 31, 1962). Reproduced in the Wilson Center Digital Archive.",
+        "url": "https://digitalarchive.umd.edu/node/98861",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-bg-04",
+      "date": "1962-08-31",
+      "roles": ["official", "historian"],
+      "text": "A U-2 flight on August 29 photographed Soviet surface-to-air antiaircraft missile sites being built in Cuba. CIA Deputy Director Marshall Carter passed the finding to McGeorge Bundy at the White House on August 31.",
+      "quote": null,
+      "source": {
+        "title": "FRUS 1961-63 vol. V, doc. 230 (editorial note)",
+        "citation": "Foreign Relations of the United States, 1961-1963, Volume V, Soviet Union, Document 230, Editorial Note (Washington: U.S. Department of State, Office of the Historian).",
+        "url": "https://history.state.gov/historicaldocuments/frus1961-63v05/d230",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-bg-05",
+      "date": "1962-09-04",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "The White House released a statement from President Kennedy. It said Soviet antiaircraft missiles had reached Cuba, but there was no evidence of Soviet combat units, Soviet bases or ground-to-ground missiles there, and it warned that offensive weapons would not be tolerated.",
+      "quote": "Were it to be otherwise, the gravest issues would arise.",
+      "source": {
+        "title": "FRUS 1961-63 vol. X, doc. 411 (Sept 4 statement)",
+        "citation": "Foreign Relations of the United States, 1961-1963, Volume X, Cuba 1961-1962, Document 411, Editorial Note, quoting the President's statement of September 4, 1962, read to the White House press corps by Press Secretary Pierre Salinger (text in Department of State Bulletin, September 24, 1962, p. 450).",
+        "url": "https://history.state.gov/historicaldocuments/frus1961-63v10/d411",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-bg-06",
+      "date": "1962-09-07",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "President Kennedy asked Congress for standby authority to call up to 150,000 military reservists to active duty.",
+      "quote": null,
+      "source": {
+        "title": "FRUS 1961-63 vol. X, doc. 422, footnote 1",
+        "citation": "Foreign Relations of the United States, 1961-1963, Volume X, Cuba 1961-1962, Document 422, Memorandum Prepared in the Office of Current Intelligence, CIA, 'Soviet Statement on Cuba,' September 12, 1962, footnote 1.",
+        "url": "https://history.state.gov/historicaldocuments/frus1961-63v10/d422",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-bg-07",
+      "date": "1962-09-11",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "Through its news agency TASS, the Soviet government said the weapons it was sending to Cuba were purely defensive and that it had no need to put missiles outside the Soviet Union. It also warned that a U.S. attack on Cuba or on Soviet ships headed there would mean war.",
+      "quote": null,
+      "source": {
+        "title": "TASS statement on Cuba, Sept 11, 1962 (via FRUS)",
+        "citation": "Foreign Relations of the United States, 1961-1963, Volume X, Document 422, footnote 1, summarizing the TASS statement of September 11, 1962 (text reprinted in The New York Times, September 12, 1962, p. 16).",
+        "url": "https://history.state.gov/historicaldocuments/frus1961-63v10/d422",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": "The part about having no need to place missiles outside the USSR is how President Kennedy quoted the statement in his October 22 address. The FRUS footnote summarizes the war warning."
+    },
+    {
+      "id": "cmc-bg-08",
+      "date": "1962-09-13",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "At a news conference, President Kennedy said he did not think military action against Cuba was justified at that point. But he warned that if Cuba became a significant offensive military base for the Soviet Union, the United States would act.",
+      "quote": "then this country will do whatever must be done to protect its own security and that of its allies.",
+      "source": {
+        "title": "JFK News Conference 43, Sept 13, 1962",
+        "citation": "John F. Kennedy, News Conference 43, September 13, 1962, opening statement. Sound recording JFKWHA-126, White House Audio Collection, John F. Kennedy Presidential Library; text in Public Papers of the Presidents: John F. Kennedy, 1962.",
+        "url": "https://www.jfklibrary.org/asset-viewer/archives/JFKWHA/1962/JFKWHA-126/JFKWHA-126",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-bg-09",
+      "date": "1962-09-19",
+      "roles": ["official", "historian"],
+      "text": "The intelligence community's formal estimate of the Cuban buildup (SNIE 85-3-62) concluded the Soviets were unlikely to put medium- or intermediate-range ballistic missiles in Cuba, because doing so would be a risky and radical change in Soviet policy.",
+      "quote": null,
+      "source": {
+        "title": "SNIE 85-3-62, 'The Military Buildup in Cuba'",
+        "citation": "Special National Intelligence Estimate 85-3-62, 'The Military Buildup in Cuba,' September 19, 1962, in Foreign Relations of the United States, 1961-1963, Volume X, Document 433.",
+        "url": "https://history.state.gov/historicaldocuments/frus1961-63v10/d433",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-bg-10",
+      "date": "1962-09-30",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "President Kennedy spoke on national radio and television about James Meredith's admission to the University of Mississippi. Rioting broke out on the campus that night, and federal troops were sent in.",
+      "quote": null,
+      "source": {
+        "title": "JFK address on the University of Mississippi",
+        "citation": "John F. Kennedy, 'Radio and Television Report to the Nation on the Situation at the University of Mississippi,' September 30, 1962. Public Papers of the Presidents: John F. Kennedy, 1962. Held at the John F. Kennedy Presidential Library.",
+        "url": null,
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-bg-11",
+      "date": "1962-10-03",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "A joint resolution of Congress on Cuba became law. It said the United States was determined to prevent, by whatever means necessary including the use of arms, the creation in Cuba of a foreign military base that endangered U.S. security.",
+      "quote": null,
+      "source": {
+        "title": "Public Law 87-733, Cuba joint resolution",
+        "citation": "Public Law 87-733 (S.J. Res. 230), 'Joint resolution expressing the determination of the United States with respect to the situation in Cuba,' approved October 3, 1962, 76 Stat. 697.",
+        "url": "https://www.govinfo.gov/content/pkg/STATUTE-76/pdf/STATUTE-76-Pg697.pdf",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-bg-12",
+      "date": "1962-10-05",
+      "roles": ["official", "historian"],
+      "text": "In a private discussion, CIA Director John McCone told McGeorge Bundy he thought it probable that the Soviet buildup would end with medium-range ballistic missiles in Cuba. Bundy disagreed and said he did not believe the Soviets would go that far.",
+      "quote": null,
+      "source": {
+        "title": "FRUS 1961-63 vol. XI, doc. 9 (McCone-Bundy)",
+        "citation": "Memorandum of Discussion With the President's Special Assistant for National Security Affairs (Bundy), October 5, 1962, drafted by McCone. Foreign Relations of the United States, 1961-1963, Volume XI, Document 9.",
+        "url": "https://history.state.gov/historicaldocuments/frus1961-63v11/d9",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-bg-13",
+      "date": "1962-10-10",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "Senator Keating told the Senate his sources had confirmed that launching sites for intermediate range missiles were being built in Cuba. He accused the administration of keeping the public in the dark and demanded that officials confirm or deny it.",
+      "quote": "Construction has begun on at least a half dozen launching sites for intermediate range tactical missiles.",
+      "source": {
+        "title": "Keating Senate speech, Oct 10, 1962",
+        "citation": "Senator Kenneth Keating, 'Cuba,' Congressional Record, 87th Congress, 2nd session, vol. 108, part 17 (October 10, 1962), p. 22957. Reproduced in the Wilson Center Digital Archive.",
+        "url": "https://digitalarchive.umd.edu/node/98860",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1016-01",
+      "date": "1962-10-16",
+      "roles": ["official", "historian"],
+      "text": "Officials learned that a U-2 flight over western Cuba on Sunday, October 14, took 928 photographs in about six minutes, and that analysts found Soviet medium-range ballistic missile sites under construction in them. The photos also showed crates for Soviet IL-28 bombers at San Julian airfield.",
+      "quote": null,
+      "source": {
+        "title": "FRUS 1961-63 vol. XI, doc. 16 (editorial note)",
+        "citation": "Foreign Relations of the United States, 1961-1963, Volume XI, Cuban Missile Crisis and Aftermath, Document 16, Editorial Note.",
+        "url": "https://history.state.gov/historicaldocuments/frus1961-63v11/d16",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1016-02",
+      "date": "1962-10-16",
+      "roles": ["official", "historian"],
+      "text": "At 8:45 in the morning, national security adviser McGeorge Bundy told President Kennedy about the missile photographs. The President immediately called his top advisers to a meeting for late that morning.",
+      "quote": null,
+      "source": {
+        "title": "FRUS vol. XI summary: discovery of the missiles",
+        "citation": "U.S. Department of State, Office of the Historian, 'Summary of Print Volume XI,' Foreign Relations of the United States, 1961-1963, Volumes X/XI/XII Microfiche Supplement.",
+        "url": "https://history.state.gov/historicaldocuments/frus1961-63v10-12mSupp/summary-xi",
+        "kind": "narration"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1016-03",
+      "date": "1962-10-16",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "President Kennedy welcomed astronaut Walter 'Wally' Schirra, back from his six-orbit Mercury flight, to the Oval Office with his wife and their two children.",
+      "quote": null,
+      "source": {
+        "title": "JFK appointment schedule, Oct 16, 1962",
+        "citation": "President Kennedy's appointments, October 16, 1962 (9:30-9:48 a.m., Commander and Mrs. Walter M. Schirra Jr., Walter III and Suzanne). John F. Kennedy Presidential Library, 'World on the Brink' online exhibit.",
+        "url": "https://microsites.jfklibrary.org/cmc/oct16/doc1.html",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1016-04",
+      "date": "1962-10-16",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "The President kept to his normal public schedule. He met a panel on mental retardation and hosted a White House luncheon for Crown Prince Hasan of Libya, and nothing about Cuba was announced.",
+      "quote": null,
+      "source": {
+        "title": "JFK appointment schedule, Oct 16, 1962",
+        "citation": "President Kennedy's appointments, October 16, 1962. John F. Kennedy Presidential Library, 'World on the Brink' online exhibit, which notes that the President maintained his official schedule to avoid arousing public concern.",
+        "url": "https://microsites.jfklibrary.org/cmc/oct16/doc1.html",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1016-05",
+      "date": "1962-10-16",
+      "roles": ["official", "historian"],
+      "text": "The first secret meeting on the missiles ran from 11:50 a.m. to 12:57 p.m., and the President's schedule listed it only as an off-the-record meeting. The State Department was represented by Secretary Dean Rusk and Assistant Secretary for Inter-American Affairs Edwin Martin, among others.",
+      "quote": null,
+      "source": {
+        "title": "JFK appointment schedule, Oct 16, 1962",
+        "citation": "President Kennedy's appointments, October 16, 1962 (11:50 a.m.-12:57 p.m., off-the-record meeting on Cuba). John F. Kennedy Presidential Library.",
+        "url": "https://microsites.jfklibrary.org/cmc/oct16/doc1.html",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1016-06",
+      "date": "1962-10-16",
+      "roles": ["official", "historian"],
+      "text": "At the morning meeting, the President said that whatever else they decided, they would at least carry out the most limited option, which was destroying the missiles.",
+      "quote": "We're certainly going to do number one; we're going to take out these, uh, missiles.",
+      "source": {
+        "title": "ExComm transcript, Oct 16, 1962, 11:50 a.m.",
+        "citation": "Transcript of a Meeting at the White House, October 16, 1962, 11:50 a.m. Kennedy Library, President's Office Files, Presidential Recordings, Transcripts; published as Foreign Relations of the United States, 1961-1963, Volume XI, Document 18.",
+        "url": "https://microsites.jfklibrary.org/cmc/oct16/doc2.html",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": "The transcript comes from a recording with some unclear passages, and the Kennedy Library advises checking quotations against the audio."
+    },
+    {
+      "id": "cmc-1016-07",
+      "date": "1962-10-16",
+      "roles": ["official", "historian"],
+      "text": "Defense Secretary Robert McNamara said the military could be ready for an air strike within days. He insisted any strike happen before the missiles became operational, because after that he could not promise to knock them all out.",
+      "quote": "we must agree now that we will schedule that prior to the time these missile sites become operational.",
+      "source": {
+        "title": "ExComm transcript, Oct 16, 1962, 11:50 a.m.",
+        "citation": "Transcript of a Meeting at the White House, October 16, 1962, 11:50 a.m. Foreign Relations of the United States, 1961-1963, Volume XI, Document 18; text and audio at the John F. Kennedy Presidential Library.",
+        "url": "https://microsites.jfklibrary.org/cmc/oct16/doc2.html",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1016-08",
+      "date": "1962-10-16",
+      "roles": ["official", "historian"],
+      "text": "Secretary of State Dean Rusk laid out two broad choices. One was a quick surprise strike; the other was to take a few days to alert allies and the Organization of American States and send a message to Castro before any military action.",
+      "quote": null,
+      "source": {
+        "title": "FRUS 1961-63 vol. XI, doc. 18",
+        "citation": "Transcript of a Meeting at the White House, October 16, 1962, 11:50 a.m. Foreign Relations of the United States, 1961-1963, Volume XI, Document 18.",
+        "url": "https://history.state.gov/historicaldocuments/frus1961-63v11/d18",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1016-09",
+      "date": "1962-10-16",
+      "roles": ["official", "historian"],
+      "text": "The President ordered as many U-2 reconnaissance flights over Cuba as were needed. Knowledge of the photographs was put under a special restricted security classification, though McNamara doubted it could be kept from Congress for more than about a week.",
+      "quote": null,
+      "source": {
+        "title": "FRUS 1961-63 vol. XI, doc. 18",
+        "citation": "Transcript of a Meeting at the White House, October 16, 1962, 11:50 a.m. Foreign Relations of the United States, 1961-1963, Volume XI, Document 18.",
+        "url": "https://history.state.gov/historicaldocuments/frus1961-63v11/d18",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1016-10",
+      "date": "1962-10-16",
+      "roles": ["official", "historian"],
+      "text": "At the October 16 meetings the advisers had no proof that nuclear warheads were in Cuba yet. The evidence for a nuclear warhead storage site was described as totally inadequate.",
+      "quote": "However, there is really totally inadequate evidence to say that there is a nuclear storage capability now.",
+      "source": {
+        "title": "Presidential Recordings, Oct 16, 1962 meeting",
+        "citation": "Timothy Naftali and Philip Zelikow, eds., The Presidential Recordings: John F. Kennedy, The Great Crises, Volume 2 (New York: W. W. Norton, 2001), meeting of October 16, 1962; digital edition, Miller Center / University of Virginia Press.",
+        "url": "https://prde.upress.virginia.edu/conversations/8020045",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": "From the published transcript of an October 16 meeting. I could not confirm from the excerpt I saw who spoke the line or whether it was the morning or evening session, so the text does not name a speaker."
+    },
+    {
+      "id": "cmc-1016-11",
+      "date": "1962-10-16",
+      "roles": ["official", "historian"],
+      "text": "At a 2:30 p.m. meeting on Operation Mongoose, the secret covert program against Castro's government, Attorney General Robert Kennedy passed on the President's dissatisfaction with its results. He said he would give it more personal attention and referred to a change in atmosphere in the government over the past day.",
+      "quote": null,
+      "source": {
+        "title": "FRUS 1961-63 vol. XI, doc. 19 (Mongoose)",
+        "citation": "Memorandum for the Record, 'Mongoose Meeting with the Attorney General,' October 16, 1962. Foreign Relations of the United States, 1961-1963, Volume XI, Document 19.",
+        "url": "https://history.state.gov/historicaldocuments/frus1961-63v11/d19",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": "Mongoose was tightly compartmented, so a composite mid-level State official would more likely have heard of this secondhand than attended."
+    },
+    {
+      "id": "cmc-1016-12",
+      "date": "1962-10-16",
+      "roles": ["official", "historian"],
+      "text": "A cable from Ambassador Foy Kohler in Moscow reached the State Department at 2:35 p.m. reporting his long talk with Khrushchev that day. On Cuba, Khrushchev complained about U.S. efforts to cut off the island's trade and shipping.",
+      "quote": null,
+      "source": {
+        "title": "FRUS 1961-63 vol. XI, doc. 20 (Kohler cable)",
+        "citation": "Telegram 978 From the Embassy in the Soviet Union to the Department of State, Moscow, October 16, 1962, 'Khrushchev-Kohler, Part III, Cuba.' Foreign Relations of the United States, 1961-1963, Volume XI, Document 20.",
+        "url": "https://history.state.gov/historicaldocuments/frus1961-63v11/d20",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1016-13",
+      "date": "1962-10-16",
+      "roles": ["official", "historian"],
+      "text": "At an evening meeting from 6:30 to 7:55 p.m., McNamara outlined three courses: a political approach to Castro, Khrushchev and allies; open surveillance plus a blockade against new offensive weapons; or military action starting with air strikes and possibly an invasion. He noted the Joint Chiefs strongly opposed a limited air strike.",
+      "quote": null,
+      "source": {
+        "title": "ExComm transcript, Oct 16, 1962, 6:30 p.m.",
+        "citation": "Off the Record Meeting on Cuba, October 16, 1962, 6:30-7:55 p.m. Foreign Relations of the United States, 1961-1963, Volume XI, Document 21; text and audio at the John F. Kennedy Presidential Library.",
+        "url": "https://microsites.jfklibrary.org/cmc/oct16/doc3.html",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1016-14",
+      "date": "1962-10-16",
+      "roles": ["official", "historian"],
+      "text": "During the evening meeting, the President compared the Soviet move to the United States suddenly putting medium-range missiles in Turkey. Someone in the room pointed out that the U.S. had in fact done that.",
+      "quote": "It's just as if we suddenly began to put a major number of MRBMs in Turkey.",
+      "source": {
+        "title": "ExComm transcript, Oct 16, 1962, 6:30 p.m.",
+        "citation": "Off the Record Meeting on Cuba, October 16, 1962, 6:30-7:55 p.m. Foreign Relations of the United States, 1961-1963, Volume XI, Document 21; text and audio at the John F. Kennedy Presidential Library.",
+        "url": "https://microsites.jfklibrary.org/cmc/oct16/doc3.html",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": "The transcript tentatively gives the reply to Bundy, marked with a question mark, so the text does not name him."
+    },
+    {
+      "id": "cmc-1016-15",
+      "date": "1962-10-16",
+      "roles": ["official", "historian"],
+      "text": "After the evening White House meeting, many of the participants went to the State Department and kept talking until about 11 p.m. No other record of those discussions has been found.",
+      "quote": null,
+      "source": {
+        "title": "FRUS vol. XI, doc. 21, editorial note",
+        "citation": "Foreign Relations of the United States, 1961-1963, Volume XI, Document 21, source note citing the Department of Defense 'Chronology of the Cuban Crisis,' November 14, 1962 (Washington National Records Center, OASD/ISA Files).",
+        "url": "https://microsites.jfklibrary.org/cmc/oct16/doc3.html",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1016-16",
+      "date": "1962-10-16",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "The New York Yankees beat the San Francisco Giants 1 to 0 in Game 7 at Candlestick Park to win the World Series, which rain delays had stretched to 13 days. It ended when second baseman Bobby Richardson caught a line drive from Willie McCovey.",
+      "quote": null,
+      "source": {
+        "title": "Iamarino, Seven Games in '62 (2021)",
+        "citation": "John Iamarino, Seven Games in '62: The Yankees and Giants Square Off in a Classic World Series (Jefferson, NC: McFarland, 2021).",
+        "url": null,
+        "kind": "narration"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1016-17",
+      "date": "1973-07-17",
+      "roles": ["historian"],
+      "text": "The public learned in July 1973 that President Kennedy had a secret White House taping system, which is why the October 16 meetings were recorded. The disclosure followed the Watergate testimony that revealed Nixon's tapes.",
+      "quote": null,
+      "source": {
+        "title": "JFK Library: White House Tape Recordings",
+        "citation": "John F. Kennedy Presidential Library and Museum, 'White House Tape Recordings' (JFK in History).",
+        "url": "https://jfklibrary.org/JFK/JFK-in-History/White-House-Tape-Recordings.aspx",
+        "kind": "narration"
+      },
+      "confidence": "medium",
+      "note": "Alexander Butterfield revealed Nixon's taping system on July 16, 1973. Historian Ted Widmer has said the Kennedy Library disclosed JFK's tapes the next day, but I did not confirm that day in a primary source."
+    },
+    {
+      "id": "cmc-1016-18",
+      "date": "1983-10-27",
+      "roles": ["historian"],
+      "text": "The Kennedy Library released edited transcripts and excerpts of the two recorded October 16, 1962 meetings. For the first time, the public could read the President's first discussions about the missiles.",
+      "quote": null,
+      "source": {
+        "title": "Harvard Crimson, 'JFK Transcripts,' Oct 27, 1983",
+        "citation": "'JFK Transcripts,' The Harvard Crimson, October 27, 1983.",
+        "url": "https://www.thecrimson.com/article/1983/10/27/jfk-transcripts-pthe-transcripts-of-former/",
+        "kind": "narration"
+      },
+      "confidence": "medium",
+      "note": "The date comes from press coverage, so the release itself may have been a day earlier. A 1987 scholarly article describes the October 16 transcript as sanitized and published in 1985, so there may have been more than one release stage."
+    },
+    {
+      "id": "cmc-1016-19",
+      "date": "1992-01-09",
+      "roles": ["historian"],
+      "text": "At a conference in Havana, Soviet General Anatoly Gribkov revealed that in 1962 the Soviets also had short-range tactical nuclear weapons in Cuba, which U.S. leaders never knew about. Historians still debate whether local commanders had authority to use them.",
+      "quote": null,
+      "source": {
+        "title": "NSA Electronic Briefing Book No. 449",
+        "citation": "Svetlana Savranskaya and Thomas Blanton, eds., 'The Last Nuclear Weapons Left Cuba in December 1962,' National Security Archive Electronic Briefing Book No. 449, George Washington University.",
+        "url": "https://nsarchive2.gwu.edu/NSAEBB/NSAEBB449/",
+        "kind": "narration"
+      },
+      "confidence": "medium",
+      "note": "The source dates the revelation to the Havana conference of January 1992, but I could not confirm the exact day Gribkov spoke. Arthur Schlesinger's diary places the opening sessions around January 8 and 9."
+    },
+    {
+      "id": "cmc-1016-20",
+      "date": "1992-01-09",
+      "roles": ["historian"],
+      "text": "At the same Havana conference, Gribkov said there had been about 43,000 Soviet troops in Cuba in 1962, a much larger force than the Kennedy administration had estimated at the time.",
+      "quote": null,
+      "source": {
+        "title": "Schlesinger, 'Four Days with Fidel,' NYRB 1992",
+        "citation": "Arthur M. Schlesinger Jr., 'Four Days with Fidel: A Havana Diary,' The New York Review of Books, March 26, 1992.",
+        "url": "https://www.nybooks.com/articles/1992/03/26/four-days-with-fidel-a-havana-diary/",
+        "kind": "narration"
+      },
+      "confidence": "medium",
+      "note": "The figure is Gribkov's as recorded in Schlesinger's diary, and other accounts often give about 42,000. The exact day is not confirmed (see cmc-1016-19)."
+    }
+  ]
+}
