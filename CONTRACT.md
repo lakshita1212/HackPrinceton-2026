@@ -1,0 +1,79 @@
+# API contract
+
+The one agreement between the brain (host, Lakshita) and the experience (app, partner).
+Both sides build against this all night. Change it only together.
+
+## `POST /ask`
+
+The app sends a question to the host for one role on one day.
+
+### Request
+
+```json
+{
+  "question": "Are we going to war?",
+  "role": "citizen",
+  "date": "1962-10-22",
+  "pack": "cmc-1962"
+}
+```
+
+| Field      | Type   | Values |
+|------------|--------|--------|
+| `question` | string | What the student typed or said. 1 to 500 characters. |
+| `role`     | string | `citizen`, `journalist`, `official` or `historian` |
+| `date`     | string | ISO date `YYYY-MM-DD`: the station's day. The host knows nothing after it. |
+| `pack`     | string | Story pack id: `cmc-1962`, `apollo-1969`, `berlin-1989` |
+
+### Response (always HTTP 200 when the request is valid)
+
+```json
+{
+  "answer": "Nobody on our street knows. The President spoke tonight ...",
+  "sources": [
+    {
+      "id": "cmc-1022-address",
+      "title": "Radio and television address on the Soviet arms buildup in Cuba",
+      "date": "1962-10-22",
+      "citation": "John F. Kennedy Presidential Library, JFKWHA-142-001",
+      "url": "https://www.jfklibrary.org/...",
+      "kind": "archival"
+    }
+  ],
+  "blocked": false,
+  "blocked_reason": null
+}
+```
+
+| Field            | Type            | Meaning |
+|------------------|-----------------|---------|
+| `answer`         | string          | What the role says. Short enough to speak in about 20 seconds. |
+| `sources`        | array of Source | Every source the answer relies on. Empty only when `blocked` is true or the host has no verified source. |
+| `blocked`        | boolean         | `true` when the checker refused to answer. `answer` then holds an in-character refusal the app can still show or speak. |
+| `blocked_reason` | string or null  | Optional, for the operator panel only: `future`, `role`, `unsupported`, `off_topic`. |
+
+**Source**
+
+| Field      | Type   | Meaning |
+|------------|--------|---------|
+| `id`       | string | Stable id inside the pack |
+| `title`    | string | Short label for the source chip |
+| `date`     | string | ISO date the source was known. Always on or before the request `date`. |
+| `citation` | string | Human-readable citation |
+| `url`      | string or null | Link to the original, if there is one |
+| `kind`     | string | `archival` (real recording or document) or `narration` (written from curated facts) |
+
+### Errors
+
+- `422` if a field is missing or has a bad value (FastAPI's default validation body).
+- `503` if the host is down. The app falls back to the prototype's scripted answers.
+
+## `GET /health`
+
+Returns `{ "ok": true }`. The app can ping this before the demo.
+
+## Notes for the app side
+
+- Base URL in dev: `http://localhost:8000`. CORS is open in dev.
+- Until the real host is ready, `/ask` returns scripted answers in exactly this shape, so the app never has to change when the real host lands.
+- Phone calls (Photon) go through the same host; the app gets those answers over the laptop WebSocket. That message shape is agreed separately once the phone dial socket exists.
