@@ -1362,6 +1362,14 @@ a.chip:hover { border-style: solid; border-color: var(--red); color: var(--red);
 @media (prefers-reduced-motion: reduce) { .steam-spot i, .headlights.sweep { animation: none; } }
 /* With the 2026 ticker along the bottom, captions sit above it instead of on it. */
 .stage:has(.ticker:not([hidden])) .caption { bottom: calc(clamp(28px, 3.4vw, 40px) + 14px); }
+/* A lead story on the 2026 TV: its picture, the headline across the bottom, the credit under it. */
+.screen .story-shot figcaption { font-size: clamp(8px, .85vw, 13px); line-height: 1.25; }
+.screen .story-shot figcaption small { display: block; margin-top: 3px; font-size: .75em; opacity: .75; }
+.screen .story-shot::before {
+  content: "LIVE"; position: absolute; z-index: 1; top: 6%; left: 5%;
+  padding: 1px 6px; background: #c8102e; color: #fff;
+  font-family: var(--label); font-size: clamp(7px, .7vw, 11px); font-weight: 700; letter-spacing: 1px;
+}
 
 /* ── Text the station (extras.js): connect your phone, scan, send ──────── */
 .text-toggle {

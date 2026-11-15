@@ -148,10 +148,8 @@ const longDate = (d) => new Date(`${d}T12:00:00`).toLocaleDateString('en-US', { 
 
 async function showLive(s) {
   if (!s.live) { clearInterval(tvTimer); showTvFrame(null); }
-  $('ticker').hidden = !s.live;
   $('liveNote').hidden = !s.live;
   if (!s.live) return;
-  $('tickerTag').textContent = s.anyDay ? `Wikipedia · ${s.label}` : 'Live · This week';
   await readyLive(s);
   if (station() !== s) return; // tuned away meanwhile
   updateTimeLock(s, role().id, role().name);  // its pack exists only now
@@ -160,28 +158,21 @@ async function showLive(s) {
   if (s.pack) tuneStation({ role: role().id, date: s.date, pack: s.pack });
   const items = await headlines(s.date);
   if (station() !== s) return;
-  const fmt = (d) => new Date(`${d}T12:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }).toUpperCase();
-  const text = items.length
-    ? items.map((h) => `${fmt(h.date)} · ${h.text}`).join('     ◆     ')
-    : 'No headlines reached the station. Call in and ask what is in the news.';
-  const el = $('tickerText');
-  el.textContent = text;
-  // The painted TVs show a made-up broadcast; put this week's top story on them instead.
+  // The painted TVs show a made-up broadcast; this week's stories play on them instead,
+  // one at a time, between any photos texted to the station.
+  s.headlines = items;
   if (items.length) {
     s.onAir = items[0].text;
-    $('onAir').textContent = s.onAir;
     $('screen').classList.remove('painted', 'static');
     $('screen').classList.add('news-card');
     $('screen').classList.toggle('past-news', !!s.anyDay);
   }
-  // Crawl at a steady reading speed, however long the news is.
-  el.style.animationDuration = `${Math.max(25, text.length / 9)}s`;
   startTvRotation(s);
 }
 
 // ── Memories: photos people text to the station (GET /memories.json) ─────
 // A new photo goes "on the air" as a card over the room, and the 2026 TV
-// rotates between the top story and the latest photos.
+// rotates it in between the week's stories.
 let memories = [];
 let tvTimer = 0;
 const MEMORIES_ON_TV = 5;
@@ -216,14 +207,24 @@ function announceMemory(m) {
   announceMemory.timer = setTimeout(() => { card.hidden = true; }, onAirMs(m));
 }
 
-// 2026: the TV shows the top story, then each recent photo, then the story again.
+// 2026 and any-day stations: the TV cycles through the headlines, one story at
+// a time, with the photos texted to the 2026 station mixed in.
+const shortDay = (d) => new Date(`${d}T12:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }).toUpperCase();
+
 function startTvRotation(s) {
   clearInterval(tvTimer);
-  showTvFrame(null);
-  const photos = memories.slice(0, MEMORIES_ON_TV);
-  if (!s.live || s.anyDay || !photos.length) return;
-  const frames = [null, ...photos];
+  const stories = (s.headlines || []).map((h) => ({ story: h }));
+  const photos = s.anyDay ? [] : memories.slice(0, MEMORIES_ON_TV).map((m) => ({ photo: m }));
+  // Interleave: a story, a photo, a story, …
+  const frames = [];
+  for (let i = 0; i < Math.max(stories.length, photos.length); i++) {
+    if (stories[i]) frames.push(stories[i]);
+    if (photos[i]) frames.push(photos[i]);
+  }
+  if (!s.live || !frames.length) { showTvFrame(null); return; }
   let i = 0;
+  showTvFrame(frames[0]);
+  if (frames.length < 2) return;
   tvTimer = setInterval(() => {
     if (station() !== s) { clearInterval(tvTimer); showTvFrame(null); return; }
     i = (i + 1) % frames.length;
@@ -231,11 +232,30 @@ function startTvRotation(s) {
   }, 6000);
 }
 
-function showTvFrame(m) {
+function showTvFrame(frame) {
   const screen = $('screen');
   screen.querySelector('.memory-shot')?.remove();
-  screen.classList.toggle('memory-on', !!m);
-  if (!m) return;
+  screen.classList.toggle('memory-on', !!frame?.photo);
+  if (frame?.story) $('onAir').textContent = `${shortDay(frame.story.date)} · ${frame.story.text}`;
+  if (frame?.story?.image) {
+    const st = frame.story;
+    screen.classList.add('memory-on');
+    const fig = document.createElement('figure');
+    fig.className = 'memory-shot story-shot';
+    const img = document.createElement('img');
+    img.src = st.image;
+    img.alt = st.credit || st.text;
+    const cap = document.createElement('figcaption');
+    cap.textContent = `${shortDay(st.date)} · ${st.text}`;
+    const credit = document.createElement('small');
+    credit.textContent = [st.source, st.credit].filter(Boolean).join(' · ');
+    cap.append(credit);
+    fig.append(img, cap);
+    screen.append(fig);
+    return;
+  }
+  if (!frame?.photo) return;
+  const m = frame.photo;
   const fig = document.createElement('figure');
   fig.className = 'memory-shot';
   const img = document.createElement('img');
@@ -444,7 +464,7 @@ async function openPaper(prop) {
     kicker = `${s.anyDay ? 'That week' : 'This week'} · auto-built from Wikipedia, not reviewed`;
     title = r.id === 'official' ? 'No classified files: only what is public' : s.anyDay ? s.label : 'This week';
     const yr = s.date.slice(0, 4);
-    items = (await headlines(s.date)).map((h) => ({ date: h.date, text: h.text, source: `Wikipedia: ${yr}`, url: `https://en.wikipedia.org/wiki/${yr}` }));
+    items = (await headlines(s.date)).map((h) => ({ date: h.date, text: h.text, source: h.source || `Wikipedia: ${yr}`, url: h.url || `https://en.wikipedia.org/wiki/${yr}` }));
   } else {
     const look = PAPER_STYLE[r.id];
     style = look.style;
