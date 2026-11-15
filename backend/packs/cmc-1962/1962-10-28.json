@@ -1,0 +1,201 @@
+{
+  "pack": "cmc-1962",
+  "day": "1962-10-28",
+  "facts": [
+    {
+      "id": "cmc-1028-01",
+      "date": "1962-10-28",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "On Sunday morning, Radio Moscow broadcast a message from Khrushchev to Kennedy. He said he had ordered work on the Cuban sites stopped and the weapons Kennedy called offensive taken apart, crated and shipped back to the Soviet Union.",
+      "quote": "has given a new order to dismantle the arms which you described as offensive, and to crate and return them",
+      "source": {
+        "title": "Khrushchev message to JFK, Oct 28, 1962",
+        "citation": "Message from Chairman Khrushchev to President Kennedy, October 28, 1962, as transmitted by Moscow TASS in English. Department of State translation and text, John F. Kennedy Presidential Library.",
+        "url": "https://microsites.jfklibrary.org/cmc/oct28/doc1.html",
+        "kind": "archival"
+      },
+      "confidence": "medium",
+      "note": "The broadcast is certain; the time is not. Secondary accounts put it at about 9 a.m. Washington time, but I did not confirm that in a primary source. Daylight saving time ended that morning, so clocks were on Eastern Standard Time."
+    },
+    {
+      "id": "cmc-1028-02",
+      "date": "1962-10-28",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "The White House released a statement in which President Kennedy welcomed Khrushchev's decision, calling it an important and constructive contribution to peace.",
+      "quote": "I welcome Chairman Khrushchev's statesmanlike decision to stop building bases in Cuba, dismantling offensive weapons and returning them to the Soviet Union under United Nations verification.",
+      "source": {
+        "title": "JFK statement on Soviet withdrawal, Oct 28, 1962",
+        "citation": "Statement by the President Following the Soviet Decision To Withdraw Missiles From Cuba, October 28, 1962. Public Papers of the Presidents: John F. Kennedy, 1962; original at the John F. Kennedy Presidential Library.",
+        "url": "https://microsites.jfklibrary.org/cmc/images/sub/oct28/cmc_jfk_statement_oct28.jpg",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1028-03",
+      "date": "1962-10-28",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "Later that day the President sent a formal reply to Khrushchev's broadcast message and released it to the press. He treated their exchange of letters as the basis for settling the crisis.",
+      "quote": null,
+      "source": {
+        "title": "ExComm record of action, Oct 28, 11 a.m.",
+        "citation": "NSC Executive Committee Record of Action, October 28, 1962, 11:00 a.m., Meeting No. 10, item 6. John F. Kennedy Presidential Library; also Foreign Relations of the United States, 1961-1963, Volumes X/XI/XII Microfiche Supplement, Document 443.",
+        "url": "https://microsites.jfklibrary.org/cmc/oct28/doc2.html",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1028-04",
+      "date": "1962-10-28",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "Fidel Castro declared that a U.S. promise not to invade would not be enough. He listed five conditions: an end to the economic blockade, an end to aid for anti-Castro forces and spying, an end to raids from the U.S. and Puerto Rico, an end to U.S. military flights over Cuba, and the return of the Guantanamo naval base.",
+      "quote": null,
+      "source": {
+        "title": "Dutch Embassy Havana cable, Oct 29, 1962",
+        "citation": "Cable from Dutch Embassy, Havana (Boissevain), 29 October 1962, reporting Castro's statement of October 28. National Archives of the Netherlands, The Hague; Wilson Center Digital Archive.",
+        "url": "https://digitalarchive.umd.edu/node/91510",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1028-05",
+      "date": "1962-10-28",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "UN Acting Secretary-General U Thant announced that he would travel to Cuba to discuss how the withdrawal of the weapons could be carried out and verified.",
+      "quote": null,
+      "source": {
+        "title": "Dorn and Pauk, 'Unsung Mediator,' Diplomatic History",
+        "citation": "A. Walter Dorn and Robert Pauk, 'Unsung Mediator: U Thant and the Cuban Missile Crisis,' Diplomatic History 33, no. 2 (April 2009).",
+        "url": "https://www.walterdorn.net/pdf/CubanMissileCrisis-UnsungMediator_Dorn-Pauk_DiplHistory_Vol33No2_Apr2009.pdf",
+        "kind": "narration"
+      },
+      "confidence": "high",
+      "note": "He visited Havana on October 30-31."
+    },
+    {
+      "id": "cmc-1028-06",
+      "date": "1962-10-28",
+      "roles": ["citizen", "historian"],
+      "text": "That Sunday's local paper in Torrance, California, printed before the news from Moscow, still carried civil defense plans. It said the city was starting a volunteer program and asked readers whether they knew which emergency aid station to report to, what number to call for information, and who their civil defense director was.",
+      "quote": null,
+      "source": {
+        "title": "Torrance Press, Sunday, Oct 28, 1962",
+        "citation": "Torrance Press (Torrance, CA), Vol. XIV, No. 55, Sunday, October 28, 1962, civil defense program story and reader checklist. Torrance Public Library digital newspaper archive.",
+        "url": "https://libarch.torranceca.gov/archivednewspapers/Press/1962%20Jul%20-%20Dec/PDF/00000759.pdf",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1028-07",
+      "date": "1962-10-28",
+      "roles": ["official", "historian"],
+      "text": "At a 9 a.m. Joint Chiefs meeting, McNamara said that before Khrushchev's message arrived he had been considering more pressure on the Soviets: longer military tours of duty, a submarine intercept zone, adding fuel to the list of banned cargo, and taking over merchant shipping.",
+      "quote": null,
+      "source": {
+        "title": "FRUS supplement, doc. 441 (JCS notes, Oct 28)",
+        "citation": "Notes from transcripts of Joint Chiefs of Staff meetings, October 28, 1962. Foreign Relations of the United States, 1961-1963, Volumes X/XI/XII Microfiche Supplement, Document 441.",
+        "url": "https://history.state.gov/historicaldocuments/frus1961-63v10-12mSupp/d441",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1028-08",
+      "date": "1962-10-28",
+      "roles": ["official", "historian"],
+      "text": "At the 11 a.m. ExComm meeting, members read the full TASS text of Khrushchev's message. The President ordered no action against Soviet bloc ships that day and no U.S. reconnaissance flights over Cuba, with efforts turning to getting UN reconnaissance flown on Monday.",
+      "quote": null,
+      "source": {
+        "title": "ExComm record of action, Oct 28, 11 a.m.",
+        "citation": "NSC Executive Committee Record of Action, October 28, 1962, 11:00 a.m., Meeting No. 10. John F. Kennedy Presidential Library; FRUS 1961-1963 Microfiche Supplement, Document 443.",
+        "url": "https://microsites.jfklibrary.org/cmc/oct28/doc2.html",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1028-09",
+      "date": "1962-10-28",
+      "roles": ["official", "historian"],
+      "text": "The President raised the Soviet IL-28 bombers still in Cuba and said the U.S. should ask privately for their removal. He added that he did not want to look as if the U.S. was going back on its part of the deal, since the bombers mattered less than the missiles.",
+      "quote": null,
+      "source": {
+        "title": "FRUS 1961-63 vol. XI, doc. 103 (ExComm, Oct 28)",
+        "citation": "Summary Record of the Tenth Meeting of the Executive Committee of the National Security Council, Washington, October 28, 1962, 11:10 a.m. Foreign Relations of the United States, 1961-1963, Volume XI, Document 103.",
+        "url": "https://history.state.gov/historicaldocuments/frus1961-63v11/d103",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1028-10",
+      "date": "1962-10-28",
+      "roles": ["official", "historian"],
+      "text": "Officials who briefed the press were told to keep their comments restrained. The ExComm welcomed Khrushchev's reply but had no illusions about future Soviet behavior and expected serious problems in carrying out the withdrawal.",
+      "quote": null,
+      "source": {
+        "title": "ExComm record of action, Oct 28, 11 a.m.",
+        "citation": "NSC Executive Committee Record of Action, October 28, 1962, 11:00 a.m., Meeting No. 10, item 5. John F. Kennedy Presidential Library.",
+        "url": "https://microsites.jfklibrary.org/cmc/oct28/doc2.html",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1028-11",
+      "date": "1962-10-28",
+      "roles": ["official", "historian"],
+      "text": "Robert Kennedy met Ambassador Dobrynin again that day at his office, where Dobrynin told him Khrushchev had agreed to dismantle and withdraw the missiles.",
+      "quote": null,
+      "source": {
+        "title": "FRUS 1961-63 vol. XI, doc. 103, footnote 2",
+        "citation": "Foreign Relations of the United States, 1961-1963, Volume XI, Document 103, footnote 2, citing Robert F. Kennedy, Thirteen Days, p. 110.",
+        "url": "https://history.state.gov/historicaldocuments/frus1961-63v11/d103",
+        "kind": "narration"
+      },
+      "confidence": "high",
+      "note": "Very few officials knew of this meeting at the time."
+    },
+    {
+      "id": "cmc-1028-12",
+      "date": "1962-10-28",
+      "roles": ["official", "historian"],
+      "text": "President Kennedy phoned former Presidents Eisenhower, Truman and Hoover to brief them on the Soviet decision. The calls were recorded on his secret taping system.",
+      "quote": null,
+      "source": {
+        "title": "JFK Library: Oct 28 calls to former presidents",
+        "citation": "Recordings of President Kennedy's telephone conversations with Dwight D. Eisenhower, Harry S. Truman and Herbert Hoover, October 28, 1962. John F. Kennedy Presidential Library, Presidential Recordings.",
+        "url": "https://microsites.jfklibrary.org/cmc/oct28/doc3.html",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": "A mid-level official would probably have known only that the former presidents were briefed, not what was said."
+    },
+    {
+      "id": "cmc-1028-13",
+      "date": "2013-12-11",
+      "roles": ["historian"],
+      "text": "Soviet documents showed that the short-range tactical nuclear warheads stayed in Cuba after the October 28 deal and did not leave until December 1, 1962, aboard the ship Arkhangelsk. U.S. intelligence never detected any of the nuclear warheads in Cuba during the crisis.",
+      "quote": null,
+      "source": {
+        "title": "NSA Electronic Briefing Book No. 449",
+        "citation": "Svetlana Savranskaya and Thomas Blanton, eds., 'The Last Nuclear Weapons Left Cuba in December 1962,' National Security Archive Electronic Briefing Book No. 449, posted December 11, 2013.",
+        "url": "https://nsarchive2.gwu.edu/NSAEBB/NSAEBB449/",
+        "kind": "narration"
+      },
+      "confidence": "high",
+      "note": "That tactical nuclear weapons had been in Cuba was first revealed in 1992 (see cmc-1016-19). This 2013 release documented when they left."
+    }
+  ]
+}

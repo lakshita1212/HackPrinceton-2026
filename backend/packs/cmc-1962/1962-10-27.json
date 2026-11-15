@@ -1,0 +1,276 @@
+{
+  "pack": "cmc-1962",
+  "day": "1962-10-27",
+  "facts": [
+    {
+      "id": "cmc-1027-01",
+      "date": "1962-10-27",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "Radio Moscow broadcast a new message from Khrushchev. He offered to remove the missiles the U.S. called offensive from Cuba if the United States removed its own missiles from Turkey.",
+      "quote": null,
+      "source": {
+        "title": "UPI, 'Kennedy rejects Turkey deal,' Oct 27, 1962",
+        "citation": "United Press International, 'Kennedy rejects Turkey deal, demands removal of Cuba missiles,' Washington, October 27, 1962. UPI Archives.",
+        "url": "https://www.upi.com/Archives/1962/10/27/Kennedy-rejects-Turkey-deal-demands-removal-of-Cuba-missiles/5455421028389/",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1027-02",
+      "date": "1962-10-27",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "Turkey's Foreign Minister, Feridun Cemal Erkin, said in Istanbul that it was out of the question for the United States to give up its military bases in Turkey.",
+      "quote": null,
+      "source": {
+        "title": "UPI, 'Kennedy rejects Turkey deal,' Oct 27, 1962",
+        "citation": "United Press International, 'Kennedy rejects Turkey deal, demands removal of Cuba missiles,' Washington, October 27, 1962. UPI Archives.",
+        "url": "https://www.upi.com/Archives/1962/10/27/Kennedy-rejects-Turkey-deal-demands-removal-of-Cuba-missiles/5455421028389/",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1027-03",
+      "date": "1962-10-27",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "Around midday, the White House answered the Moscow broadcast without naming Turkey. It said the USSR had made several inconsistent proposals in 24 hours, and that before any proposal could be considered, work on the Cuban bases had to stop and the weapons had to be made unusable under international checks.",
+      "quote": null,
+      "source": {
+        "title": "White House statement, Oct 27, 1962",
+        "citation": "White House Statement on Soviet Proposals Relating to International Security, October 27, 1962. Public Papers of the Presidents: John F. Kennedy, 1962; copy of the official text preserved in the CIA Reading Room (CIA-RDP80B01676R001700140006-5).",
+        "url": "https://www.cia.gov/readingroom/document/cia-rdp80b01676r001700140006-5",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": "A State Department cable to NATO the same day describes it as the White House statement issued at noon Saturday."
+    },
+    {
+      "id": "cmc-1027-04",
+      "date": "1962-10-27",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "The Defense Department announced that aerial surveillance of Cuba would continue. That evening, news reports said a U.S. U-2 reconnaissance plane was missing over Cuba.",
+      "quote": null,
+      "source": {
+        "title": "FRUS 1961-63 vol. XI, doc. 100 (cable on public statements)",
+        "citation": "Foreign Relations of the United States, 1961-1963, Volume XI, Document 100, State Department telegram instructing the briefing of NATO and listing that day's public U.S. statements, including the Defense Department announcement of continued surveillance and of the air reserve call-up.",
+        "url": "https://history.state.gov/historicaldocuments/frus1961-63v11/d100",
+        "kind": "archival"
+      },
+      "confidence": "medium",
+      "note": "The FRUS cable confirms the surveillance announcement. The public report that the U-2 and its pilot, Major Rudolf Anderson Jr., were missing is widely documented in October 27-28 press coverage, but I did not check the exact Pentagon wording or time against an original newspaper."
+    },
+    {
+      "id": "cmc-1027-05",
+      "date": "1962-10-27",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "Defense Secretary McNamara called 24 Air Force Reserve troop carrier squadrons to active duty, about 14,000 reservists along with their transport planes.",
+      "quote": null,
+      "source": {
+        "title": "Naval History and Heritage Command: CMC documentation",
+        "citation": "Naval History and Heritage Command, 'Cuban Missile Crisis: Online Documentation' (Department of Defense account of the crisis), Online Reading Room.",
+        "url": "https://history.navy.mil/research/library/online-reading-room/title-list-alphabetically/c/cuban-missile-crisis/online-documentation.html",
+        "kind": "narration"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1027-06",
+      "date": "1962-10-27",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "That evening the White House released the President's reply to Khrushchev. It answered his earlier, private offer: if the Soviets stopped work and removed the weapons under UN supervision, the U.S. would end the quarantine and give assurances against an invasion of Cuba.",
+      "quote": "The first thing that needs to be done, however, is for work to cease on offensive missile bases in Cuba and for all weapons systems in Cuba capable of offensive use to be rendered inoperable, under effective United Nations arrangements.",
+      "source": {
+        "title": "JFK letter to Khrushchev, Oct 27, 1962",
+        "citation": "Letter from President Kennedy to Chairman Khrushchev, October 27, 1962, released by the White House that evening. Public Papers of the Presidents: John F. Kennedy, 1962, item 492; original at the John F. Kennedy Presidential Library.",
+        "url": null,
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1027-07",
+      "date": "1962-10-27",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "Fidel Castro's government announced that foreign aircraft flying over Cuba would be attacked. Havana radio claimed that anti-aircraft batteries had driven off unidentified warplanes that morning.",
+      "quote": null,
+      "source": {
+        "title": "CIA memorandum 'The Crisis: USSR/Cuba,' Oct 28",
+        "citation": "Central Intelligence Agency, 'The Crisis: USSR/Cuba,' October 28, 1962 (summarizing Cuban public announcements of October 27). CIA Reading Room.",
+        "url": "https://www.cia.gov/readingroom/node/2069709",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1027-08",
+      "date": "1962-10-27",
+      "roles": ["official", "historian"],
+      "text": "At the 10 a.m. ExComm meeting, the Moscow broadcast came up and advisers debated how it differed from Khrushchev's private letter of the night before. The President insisted the position to hold was simple: construction on the missile sites must stop at once.",
+      "quote": null,
+      "source": {
+        "title": "ExComm summary record, Oct 27, 10 a.m.",
+        "citation": "Summary Record of the Seventh Meeting of the Executive Committee of the National Security Council, Washington, October 27, 1962, 10 a.m. Foreign Relations of the United States, 1961-1963, Volume XI, Document 90; John F. Kennedy Presidential Library.",
+        "url": "https://microsites.jfklibrary.org/cmc/oct27/doc1.html",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1027-09",
+      "date": "1962-10-27",
+      "roles": ["official", "historian"],
+      "text": "At 1:41 p.m., McNamara learned that a U-2 on an air-sampling flight near the North Pole had gone missing off Alaska and had strayed into Soviet airspace. He left a meeting of the Joint Chiefs to tell Secretary of State Rusk at once.",
+      "quote": null,
+      "source": {
+        "title": "FRUS supplement, doc. 428 (JCS notes, Oct 27)",
+        "citation": "Notes from transcripts of Joint Chiefs of Staff meetings, October 27, 1962. Foreign Relations of the United States, 1961-1963, Volumes X/XI/XII Microfiche Supplement, Document 428.",
+        "url": "https://history.state.gov/historicaldocuments/frus1961-63v10-12mSupp/d428",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1027-10",
+      "date": "1962-10-27",
+      "roles": ["official", "historian"],
+      "text": "During the 4 p.m. ExComm meeting, General Taylor read a report confirming that the U-2 shot down over Cuba was wrecked on the ground and its pilot was dead. It was the first American killed by hostile fire in the crisis.",
+      "quote": null,
+      "source": {
+        "title": "ExComm summary record, Oct 27, 4 p.m.",
+        "citation": "Summary Record of the Eighth Meeting of the Executive Committee of the National Security Council, Washington, October 27, 1962, 4 p.m. Foreign Relations of the United States, 1961-1963, Volume XI, Document 94; John F. Kennedy Presidential Library.",
+        "url": "https://microsites.jfklibrary.org/cmc/oct27/doc2.html",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": "The pilot was Major Rudolf Anderson Jr. The JFK Library notes that Kennedy wrote to his widow and awarded him a posthumous Distinguished Service Medal."
+    },
+    {
+      "id": "cmc-1027-11",
+      "date": "1962-10-27",
+      "roles": ["official", "historian"],
+      "text": "At the same meeting, McNamara said the U.S. must now be ready to attack Cuba with 500 air sorties on the first day, and some advisers wanted to strike the missile site that downed the U-2 the next day. The President held off a planned night reconnaissance flight, and a decision on retaliation was put off until after the next day's flights and replies from U Thant and Khrushchev.",
+      "quote": null,
+      "source": {
+        "title": "ExComm summary record and record of action, Oct 27, 4 p.m.",
+        "citation": "Summary Record of the Eighth Meeting of the Executive Committee of the National Security Council, October 27, 1962, 4 p.m. (FRUS 1961-1963, Volume XI, Document 94), and NSC Executive Committee Record of Action, October 27, 1962, 4 p.m. (FRUS Microfiche Supplement, Document 437).",
+        "url": "https://microsites.jfklibrary.org/cmc/oct27/doc2.html",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1027-12",
+      "date": "1962-10-27",
+      "roles": ["official", "historian"],
+      "text": "That evening, Attorney General Robert Kennedy met Soviet Ambassador Dobrynin in secret. He told him U.S. planes had been fired on and a U-2 shot down, and pressed for a Soviet commitment to remove the missiles in exchange for a U.S. pledge not to invade Cuba.",
+      "quote": null,
+      "source": {
+        "title": "RFK memo to Rusk on Dobrynin meeting",
+        "citation": "Robert F. Kennedy, Memorandum for the Secretary of State on his meeting with Ambassador Anatoly Dobrynin on October 27, 1962, dated October 30, 1962. John F. Kennedy Library; Wilson Center Digital Archive; also Foreign Relations of the United States, 1961-1963, Volume XI, Document 96.",
+        "url": "https://digitalarchive.wilsoncenter.org/document/111553",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": "Only a handful of top officials knew of this meeting at the time, so a composite mid-level official would likely not have known of it on October 27. The secret part about the missiles in Turkey is in cmc-1027-15."
+    },
+    {
+      "id": "cmc-1027-13",
+      "date": "1962-10-27",
+      "roles": ["official", "historian"],
+      "text": "At the 9 p.m. ExComm meeting, the President approved calling up the air reserve squadrons, which the invasion plan required. He also authorized low-level reconnaissance flights the next day, with orders to fire back at any planes that attacked them.",
+      "quote": null,
+      "source": {
+        "title": "ExComm summary record, Oct 27, 9 p.m.",
+        "citation": "Summary Record of the Ninth Meeting of the Executive Committee of the National Security Council, Washington, October 27, 1962, 9 p.m. Foreign Relations of the United States, 1961-1963, Volume XI, Document 97; John F. Kennedy Presidential Library.",
+        "url": "https://microsites.jfklibrary.org/cmc/oct27/doc3.html",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1027-14",
+      "date": "1982-09-27",
+      "roles": ["historian"],
+      "text": "Six former Kennedy officials wrote in TIME that, on the President's instructions, Robert Kennedy had privately assured Dobrynin on October 27 that the U.S. missiles in Turkey would be removed after the crisis. It was not to be presented as part of a deal.",
+      "quote": null,
+      "source": {
+        "title": "TIME, 'The Lessons of the Cuban Missile Crisis,' 1982",
+        "citation": "Dean Rusk, Robert McNamara, George W. Ball, Roswell L. Gilpatric, Theodore Sorensen and McGeorge Bundy, 'The Lessons of the Cuban Missile Crisis,' TIME, September 27, 1982.",
+        "url": "https://time.com/archive/6859647/essay-the-lessons-of-the-cuban-missile-crisis/",
+        "kind": "narration"
+      },
+      "confidence": "high",
+      "note": "Robert Kennedy's memoir Thirteen Days (1969) had already hinted that the President intended to remove the Turkish missiles. This 1982 essay was a direct statement by the officials involved."
+    },
+    {
+      "id": "cmc-1027-15",
+      "date": "1987-03-06",
+      "roles": ["historian"],
+      "text": "Former Secretary of State Rusk revealed that on the night of October 27, Kennedy had him prepare a fallback plan. Through Columbia University's Andrew Cordier, U Thant could publicly propose removing both the U.S. missiles in Turkey and the Soviet missiles in Cuba, if Kennedy gave the signal; it was never used.",
+      "quote": "So far as I know, President Kennedy, Andrew Cordier and I were the only ones who knew of this particular step.",
+      "source": {
+        "title": "FRUS 1961-63 vol. XI, doc. 99 (Rusk letter, 1987)",
+        "citation": "Foreign Relations of the United States, 1961-1963, Volume XI, Document 99, Editorial Note quoting Dean Rusk's letter to James G. Blight, read by McGeorge Bundy at the Hawk's Cay conference, March 1987.",
+        "url": "https://history.state.gov/historicaldocuments/frus1961-63v11/d99",
+        "kind": "archival"
+      },
+      "confidence": "medium",
+      "note": "The Hawk's Cay conference met March 5-8, 1987. I could not confirm which day the letter was read, so March 6 is approximate."
+    },
+    {
+      "id": "cmc-1027-16",
+      "date": "1987-12-01",
+      "roles": ["historian"],
+      "text": "Edited transcripts of the October 27 ExComm meetings, transcribed by McGeorge Bundy from the secret recordings, were published for the first time. They showed how seriously the President weighed a trade involving the missiles in Turkey.",
+      "quote": null,
+      "source": {
+        "title": "International Security, Winter 1987/88",
+        "citation": "McGeorge Bundy (transcriber) and James G. Blight (editor), 'October 27, 1962: Transcripts of the Meetings of the ExComm,' International Security 12, no. 3 (Winter 1987/88), pp. 30-92.",
+        "url": null,
+        "kind": "archival"
+      },
+      "confidence": "medium",
+      "note": "This is the Winter 1987/88 issue; the exact publication day is unknown, so December 1, 1987 is approximate."
+    },
+    {
+      "id": "cmc-1027-17",
+      "date": "2002-10-12",
+      "roles": ["historian"],
+      "text": "At a Havana conference, former Soviet officer Vadim Orlov described October 27 aboard the Soviet submarine B-59. As U.S. destroyers dropped practice depth charges to force it to surface, the exhausted captain considered arming a nuclear torpedo the Americans did not know was on board. Accounts credit the flotilla's chief of staff, Vasily Arkhipov, with helping prevent its use.",
+      "quote": null,
+      "source": {
+        "title": "NSA Electronic Briefing Book No. 75 (submarines)",
+        "citation": "National Security Archive Electronic Briefing Book No. 75, 'The Submarines of October: U.S. and Soviet Naval Encounters During the Cuban Missile Crisis,' George Washington University, with materials from the October 2002 Havana conference.",
+        "url": "https://nsarchive2.gwu.edu/NSAEBB/NSAEBB75/",
+        "kind": "narration"
+      },
+      "confidence": "medium",
+      "note": "The conference met October 11-13, 2002, and the exact day of Orlov's account is approximate. A Russian newspaper had described the episode as early as 1995. How close the captain came to firing is still debated."
+    },
+    {
+      "id": "cmc-1027-18",
+      "date": "2008-06-11",
+      "roles": ["historian"],
+      "text": "Documents published with Michael Dobbs's research showed that the lost U-2 pilot, Captain Charles Maultsby, flew deep over the Soviet Chukotka Peninsula while Soviet MiGs tried to intercept him. The U.S. sent up F-102 fighters armed with nuclear weapons to escort him home before he glided out of fuel to a landing in Alaska.",
+      "quote": null,
+      "source": {
+        "title": "NSA: 'Missing Over the Soviet Union' (2008)",
+        "citation": "National Security Archive, 'Missing Over the Soviet Union,' posted June 11, 2008, publishing sources behind Michael Dobbs, One Minute to Midnight (Knopf, 2008).",
+        "url": "https://nsarchive.gwu.edu/node/2994",
+        "kind": "narration"
+      },
+      "confidence": "high",
+      "note": "Officials knew on October 27 that the U-2 had strayed (see cmc-1027-09). What this release added was the plane's route and the nuclear-armed escort."
+    }
+  ]
+}

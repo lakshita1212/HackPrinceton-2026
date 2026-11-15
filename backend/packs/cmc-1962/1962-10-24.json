@@ -1,0 +1,261 @@
+{
+  "pack": "cmc-1962",
+  "day": "1962-10-24",
+  "facts": [
+    {
+      "id": "cmc-1024-01",
+      "date": "1962-10-24",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "The U.S. naval quarantine of Cuba took effect at 10 a.m. Washington time (2 p.m. Greenwich time). Under the President's proclamation, the Navy could stop Cuba-bound ships carrying missiles, bombers, bombs, warheads or the equipment to operate them.",
+      "quote": null,
+      "source": {
+        "title": "Proclamation 3504, Interdiction of Offensive Weapons",
+        "citation": "Proclamation 3504, 'Interdiction of the Delivery of Offensive Weapons to Cuba,' signed October 23, 1962, 7:06 p.m., effective 2:00 p.m. Greenwich time, October 24, 1962. Public Papers of the Presidents: John F. Kennedy, 1962; copy at the John F. Kennedy Presidential Library.",
+        "url": "https://microsites.jfklibrary.org/cmc/oct23/doc4.html",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": "The FRUS volume XI summary gives 9 a.m. on October 24 as the start time, but the proclamation itself sets 2 p.m. Greenwich time, which is 10 a.m. Eastern Daylight Time."
+    },
+    {
+      "id": "cmc-1024-02",
+      "date": "1962-10-24",
+      "roles": ["official", "historian"],
+      "text": "Partway through the 10 a.m. ExComm meeting, reports came in that some Soviet ships heading for Cuba seemed to have stopped or turned around. The President ordered that no ship be intercepted for at least another hour while the reports were checked.",
+      "quote": null,
+      "source": {
+        "title": "FRUS 1961-63 vol. XI, doc. 55 (ExComm, Oct 24)",
+        "citation": "Record of Action of the Third Meeting of the Executive Committee of the National Security Council, Washington, October 24, 1962, 10 a.m. Foreign Relations of the United States, 1961-1963, Volume XI, Document 55.",
+        "url": "https://history.state.gov/historicaldocuments/frus1961-63v11/d55",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1024-03",
+      "date": "1962-10-24",
+      "roles": ["official", "historian"],
+      "text": "The Strategic Air Command was at DEFCON 2, one step short of war. By October 24 it had 1,436 bombers, 145 missiles and about 2,900 nuclear weapons ready to strike the Soviet Union, with about 65 nuclear-armed bombers in the air at any moment.",
+      "quote": null,
+      "source": {
+        "title": "NSA: Declassified SAC history of the crisis",
+        "citation": "William Burr, 'Declassified SAC History Recounts Nuclear and Intelligence Operations during Cuban Missile Crisis,' National Security Archive, George Washington University (on the declassified Strategic Air Command history used in Michael Dobbs, One Minute to Midnight, 2008).",
+        "url": "https://nsarchive.gwu.edu/nsa/cuba_mis_cri/dobbs/sac.htm",
+        "kind": "narration"
+      },
+      "confidence": "medium",
+      "note": "The force numbers come from SAC's own history, declassified much later; a mid-level official would have known about the alert, not the exact counts. Sources differ on exactly when SAC reached DEFCON 2: the NSA page says within hours of the October 22 speech, while most accounts give October 24."
+    },
+    {
+      "id": "cmc-1024-04",
+      "date": "1962-10-25",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "A few hours after the blockade began, Defense Secretary McNamara reported that some Soviet ships, 12 by one count, had changed course to avoid the quarantine line while others kept steaming toward Cuba. Pentagon officials suggested the ships that turned were probably carrying banned weapons.",
+      "quote": null,
+      "source": {
+        "title": "Facts on File World News Digest, Oct 25-31, 1962",
+        "citation": "Facts on File World News Digest, Vol. XXII, No. 1148 (week of October 25-31, 1962), 'Cuban Missile Crisis: Soviet Retreat Eases Tension.' Copy preserved in the CIA Reading Room (CIA-RDP78B05167A001900110012-0).",
+        "url": "https://www.cia.gov/readingroom/print/2011906",
+        "kind": "archival"
+      },
+      "confidence": "medium",
+      "note": "This weekly news digest dates McNamara's report to October 24. Some accounts place the first public Pentagon statement about ships turning back on the morning of October 25, so check the date against a daily newspaper. Dated October 25 to be safe: the public role learns it a day late rather than a day early. Officials already know on October 24 from cmc-1024-02."
+    },
+    {
+      "id": "cmc-1024-05",
+      "date": "1962-10-24",
+      "roles": ["journalist", "historian"],
+      "text": "Not one reporter was allowed with the fleet in the first days of the blockade. Washington reporters depended on bulletins from Press Secretary Pierre Salinger and on background briefings from officials, and many grumbled about how tightly the news was controlled.",
+      "quote": null,
+      "source": {
+        "title": "TIME, 'The Press: Quarantining the News,' 1962",
+        "citation": "'The Press: Quarantining the News,' TIME, issue of November 2, 1962.",
+        "url": "https://time.com/archive/6812336/the-press-quarantining-the-news/",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": "TIME published this in its November 2 issue, describing conditions in the first days of the blockade."
+    },
+    {
+      "id": "cmc-1024-06",
+      "date": "1962-10-24",
+      "roles": ["journalist", "official", "historian"],
+      "text": "The White House sent news editors a memo listing kinds of military information it did not want published during the crisis, such as troop and ship movements. It asked for voluntary restraint and told editors to call the Defense Department news desk if unsure.",
+      "quote": "We ask public information media of all types to exercise caution and discretion in the publication of such information.",
+      "source": {
+        "title": "White House memorandum to news editors, Oct 24",
+        "citation": "White House memorandum to news editors on the voluntary withholding of military information, October 24, 1962. Text reproduced in 'Articles, Letters, and Memos,' Encyclopedia of Energy, Government and Defense (Gale).",
+        "url": null,
+        "kind": "archival"
+      },
+      "confidence": "medium",
+      "note": "I saw the memo's text only in a reference-work reprint. Its examples of categories are not confirmed here, so 'such as troop and ship movements' is a general description; check the full list in the original."
+    },
+    {
+      "id": "cmc-1024-07",
+      "date": "1962-10-24",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "Soviet radio and the TASS news agency broadcast Khrushchev's reply to a telegram from British philosopher Bertrand Russell. Khrushchev promised the Soviet Union would not take reckless decisions or be provoked, and suggested a summit meeting with Kennedy.",
+      "quote": null,
+      "source": {
+        "title": "Seckel, 'Russell and the Cuban Missile Crisis'",
+        "citation": "Al Seckel, 'Russell and the Cuban Missile Crisis,' Russell: The Journal of Bertrand Russell Studies, n.s. 4 (Winter 1984-85), pp. 253-261; original letter, Khrushchev to Russell, October 24, 1962, Bertrand Russell Archives, McMaster University, Box 1.60, Folder F-69b.",
+        "url": "https://mulpress.mcmaster.ca/russelljournal/article/download/1632/1658",
+        "kind": "narration"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1024-08",
+      "date": "1962-10-24",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "On United Nations Day, Acting UN Secretary-General U Thant sent identical appeals to Kennedy and Khrushchev and read them at a televised Security Council session that night. He asked both sides to pause for two to three weeks, with the Soviets suspending arms shipments to Cuba and the U.S. suspending the quarantine, to allow time for talks.",
+      "quote": "any action which may aggravate the situation and bring with it the risk of war.",
+      "source": {
+        "title": "FRUS 1961-63 vol. XI, doc. 59 (U Thant appeal)",
+        "citation": "Foreign Relations of the United States, 1961-1963, Volume XI, Document 59, Editorial Note on U Thant's messages of October 24, 1962 (text in American Foreign Policy: Current Documents, 1962).",
+        "url": "https://history.state.gov/historicaldocuments/frus1961-63v11/d59",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": "The quoted words are from U Thant's appeal as quoted in FRUS, in which he asked both leaders to refrain from such action."
+    },
+    {
+      "id": "cmc-1024-09",
+      "date": "1962-10-24",
+      "roles": ["official", "historian"],
+      "text": "An angry letter from Khrushchev arrived at the State Department at 9:24 p.m. He accused Kennedy of issuing an ultimatum rather than a quarantine and of trying to intimidate the Soviet Union.",
+      "quote": "You, Mr. President, are not declaring a quarantine, but rather are setting forth an ultimatum",
+      "source": {
+        "title": "Khrushchev letter to JFK, Oct 24, 1962",
+        "citation": "Letter from Chairman Khrushchev to President Kennedy, Moscow, October 24, 1962 (Department of State translation; transmitted in telegram 1070 from Moscow, received 9:24 p.m.). John F. Kennedy Presidential Library; Foreign Relations of the United States, 1961-1963, Volume VI.",
+        "url": "https://microsites.jfklibrary.org/cmc/oct24/doc2.html",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1024-10",
+      "date": "1962-10-24",
+      "roles": ["official", "historian"],
+      "text": "In the same letter, Khrushchev said his government could not order Soviet ship captains to obey the U.S. Navy. He warned that the Soviet Union would take whatever measures it needed to defend its rights.",
+      "quote": "an act of aggression which pushes mankind toward the abyss of a world nuclear-missile war.",
+      "source": {
+        "title": "Khrushchev letter to JFK, Oct 24, 1962",
+        "citation": "Letter from Chairman Khrushchev to President Kennedy, Moscow, October 24, 1962 (Department of State translation). John F. Kennedy Presidential Library; Foreign Relations of the United States, 1961-1963, Volume VI.",
+        "url": "https://microsites.jfklibrary.org/cmc/oct24/doc2.html",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": "This is the State Department translation; other translations word the phrase slightly differently."
+    },
+    {
+      "id": "cmc-1024-11",
+      "date": "1962-10-24",
+      "roles": ["citizen", "journalist", "historian"],
+      "text": "In Los Angeles, a rush on supermarkets began Wednesday after the city's civil defense director, Joseph Quinn, urged residents to keep a two-week supply of food. Crowds of women filled shopping baskets with canned goods, powdered milk and bottled water, even though grocers said warehouses held weeks of supplies.",
+      "quote": null,
+      "source": {
+        "title": "Valley Times photo and article, Oct 25, 1962",
+        "citation": "Valley Times (North Hollywood, CA), article and photograph on San Fernando Valley 'scare buying,' October 25, 1962. Valley Times Collection, made available through Calisphere.",
+        "url": "https://calisphere.org/item/2e91a613fb5c957422c9d7129ac4ca6f/",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": "The buying began on October 24, which is the date used; the newspaper report ran on October 25. A family outside Los Angeles would have read about it a day later."
+    },
+    {
+      "id": "cmc-1024-12",
+      "date": "1962-10-24",
+      "roles": ["citizen", "historian"],
+      "text": "In Torrance, California, the local paper reported that American flags went up around town and parents flooded high schools with calls asking whether children would be sent home if an attack came. Military enlistments had tripled, with the Air Force office going from 3 sign-ups in a day to 15.",
+      "quote": null,
+      "source": {
+        "title": "Torrance Press, Oct 24, 1962, front page",
+        "citation": "'Cuban Crisis Brings Fast Reaction Here' and 'Armed Services Signups Triple,' Torrance Press (Torrance, CA), Vol. XIV, No. 54, October 24, 1962, front page. Torrance Public Library digital newspaper archive.",
+        "url": "https://libarch.torranceca.gov/archivednewspapers/Press/1962%20Jul%20-%20Dec/PDF/00000723.pdf",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1024-13",
+      "date": "1962-10-24",
+      "roles": ["citizen", "historian"],
+      "text": "The Los Angeles County Sheriff's Department was told to be ready for possible mass public reaction on Friday, when civil defense sirens would sound in their regular drill. The test happened at 10 a.m. on the last Friday of every month.",
+      "quote": null,
+      "source": {
+        "title": "Torrance Press, Oct 24, 1962, bulletin",
+        "citation": "Bulletin on the Los Angeles County Sheriff's Department and the scheduled civil defense siren drill, Torrance Press (Torrance, CA), October 24, 1962, front page. Torrance Public Library digital newspaper archive.",
+        "url": "https://libarch.torranceca.gov/archivednewspapers/Press/1962%20Jul%20-%20Dec/PDF/00000723.pdf",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1024-14",
+      "date": "1962-10-24",
+      "roles": ["citizen", "journalist", "historian"],
+      "text": "Civil defense offices across the country went into action, reviewing plans, designating new shelters and stocking them. In Tampa, residents bought guns, ammunition, canned goods and battery radios, shelter builders were swamped with orders, and school officials met to brief principals on protecting children.",
+      "quote": null,
+      "source": {
+        "title": "AP report in The Battalion, Oct 25, 1962",
+        "citation": "Associated Press report on civil defense preparations, The Battalion (College Station, TX), October 25, 1962, p. 3. Texas A&M University Libraries digital newspaper collection.",
+        "url": "https://newspaper.library.tamu.edu/lccn/sn86088544/1962-10-25/ed-1/seq-3.pdf",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": "The AP story describes Wednesday, October 24; newspapers printed it on October 25."
+    },
+    {
+      "id": "cmc-1024-15",
+      "date": "2008-06-03",
+      "roles": ["historian"],
+      "text": "Using Soviet and U.S. naval records, journalist Michael Dobbs showed that Khrushchev had ordered the missile-carrying ships home about a day earlier, on October 23. The ships nearest Cuba were already hundreds of miles from the quarantine line when they turned, so the 'eyeball to eyeball' moment was not a last-second retreat.",
+      "quote": null,
+      "source": {
+        "title": "Dobbs, One Minute to Midnight (2008)",
+        "citation": "Michael Dobbs, One Minute to Midnight: Kennedy, Khrushchev, and Castro on the Brink of Nuclear War (New York: Alfred A. Knopf, 2008).",
+        "url": null,
+        "kind": "narration"
+      },
+      "confidence": "medium",
+      "note": "The book came out in June 2008, but I could not confirm the exact day. Other scholars had earlier noted that the turnaround decision was made on October 23."
+    },
+    {
+      "id": "cmc-1024-16",
+      "date": "2008-06-03",
+      "roles": ["historian"],
+      "text": "Historians later learned that the Soviet ship Aleksandrovsk, carrying nuclear warheads, reached a Cuban port just before the quarantine took effect, so U.S. officials never had a chance to stop it.",
+      "quote": null,
+      "source": {
+        "title": "Dobbs, One Minute to Midnight (2008)",
+        "citation": "Michael Dobbs, One Minute to Midnight: Kennedy, Khrushchev, and Castro on the Brink of Nuclear War (New York: Alfred A. Knopf, 2008). See also the National Security Archive Electronic Briefing Book No. 449 on the Aleksandrovsk's tactical warheads.",
+        "url": null,
+        "kind": "narration"
+      },
+      "confidence": "medium",
+      "note": "The date is approximate (see cmc-1024-15). The Aleksandrovsk's arrival on October 23 is widely reported in recent scholarship, but I did not re-check the exact page in Dobbs in this session."
+    },
+    {
+      "id": "cmc-1024-17",
+      "date": "1962-12-08",
+      "roles": ["historian"],
+      "text": "Secretary of State Rusk's famous remark at the October 24 ExComm meeting, that the two sides were eyeball to eyeball and the other side had blinked, first became public in a Saturday Evening Post article by reporters Stewart Alsop and Charles Bartlett.",
+      "quote": null,
+      "source": {
+        "title": "Saturday Evening Post, 'In Time of Crisis,' 1962",
+        "citation": "Stewart Alsop and Charles Bartlett, 'In Time of Crisis,' The Saturday Evening Post, December 8, 1962.",
+        "url": "https://www.saturdayeveningpost.com/wp-content/uploads/satevepost/1962-12-08-missile-crisis.pdf",
+        "kind": "archival"
+      },
+      "confidence": "medium",
+      "note": "December 8 is the issue's cover date, and magazines of the time often reached readers a few days earlier. Exact wordings of Rusk's remark differ between accounts, so it is not given as a quote."
+    }
+  ]
+}
