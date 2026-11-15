@@ -248,6 +248,10 @@ body {
   overflow: hidden;
 }
 .screen video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: #000; }
+/* A channel playing on the room's set: no placeholder text, a soft CRT glow. */
+.screen.on-air p { display: none; }
+.screen.on-air video { pointer-events: none; filter: contrast(1.1) brightness(1.05) sepia(.15); }
+.stage .screen.painted.on-air { background: #000; }
 .screen.static::after {
   content: "";
   position: absolute;
@@ -559,6 +563,27 @@ body {
 .transcript .q.from-caller::before { content: "CALLER: "; }
 .transcript .q::before { content: "YOU: "; font-family: var(--label); font-size: 11px; letter-spacing: 1px; color: var(--red); }
 .transcript .a::before { content: attr(data-who) ": "; font-family: var(--label); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-soft); }
+/* Answers read like a text thread: the role's face, its name, then the message. */
+.transcript li.with-avatar { display: flex; gap: 10px; align-items: flex-start; }
+.transcript li.with-avatar::before { content: none; }
+.avatar {
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #b8893a;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .35);
+  background-color: #6b4226;
+  background-repeat: no-repeat;
+  display: grid;
+  place-items: center;
+  font-family: var(--serif);
+  font-weight: 800;
+  color: #f3e6c8;
+}
+.msg { flex: 1; min-width: 0; }
+.msg .who { display: block; font-family: var(--label); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-soft); line-height: 18px; }
+.msg .text { display: block; }
 .transcript .blocked { color: var(--red); font-style: italic; }
 .transcript .scripted { opacity: .65; }
 /* Sources look like little stamped tickets. */
@@ -831,16 +856,49 @@ a.chip:hover { border-style: solid; border-color: var(--red); color: var(--red);
   text-transform: uppercase;
   transform: rotate(-4deg);
 }
-.viewer-knobs { display: flex; flex-direction: column; justify-content: center; gap: 22px; width: 64px; }
-.viewer-knobs i {
+.viewer-knobs { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 4px; width: 84px; }
+/* The knobs are the channel (TV) and tuning (radio) buttons. */
+.viewer-knobs .knob {
   display: block;
   width: 56px;
   height: 56px;
+  padding: 0;
+  border: 0;
   border-radius: 50%;
+  cursor: pointer;
   background:
     radial-gradient(circle, var(--brass-light) 0 9px, #9a6d24 10px, transparent 11px),
     repeating-conic-gradient(#5a2c14 0 6deg, #3a1a0b 6deg 12deg);
   box-shadow: 0 4px 8px rgba(0, 0, 0, .6);
+  transition: transform .25s ease, box-shadow .2s ease;
+}
+.viewer-knobs .knob:hover { box-shadow: 0 4px 8px rgba(0, 0, 0, .6), 0 0 14px 3px rgba(255, 196, 110, .45); }
+.viewer-knobs .knob:active { transform: rotate(40deg) scale(.96); }
+.viewer-knobs .knob:focus-visible { outline: 3px solid var(--glow); outline-offset: 3px; }
+.knob-label { font-family: var(--label); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--brass-light); margin-bottom: 10px; }
+.viewer-dial {
+  min-width: 76px;
+  margin: 6px 0 14px;
+  padding: 5px 6px;
+  border-radius: 4px;
+  background: #1a0f06;
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, .8);
+  font-family: var(--label);
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-align: center;
+  color: #ffcf7a;
+  text-shadow: 0 0 6px rgba(255, 170, 60, .8);
+}
+.viewer-dial:empty { display: none; }
+.viewer.one-channel .knob { opacity: .45; cursor: default; box-shadow: 0 4px 8px rgba(0, 0, 0, .6); }
+.viewer.one-channel .knob:active { transform: none; }
+/* Changing channel: a quick roll of the picture, silent. */
+.viewer-screen.switching { animation: chan-switch .35s ease-out; }
+@keyframes chan-switch {
+  0% { filter: brightness(2.2) contrast(.6); transform: translateY(-3%); }
+  60% { filter: brightness(1.2); transform: translateY(1%); }
+  100% { filter: none; transform: none; }
 }
 .viewer-info {
   padding: 14px 22px;
@@ -883,4 +941,4 @@ a.chip:hover { border-style: solid; border-color: var(--red); color: var(--red);
   text-shadow: none;
 }
 .viewer[data-kind="radio"].has-clip .viewer-card { display: none; }
-@media (prefers-reduced-motion: reduce) { .viewer, .viewer-box, .viewer.playing .viewer-grille span { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .viewer, .viewer-box, .viewer.playing .viewer-grille span, .viewer-screen.switching { animation: none; } }

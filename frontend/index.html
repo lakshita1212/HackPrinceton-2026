@@ -33,7 +33,13 @@
           <p class="viewer-card" id="viewerCard"></p>
           <span class="viewer-stamp" id="viewerStamp" hidden></span>
         </div>
-        <div class="viewer-knobs" aria-hidden="true"><i></i><i></i></div>
+        <div class="viewer-knobs">
+          <button class="knob" id="chanUp" type="button" aria-label="Next channel" title="Next channel (↑)"></button>
+          <span class="knob-label" id="chanUpLabel">Channel ▲</span>
+          <span class="viewer-dial" id="viewerChannel" aria-live="polite"></span>
+          <button class="knob" id="chanDown" type="button" aria-label="Previous channel" title="Previous channel (↓)"></button>
+          <span class="knob-label" id="chanDownLabel">Channel ▼</span>
+        </div>
       </div>
       <div class="viewer-info">
         <h3 id="viewerTitle"></h3>

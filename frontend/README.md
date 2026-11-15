@@ -6,8 +6,10 @@ The radio app. Everything runs on the laptop: turn the dial to pick a day, pick 
 
 ```bash
 cd frontend
-python3 -m http.server 8080
+python3 serve.py
 ```
+
+Use `serve.py`, not `python3 -m http.server`. The plain server can't send part of a file, so video and audio can't seek, and after a few channel changes the TV and radio stick at 0:00 with no sound.
 
 Open http://localhost:8080. It calls the host at `http://localhost:8000` (see [Run the host](../README.md#run-the-host)); open `http://localhost:8080/?host=http://…` to point it somewhere else. Without the host, the call-in panel shows scripted placeholder answers.
 

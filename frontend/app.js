@@ -1,6 +1,6 @@
 import { STATIONS, ROLES } from './stations.js';
 import { ROOMS, ROOM_IMAGES } from './rooms.js';
-import { mediaFor } from './media.js';
+import { clipsFor, channelName } from './media.js';
 import { createDial } from './dial.js';
 import { ask, tuneStation, fetchTranscript, callByVoice } from './host.js';
 import { sfx } from './audio.js';
@@ -83,6 +83,7 @@ function renderScene() {
   // A painted broadcast stays visible: no static, no text, until a clip plays.
   if (ROOM_IMAGES[r.id]?.[era]?.painted) $('screen').classList.replace('static', 'painted');
   stopMedia();
+  startAmbient();
 
   const stage = $('stage');
   stage.className = `stage era-${era}${ROOM_IMAGES[r.id]?.[era] ? ' has-photo' : ''}`;
@@ -105,29 +106,95 @@ function showCaption(text, ms = 0) {
 }
 
 // ── Big screen: the TV and the radio open a player over the room ────────
-// The TV plays the day's footage in a large vintage set; the radio opens a
-// matching radio. With no clip yet, the screen shows that day's broadcast line.
+// The TV plays the room's footage in a large vintage set; the radio opens a
+// matching radio. The knobs flip through every channel (TV) or frequency
+// (radio) this room can tune in. With no clip, it shows the broadcast line.
+const viewerState = { kind: 'tv', clips: [], i: 0 };
+
 function openViewer(kind) {
   sfx.unlock();
   const s = station();
   const r = role();
-  const clip = mediaFor(s.date, r.id, kind === 'tv' ? 'video' : 'audio');
+  const clips = clipsFor(s, r.id, kind === 'tv' ? 'video' : 'audio');
+  // The TV opens on whatever was already playing in the room.
+  const onAir = clips.findIndex((c) => c.src === ambientClip?.src);
+  viewerState.kind = kind;
+  viewerState.clips = clips;
+  viewerState.i = kind === 'tv' && onAir >= 0 ? onAir : Math.floor(Math.random() * clips.length) || 0;
   const viewer = $('viewer');
   viewer.dataset.kind = kind;
+  const what = kind === 'tv' ? 'channel' : 'station';
+  $('chanUp').setAttribute('aria-label', `Next ${what}`);
+  $('chanDown').setAttribute('aria-label', `Previous ${what}`);
+  $('chanUpLabel').textContent = kind === 'tv' ? 'Channel ▲' : 'Tune ▶';
+  $('chanDownLabel').textContent = kind === 'tv' ? 'Channel ▼' : 'Tune ◀';
+  $('viewerCard').textContent = s.onAir;
+  pauseAmbient();
+  viewer.hidden = false;
+  showClip();
+  $('viewerClose').focus();
+}
+
+// Put the current channel's clip on the big screen.
+function showClip() {
+  const s = station();
+  const r = role();
+  const { kind, clips, i } = viewerState;
+  const clip = clips[i];
+  const viewer = $('viewer');
   viewer.classList.toggle('has-clip', !!clip);
+  viewer.classList.toggle('one-channel', clips.length < 2);
+  $('viewerChannel').textContent = clip
+    ? `${channelName(kind === 'tv' ? 'video' : 'audio', s.era, i)}${clips.length > 1 ? ` · ${i + 1}/${clips.length}` : ''}`
+    : '';
   $('viewerTitle').textContent = clip ? clip.title : kind === 'tv' ? 'On television' : 'On the radio';
   $('viewerMeta').textContent = [s.day, ROOMS[r.id].name, clip?.source].filter(Boolean).join(' · ');
-  $('viewerCard').textContent = s.onAir;
   $('viewerStamp').textContent = clip?.label || '';
   $('viewerStamp').hidden = !clip;
   const video = $('viewerVideo');
   const audio = $('viewerAudio');
   video.hidden = !(clip && kind === 'tv');
   audio.hidden = !(clip && kind === 'radio');
-  viewer.hidden = false;
-  if (clip && kind === 'tv') { video.src = clip.src; video.play(); }
-  if (clip && kind === 'radio') { audio.src = clip.src; audio.play(); }
-  $('viewerClose').focus();
+  if (clip && kind === 'tv') { setGain(video, clip.gain); video.src = clip.src; video.play().catch(() => {}); }
+  if (clip && kind === 'radio') { setGain(audio, clip.gain); audio.src = clip.src; audio.play().catch(() => {}); }
+}
+
+// Some archive clips are far quieter than the rest (NASA's Moon TV is about
+// 20 dB down), so the big screen plays through a per-clip gain and a limiter
+// that keeps the loud parts from distorting.
+let mediaCtx = null;
+const boosters = new Map();
+function setGain(el, gain = 1) {
+  if (gain === 1 && !boosters.has(el)) return; // no need to reroute it yet
+  try {
+    mediaCtx ||= new (window.AudioContext || window.webkitAudioContext)();
+    if (mediaCtx.state === 'suspended') mediaCtx.resume();
+    if (!boosters.has(el)) {
+      const source = mediaCtx.createMediaElementSource(el);
+      const boost = mediaCtx.createGain();
+      const limiter = mediaCtx.createDynamicsCompressor();
+      limiter.threshold.value = -6;
+      limiter.knee.value = 3;
+      limiter.ratio.value = 12;
+      limiter.attack.value = 0.003;
+      limiter.release.value = 0.25;
+      source.connect(boost).connect(limiter).connect(mediaCtx.destination);
+      boosters.set(el, boost);
+    }
+    boosters.get(el).gain.value = gain;
+  } catch { /* no Web Audio: the clip plays at its own level */ }
+}
+
+// Turn the knob: the next or previous channel, wrapping around.
+function changeChannel(step) {
+  const n = viewerState.clips.length;
+  if (n < 2) return;
+  viewerState.i = (viewerState.i + step + n) % n;
+  const screen = document.querySelector('.viewer-screen');
+  screen.classList.remove('switching');
+  void screen.offsetWidth;
+  screen.classList.add('switching');
+  showClip();
 }
 
 function closeViewer() {
@@ -137,6 +204,7 @@ function closeViewer() {
     el.load();
   }
   $('viewer').hidden = true;
+  resumeAmbient();
 }
 
 function stopMedia() {
@@ -144,11 +212,43 @@ function stopMedia() {
   $('caption').hidden = true;
 }
 
+// ── The room's own TV: a random channel plays silently on the set ────────
+let ambientClip = null;
+function startAmbient() {
+  const old = $('screen').querySelector('video');
+  // Unload it as well as removing it: a removed <video> keeps downloading,
+  // and a few of those use up the browser's connections, so new clips stall at 0:00.
+  if (old) { old.pause(); old.removeAttribute('src'); old.load(); old.remove(); }
+  const clips = clipsFor(station(), role().id, 'video');
+  ambientClip = clips[Math.floor(Math.random() * clips.length)] || null;
+  $('screen').classList.toggle('on-air', !!ambientClip);
+  if (!ambientClip) return;
+  const v = document.createElement('video');
+  Object.assign(v, { src: ambientClip.src, muted: true, loop: true, autoplay: true, playsInline: true });
+  v.setAttribute('aria-hidden', 'true');
+  // Start somewhere in the middle, like turning on a set that was already on.
+  v.addEventListener('loadedmetadata', () => {
+    if (v.duration > 20) v.currentTime = Math.random() * (v.duration - 15);
+  }, { once: true });
+  $('screen').prepend(v);
+  v.play().catch(() => {});
+  $('screen').setAttribute('aria-label', `Television, ${ambientClip.title}: open the big screen`);
+}
+function pauseAmbient() { $('screen').querySelector('video')?.pause(); }
+function resumeAmbient() { $('screen').querySelector('video')?.play().catch(() => {}); }
+
 const playTv = () => openViewer('tv');
 const playRadio = () => openViewer('radio');
 $('viewerClose').addEventListener('click', closeViewer);
 $('viewer').addEventListener('click', (e) => { if (e.target === $('viewer')) closeViewer(); });
 window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !$('viewer').hidden) closeViewer(); });
+$('chanUp').addEventListener('click', () => changeChannel(1));
+$('chanDown').addEventListener('click', () => changeChannel(-1));
+window.addEventListener('keydown', (e) => {
+  if ($('viewer').hidden || e.target.matches('video, audio')) return;
+  if (e.key === 'ArrowUp' || e.key === 'ArrowRight') { e.preventDefault(); changeChannel(1); }
+  if (e.key === 'ArrowDown' || e.key === 'ArrowLeft') { e.preventDefault(); changeChannel(-1); }
+});
 // the radio's speaker bars dance only while it's playing
 $('viewerAudio').addEventListener('play', () => $('viewer').classList.add('playing'));
 $('viewerAudio').addEventListener('pause', () => $('viewer').classList.remove('playing'));
@@ -220,14 +320,58 @@ const startStation = STATIONS.findIndex((s) => s.label === params.get('station')
 if (startStation > 0) dial.setIndex(startStation);
 
 // ── Call-in ──────────────────────────────────────────────────────────────
-function addLine(className, text, who) {
+// Answers are laid out like a text thread: the role's face from its painted
+// room as the profile picture, then who it is and what they said.
+function addLine(className, text, who, speaker) {
   const li = document.createElement('li');
   li.className = className;
-  li.textContent = text;
   if (who) li.dataset.who = who;
+  if (speaker) {
+    li.classList.add('with-avatar');
+    const msg = document.createElement('div');
+    msg.className = 'msg';
+    const name = document.createElement('span');
+    name.className = 'who';
+    name.textContent = who;
+    const body = document.createElement('span');
+    body.className = 'text';
+    body.textContent = text;
+    msg.append(name, body);
+    li.append(avatar(speaker.role, speaker.date), msg);
+  } else {
+    li.textContent = text;
+  }
   $('transcript').append(li);
   li.scrollIntoView({ block: 'end' });
   return li;
+}
+
+// The text part of a line, and where its source chips go.
+const textOf = (li) => li.querySelector('.text') || li;
+const msgOf = (li) => li.querySelector('.msg') || li;
+
+// A round crop of the person in this role's room for that day's era.
+function avatar(roleId, date) {
+  const era = (STATIONS.find((s) => s.date === date) || station()).era;
+  const pic = ROOM_IMAGES[roleId]?.[era];
+  const el = document.createElement('span');
+  el.className = `avatar avatar-${roleId}`;
+  el.setAttribute('aria-hidden', 'true');
+  if (pic?.face) {
+    // Zoom the painting k times the avatar's width and centre it on the face.
+    const k = 5;
+    const kh = k * 2 / 3; // paintings are 3:2
+    const px = Math.min(100, Math.max(0, ((pic.face.x / 100) * k - 0.5) / (k - 1) * 100));
+    const py = Math.min(100, Math.max(0, ((pic.face.y / 100) * kh - 0.5) / (kh - 1) * 100));
+    Object.assign(el.style, {
+      backgroundImage: `url(${pic.src})`,
+      backgroundSize: `${k * 100}% auto`,
+      backgroundPosition: `${px}% ${py}%`,
+    });
+  } else {
+    el.textContent = roleName(roleId).charAt(0);
+  }
+  return el;
 }
 
 function addSources(li, sources) {
@@ -254,12 +398,12 @@ function addSources(li, sources) {
 function showAnswer(li, reply) {
   if (reply.blocked) {
     // The host sends an in-character refusal; fall back to our own line if it's empty.
-    li.className = 'a blocked';
-    li.textContent = reply.answer || "The line crackles. That hasn't happened yet.";
+    li.className = 'a blocked with-avatar';
+    textOf(li).textContent = reply.answer || "The line crackles. That hasn't happened yet.";
   } else {
-    li.className = reply.live === false ? 'a scripted' : 'a';
-    li.textContent = reply.answer;
-    addSources(li, reply.sources || []);
+    li.className = `${reply.live === false ? 'a scripted' : 'a'} with-avatar`;
+    textOf(li).textContent = reply.answer;
+    addSources(msgOf(li), reply.sources || []);
   }
 }
 
@@ -282,7 +426,7 @@ $('askForm').addEventListener('submit', async (e) => {
   addLine('q', question);
   const button = $('askForm').querySelector('button[type="submit"]');
   button.disabled = true;
-  const pending = addLine('a', '…', `${r.name}, ${s.label}`);
+  const pending = addLine('a', '…', `${r.name}, ${s.label}`, { role: r.id, date: s.date });
   const reply = await ask({ question, role: r.id, date: s.date, pack: s.pack });
   button.disabled = false;
   showAnswer(pending, reply);
@@ -304,7 +448,7 @@ async function pollSwitchboard() {
       const who = `${roleName(it.role)}, ${dayLabel(it.date)}`;
       addLine('caller', `${kind} from ${it.caller} · ${who}`);
       addLine('q from-caller', it.question);
-      showAnswer(addLine('a', '', who), it);
+      showAnswer(addLine('a', '', who, { role: it.role, date: it.date }), it);
       showCaption(`${kind} coming in from ${it.caller}`, 3000);
     }
   }
@@ -351,12 +495,12 @@ async function sendCall(blob) {
   const s = station();
   const r = role();
   const q = addLine('q', '…');
-  const a = addLine('a', '…', `${r.name}, ${s.label}`);
+  const a = addLine('a', '…', `${r.name}, ${s.label}`, { role: r.id, date: s.date });
   const reply = await callByVoice(blob, { role: r.id, date: s.date, pack: s.pack });
   if (reply.error) {
     q.remove();
-    a.className = 'a blocked';
-    a.textContent = reply.error;
+    a.className = 'a blocked with-avatar';
+    textOf(a).textContent = reply.error;
     return;
   }
   q.textContent = reply.question || '(the line crackled)';
