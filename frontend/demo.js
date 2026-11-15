@@ -89,7 +89,10 @@ export async function runDemo(app) {
   await say('The Berlin Wall is opening, and she is hearing it as it happens.', 6000);
 
   app.tune('2026');
-  await say('And it works on today: this week\'s news, built from Wikipedia and the papers.', 8000);
+  await say('And it works on today, November 2026.', 3000);
+  $('screen').click();
+  await say('The TV reads you this week\'s news: an AI anchor, every headline sourced from Wikipedia.', 12000);
+  app.closeViewer();
 
   if (app.showLatestMemory()) {
     await say('Text the station a photo from your phone. Google Gemini pins captions on what is in it.', 8500);
