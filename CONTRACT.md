@@ -116,6 +116,26 @@ couple of seconds, passing the highest `seq` you've seen (start with `0`).
 `at` is Unix seconds. `caller` only ever shows the last 4 digits. The log
 keeps the latest 50 and resets when the host restarts.
 
+## `POST /voice`
+
+Call the station from the laptop microphone. Send `multipart/form-data`:
+
+| Field   | Required | Meaning |
+|---------|----------|---------|
+| `audio` | yes      | The recording (`MediaRecorder` webm or mp4, or wav) |
+| `role`, `date`, `pack` | no | Same values as `/ask`. Default: the current `/station`. |
+
+Returns the `/ask` response fields plus:
+
+| Field      | Meaning |
+|------------|---------|
+| `question` | What we heard (speech to text) |
+| `audio`    | Base64 WAV of the answer in that role's voice, or `null`: then speak `answer` with the browser's `speechSynthesis` |
+| `role`, `date`, `pack` | The station that answered |
+
+Each call also appears in `/transcript` with `channel: "voice"`.
+A working example page is served at `http://localhost:8000/call` (`backend/static/call.html`).
+
 ## Notes for the app side
 
 - Base URL in dev: `http://localhost:8000`. CORS is open in dev.

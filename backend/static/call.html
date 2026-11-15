@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Call the Station</title>
+<style>
+  :root {
+    --bg: #f4efe6; --panel: #fffaf2; --ink: #2b2118; --muted: #7a6a58;
+    --accent: #b5452a; --accent-ink: #fff; --line: #e2d6c4; --blocked: #8a6d1f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #17130f; --panel: #221c16; --ink: #f1e7d8; --muted: #a8977f;
+            --accent: #e0673f; --accent-ink: #17130f; --line: #3a2f24; --blocked: #d6b14f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 640px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1 { font: 600 1.6rem Georgia, serif; margin: 0 0 4px; }
+  .sub { color: var(--muted); margin: 0 0 20px; }
+  .tuner { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  select { font: inherit; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line);
+           background: var(--panel); color: var(--ink); }
+  #talk { width: 100%; padding: 22px; font: 600 1.15rem system-ui; border: none; border-radius: 14px;
+          background: var(--accent); color: var(--accent-ink); cursor: pointer; user-select: none;
+          touch-action: none; }
+  #talk.rec { filter: brightness(1.15); outline: 4px solid color-mix(in srgb, var(--accent) 40%, transparent); }
+  #talk:disabled { opacity: .55; cursor: wait; }
+  .hint { color: var(--muted); font-size: .9rem; text-align: center; margin: 8px 0 24px; }
+  .entry { background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+           padding: 14px 16px; margin-bottom: 12px; }
+  .q { color: var(--muted); margin: 0 0 6px; }
+  .a { margin: 0; }
+  .who { font-size: .85rem; color: var(--muted); margin-top: 8px; }
+  .blocked .a { color: var(--blocked); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .chip { font-size: .8rem; border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px; }
+  .chip a { color: inherit; }
+  #err { color: var(--accent); min-height: 1.5em; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Call the Station</h1>
+  <p class="sub">Hold the button, ask your question, let go. They only know what was known that day.</p>
+
+  <div class="tuner">
+    <select id="role">
+      <option value="citizen">Citizen</option>
+      <option value="journalist">Journalist</option>
+      <option value="official">Official</option>
+      <option value="historian">Historian</option>
+    </select>
+    <select id="date">
+      <option value="1962-10-16">Oct 16, 1962</option>
+      <option value="1962-10-22">Oct 22, 1962</option>
+      <option value="1962-10-24">Oct 24, 1962</option>
+      <option value="1962-10-27">Oct 27, 1962</option>
+      <option value="1962-10-28">Oct 28, 1962</option>
+    </select>
+  </div>
+
+  <button id="talk">Hold to talk</button>
+  <p class="hint">or hold the space bar</p>
+  <p id="err"></p>
+  <section id="log"></section>
+</main>
+<script>
+const $ = (id) => document.getElementById(id);
+const PACK = "cmc-1962";
+const ROLE_LABEL = { citizen: "A citizen", journalist: "A Washington reporter",
+  official: "A State Department official (composite)", historian: "A historian, today" };
+
+// Keep the tuner in sync with the shared station so texts and calls agree.
+async function loadStation() {
+  try {
+    const st = await (await fetch("/station")).json();
+    $("role").value = st.role; $("date").value = st.date;
+  } catch {}
+}
+async function tune() {
+  await fetch("/station", { method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ pack: PACK, role: $("role").value, date: $("date").value }) });
+}
+$("role").onchange = tune; $("date").onchange = tune;
+loadStation();
+
+let rec, chunks = [], stream;
+async function start() {
+  if (rec?.state === "recording" || $("talk").disabled) return;
+  $("err").textContent = "";
+  try {
+    stream ??= await navigator.mediaDevices.getUserMedia({ audio: true });
+  } catch { $("err").textContent = "Microphone permission is needed to call."; return; }
+  speechSynthesis.cancel();
+  chunks = [];
+  rec = new MediaRecorder(stream);
+  rec.ondataavailable = (e) => chunks.push(e.data);
+  rec.onstop = send;
+  rec.start();
+  $("talk").classList.add("rec"); $("talk").textContent = "Listening… let go to send";
+}
+function stop() {
+  if (rec?.state !== "recording") return;
+  rec.stop();
+  $("talk").classList.remove("rec");
+}
+async function send() {
+  const blob = new Blob(chunks, { type: rec.mimeType });
+  $("talk").disabled = true; $("talk").textContent = "Connecting you to 1962…";
+  const form = new FormData();
+  form.append("audio", blob, "call." + (rec.mimeType.includes("mp4") ? "mp4" : "webm"));
+  form.append("role", $("role").value); form.append("date", $("date").value); form.append("pack", PACK);
+  try {
+    const r = await fetch("/voice", { method: "POST", body: form });
+    const data = await r.json();
+    if (!r.ok) throw new Error(data.detail || r.statusText);
+    show(data); say(data);
+  } catch (e) {
+    $("err").textContent = e.message;
+  } finally {
+    $("talk").disabled = false; $("talk").textContent = "Hold to talk";
+  }
+}
+function show(d) {
+  const el = document.createElement("div");
+  el.className = "entry" + (d.blocked ? " blocked" : "");
+  const when = d.role === "historian" ? "today" :
+    new Date(d.date + "T12:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  el.innerHTML = `<p class="q"></p><p class="a"></p><div class="who"></div><div class="chips"></div>`;
+  el.querySelector(".q").textContent = "You: " + d.question;
+  el.querySelector(".a").textContent = d.answer;
+  el.querySelector(".who").textContent = `— ${ROLE_LABEL[d.role]}, ${when}`;
+  for (const s of d.sources) {
+    const c = document.createElement("span"); c.className = "chip";
+    const label = `${s.title} · ${s.kind}`;
+    if (s.url) { const a = document.createElement("a"); a.href = s.url; a.target = "_blank"; a.textContent = label; c.append(a); }
+    else c.textContent = label;
+    c.title = s.citation; el.querySelector(".chips").append(c);
+  }
+  $("log").prepend(el);
+}
+function say(d) {
+  if (d.audio) { new Audio("data:audio/wav;base64," + d.audio).play(); return; }
+  const u = new SpeechSynthesisUtterance(d.answer);
+  const tone = { citizen: [1.05, 1], journalist: [0.95, 1.1], official: [0.8, 0.95], historian: [1, 0.95] }[d.role];
+  [u.pitch, u.rate] = tone;
+  speechSynthesis.speak(u);
+}
+
+const btn = $("talk");
+btn.addEventListener("pointerdown", (e) => { e.preventDefault(); start(); });
+btn.addEventListener("pointerup", stop);
+btn.addEventListener("pointerleave", stop);
+addEventListener("keydown", (e) => { if (e.code === "Space" && !e.repeat && e.target.tagName !== "SELECT") { e.preventDefault(); start(); } });
+addEventListener("keyup", (e) => { if (e.code === "Space") stop(); });
+</script>
+</body>
+</html>
