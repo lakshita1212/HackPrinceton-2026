@@ -127,11 +127,18 @@ def _check(answer: str, role: str, day: date, facts: list[Fact]) -> Verdict:
         else f"The speaker lives on {day.isoformat()} and must not reveal anything after that date."
     )
     system = (
-        "You are a strict fact checker for a history education app. "
-        f"{time_rule} Check the ANSWER against the FACTS. Mark ok=false if the answer "
-        "states anything not supported by the facts, reveals or hints at events after the "
-        "date, or quotes words that aren't a verbatim quote in the facts. Feelings, "
-        "uncertainty and 'I don't know' are fine.\n\n"
+        "You are a fact checker for a history education app where callers talk to people "
+        f"from the past. {time_rule}\n\n"
+        "Check only CONCRETE CLAIMS in the ANSWER against the FACTS. A concrete claim is a "
+        "specific name, date, time, number, place, event, decision or quotation.\n"
+        "Mark ok=false only if:\n"
+        "1. a concrete claim is not supported by the facts (paraphrase and summary are fine), or\n"
+        "2. the answer reveals or hints at anything that happens after the speaker's date, or\n"
+        "3. text in quotation marks is not a verbatim quote from the facts.\n\n"
+        "These are ALWAYS fine and must never cause a rejection: feelings, fears, hopes, "
+        "opinions, uncertainty, 'I don't know', 'I haven't heard', 'nobody knows yet', "
+        "'it hasn't come to war yet', and plain inferences a person would draw from the facts "
+        "at the time. List only real problems.\n\n"
         f"FACTS:\n{_facts_block(facts)}"
     )
     model = get_structured(Verdict, "check", temperature=0)
