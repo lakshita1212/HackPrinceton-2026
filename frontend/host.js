@@ -17,7 +17,10 @@ export async function ask({ question, role, date, pack }) {
     });
     if (!res.ok) throw new Error(`host returned ${res.status}`);
     const data = await res.json();
-    return { answer: data.answer || '', sources: data.sources || [], blocked: !!data.blocked, live: true };
+    return {
+      answer: data.answer || '', sources: data.sources || [], blocked: !!data.blocked,
+      blocked_reason: data.blocked_reason || null, archival: data.archival || null, live: true,
+    };
   } catch {
     return { ...scripted(question, role, date), live: false };
   }
@@ -35,6 +38,19 @@ export async function tuneStation({ role, date, pack }) {
       signal: AbortSignal.timeout(5000),
     });
   } catch { /* host down: nothing to sync */ }
+}
+
+// The time lock as numbers: how many facts each role could know on this day.
+// { total, roles: { citizen: n, ... }, today: {...}, later } or null.
+export async function fetchKnowledge({ pack, date }) {
+  if (!pack) return null;
+  try {
+    const res = await fetch(`${HOST_URL}/knowledge?pack=${encodeURIComponent(pack)}&date=${date}`,
+      { signal: AbortSignal.timeout(5000) });
+    return res.ok ? await res.json() : null;
+  } catch {
+    return null;
+  }
 }
 
 // Call-ins (iMessage texts and voice calls) newer than `since`, oldest first.

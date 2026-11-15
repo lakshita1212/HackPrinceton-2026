@@ -10,6 +10,7 @@ import { liveStation, headlines } from './news.js';
 import { PAPERS } from './papers.js';
 import { cultureFor } from './culture.js';
 import { ambience } from './ambience.js';
+import { updateTimeLock, signalLost, renderPins, eraLine, onAirMs, archivalBubble } from './extras.js';
 
 const $ = (id) => document.getElementById(id);
 const state = { station: 0, role: 0 };
@@ -109,7 +110,10 @@ function renderScene() {
   // Tell the host where the dial is, so texts are answered by this room.
   // Waits until the dial settles instead of sending every tick.
   clearTimeout(tuneTimer);
-  tuneTimer = setTimeout(() => tuneStation({ role: r.id, date: s.date, pack: s.pack }), 400);
+  tuneTimer = setTimeout(() => {
+    tuneStation({ role: r.id, date: s.date, pack: s.pack });
+    updateTimeLock(s, r.id, r.name);
+  }, 400);
   $('mic').disabled = !s.pack && !s.live;
   showLive(s);
 }
@@ -183,15 +187,17 @@ async function pollMemories(first = false) {
 function announceMemory(m) {
   const card = $('onAirCard');
   $('onAirPhoto').src = hostAsset(m.image);
-  $('onAirPhoto').alt = m.caption || 'A photo texted to the station';
+  $('onAirPhoto').alt = m.alt_text || m.caption || 'A photo texted to the station';
+  renderPins($('onAirFrame'), m);
   $('onAirCaption').textContent = m.caption || '';
+  $('onAirEra').textContent = eraLine(m);
   $('onAirFrom').textContent = `Texted in from ${m.from || 'a listener'}${station().live ? '' : ' · on the 2026 station'}`;
   card.hidden = false;
   card.classList.remove('show');
   void card.offsetWidth;
   card.classList.add('show');
   clearTimeout(announceMemory.timer);
-  announceMemory.timer = setTimeout(() => { card.hidden = true; }, 7000);
+  announceMemory.timer = setTimeout(() => { card.hidden = true; }, onAirMs(m));
 }
 
 // 2026: the TV shows the top story, then each recent photo, then the story again.
@@ -218,7 +224,7 @@ function showTvFrame(m) {
   fig.className = 'memory-shot';
   const img = document.createElement('img');
   img.src = hostAsset(m.image);
-  img.alt = m.caption || 'A photo texted to the station';
+  img.alt = m.alt_text || m.caption || 'A photo texted to the station';
   const cap = document.createElement('figcaption');
   cap.textContent = m.caption || `From ${m.from}`;
   fig.append(img, cap);
@@ -649,10 +655,13 @@ function showAnswer(li, reply) {
     // The host sends an in-character refusal; fall back to our own line if it's empty.
     li.className = 'a blocked with-avatar';
     textOf(li).textContent = reply.answer || "The line crackles. That hasn't happened yet.";
+    if (reply.blocked_reason === 'future') signalLost();
   } else {
     li.className = `${reply.live === false ? 'a scripted' : 'a'} with-avatar`;
     textOf(li).textContent = reply.answer;
     addSources(msgOf(li), reply.sources || []);
+    // The real recording behind the answer, if there is one; voice calls play it next.
+    li.playArchival = archivalBubble(msgOf(li), reply.archival);
   }
 }
 
@@ -758,23 +767,25 @@ async function sendCall(blob) {
   }
   q.textContent = reply.question || '(the line crackled)';
   showAnswer(a, reply);
-  speakAnswer(reply);
+  speakAnswer(reply, a.playArchival);
 }
 
 // Play the host's voice for the role, or let the browser read it out.
-function speakAnswer(reply) {
+// Speak the answer, then (on a call) play the real recording behind it.
+function speakAnswer(reply, then) {
+  const done = () => { ambience.duck(false); updateTvSound(); if (then) setTimeout(then, 400); };
   if (reply.audio) {
     answerAudio = new Audio(`data:audio/wav;base64,${reply.audio}`);
     ambience.duck(true);
     updateTvSound();
-    answerAudio.addEventListener('ended', () => { ambience.duck(false); updateTvSound(); }, { once: true });
+    answerAudio.addEventListener('ended', done, { once: true });
     answerAudio.play();
   } else if (reply.answer) {
     const u = new SpeechSynthesisUtterance(reply.answer);
     u.rate = 0.95;
     ambience.duck(true);
     updateTvSound();
-    u.addEventListener('end', () => { ambience.duck(false); updateTvSound(); });
+    u.addEventListener('end', done);
     speechSynthesis.speak(u);
   }
 }
