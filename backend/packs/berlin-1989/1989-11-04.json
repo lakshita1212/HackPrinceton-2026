@@ -1,0 +1,302 @@
+{
+  "pack": "berlin-1989",
+  "day": "1989-11-04",
+  "facts": [
+    {
+      "id": "ber-1104-01",
+      "date": "1989-11-04",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "Between 250,000 and 500,000 people filled Alexanderplatz in East Berlin from morning to afternoon, demanding freedom of speech, a free press and freedom of assembly. The rally was officially permitted and organized by East Berlin actors and artists.",
+      "quote": null,
+      "source": {
+        "title": "Chronik der Mauer, November 1989",
+        "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+        "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "ber-1104-02",
+      "date": "1989-11-04",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "Speakers at Alexanderplatz included the writer Christa Wolf, the pastor Friedrich Schorlemmer and, from the ruling party's Politburo, Günter Schabowski. Protests also took place in more than 40 other East German towns.",
+      "quote": null,
+      "source": {
+        "title": "Chronik der Mauer, November 1989",
+        "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+        "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "ber-1104-03",
+      "date": "1989-11-04",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "East Germans in Prague were given visas to travel straight on to West Germany, and told they could keep their citizenship and come back. Over the weekend of November 4-5, about 23,200 East Germans left for the West through Czechoslovakia.",
+      "quote": null,
+      "source": {
+        "title": "Chronik der Mauer, November 1989",
+        "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+        "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "ber-1104-04",
+      "date": "1989-11-04",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "That evening the deputy interior minister announced on the state TV news, Aktuelle Kamera, that applications to leave permanently would be handled \"unbureaucratically and quickly.\" Almost no one believed him.",
+      "quote": null,
+      "source": {
+        "title": "Chronik der Mauer, November 1989",
+        "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+        "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "ber-1104-05",
+      "date": "1989-11-03",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "On November 3, party leader Egon Krenz went on television and radio to promise reforms and a new travel law, and announced that five old-guard Politburo members, including Stasi chief Erich Mielke, were stepping down.",
+      "quote": "There is no going back.",
+      "source": {
+        "title": "Chronik der Mauer, November 1989",
+        "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+        "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "ber-1104-06",
+      "date": "1989-10-18",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "On October 18, after a power struggle in the Politburo, Erich Honecker, who had led East Germany for 18 years, resigned, citing his health. Egon Krenz replaced him as head of the ruling SED party.",
+      "quote": null,
+      "source": {
+        "title": "Chronik der Mauer, October 1989",
+        "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), chronology for October 1989.",
+        "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month10/?month=10&year=1989&moc=1",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "ber-1104-07",
+      "date": "1989-10-09",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "On October 9 in Leipzig, 70,000 people marched peacefully for reform despite fears of a crackdown; the security forces did not intervene. The Monday marches have grown since: more than 100,000 on October 16 and about 300,000 on October 23.",
+      "quote": null,
+      "source": {
+        "title": "Chronik der Mauer, October 1989",
+        "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), chronology for October 1989.",
+        "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month10/?month=10&year=1989&moc=1",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "ber-1104-08",
+      "date": "1989-10-07",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "At the GDR's 40th-anniversary celebrations on October 6-7, Soviet leader Mikhail Gorbachev was greeted with chants of \"Gorbi, help us.\" Police broke up demonstrations in East Berlin and other cities that evening and the next with mass arrests.",
+      "quote": null,
+      "source": {
+        "title": "Chronik der Mauer, October 1989",
+        "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), chronology for October 1989.",
+        "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month10/?month=10&year=1989&moc=1",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "ber-1104-09",
+      "date": "1989-09-11",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "In the night of September 10-11, Hungary opened its border with Austria to East Germans. Tens of thousands have since traveled to West Germany that way.",
+      "quote": null,
+      "source": {
+        "title": "Chronik der Mauer, September 1989",
+        "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), chronology for September 1989.",
+        "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month9/?month=9&year=1989&moc=1",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "ber-1104-10",
+      "date": "1989-09-30",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "On September 30, West German Foreign Minister Hans-Dietrich Genscher announced in Prague that the thousands of East Germans camped at the West German embassy could leave for the West. They went in sealed trains across East German territory.",
+      "quote": null,
+      "source": {
+        "title": "Chronik der Mauer, September 1989",
+        "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), chronology for September 1989.",
+        "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month9/?month=9&year=1989&moc=1",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "ber-1104-11",
+      "date": "1989-02-06",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "In the night of February 5-6, 1989, 20-year-old Chris Gueffroy was shot dead by border guards while trying to cross the Wall from East to West Berlin.",
+      "quote": null,
+      "source": {
+        "title": "Berlin Wall Memorial",
+        "citation": "Berlin Wall Memorial (Gedenkstätte Berliner Mauer), research on the victims of the Berlin Wall, 1961-1989.",
+        "url": "https://www.berliner-mauer-gedenkstaette.de/en/",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "ber-1104-12",
+      "date": "1989-11-06",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "On November 6, the government published its promised draft travel law. It allows trips abroad of only 30 days a year, and that evening's Monday marches made freedom to travel their main demand.",
+      "quote": null,
+      "source": {
+        "title": "Chronik der Mauer, November 1989",
+        "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+        "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "ber-1104-13",
+      "date": "1989-11-06",
+      "roles": [
+        "official",
+        "historian"
+      ],
+      "text": "Also on November 6, Alexander Schalck-Golodkowski, sent by Krenz, met secretly in Bonn with West German Chancellery Minister Rudolf Seiters and Interior Minister Wolfgang Schäuble. The next day Bonn's answer came back: financial help only if East Germany allows opposition groups and promises free elections.",
+      "quote": null,
+      "source": {
+        "title": "Chronik der Mauer, November 1989",
+        "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+        "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "ber-1104-14",
+      "date": "1989-11-07",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "On November 7, the entire East German government, the Council of Ministers under Willi Stoph, resigned. On November 8 the whole Politburo resigned too, and the opposition group Neues Forum was finally allowed to register.",
+      "quote": null,
+      "source": {
+        "title": "Chronik der Mauer, November 1989",
+        "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+        "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "ber-1104-15",
+      "date": "1989-11-07",
+      "roles": [
+        "official",
+        "historian"
+      ],
+      "text": "Under pressure from Czechoslovakia over the flood of East Germans crossing its territory, the Politburo decided on November 7 to bring forward the part of the travel law that covers leaving the country permanently, and ordered regulations drafted.",
+      "quote": null,
+      "source": {
+        "title": "Chronik der Mauer, November 1989",
+        "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+        "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    }
+  ]
+}

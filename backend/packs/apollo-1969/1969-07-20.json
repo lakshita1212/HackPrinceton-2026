@@ -1,0 +1,335 @@
+{
+  "pack": "apollo-1969",
+  "day": "1969-07-20",
+  "facts": [
+    {
+      "id": "apo-0720-01",
+      "date": "1969-07-20",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "At 4:17 p.m. Eastern time, the lunar module Eagle landed in the Sea of Tranquility with Neil Armstrong and Buzz Aldrin aboard, the first time people have landed on another world.",
+      "quote": "Houston, Tranquility Base here. The Eagle has landed.",
+      "source": {
+        "title": "Apollo 11 air-to-ground transcript, Jul 20, 1969",
+        "citation": "NASA, Apollo 11 Technical Air-to-Ground Voice Transcription, July 1969; annotated in the Apollo Lunar Surface Journal, ed. Eric M. Jones.",
+        "url": "https://www.nasa.gov/history/alsj-and-afj/",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "apo-0720-02",
+      "date": "1969-07-20",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "At 10:56 p.m. Eastern time, Neil Armstrong climbed down Eagle's ladder and stepped onto the Moon, on live television watched by an estimated 650 million people around the world.",
+      "quote": "That's one small step for man, one giant leap for mankind.",
+      "source": {
+        "title": "NASA, Apollo 11 Mission Overview",
+        "citation": "NASA, 'Apollo 11 Mission Overview,' NASA History Office.",
+        "url": "https://www.nasa.gov/missions/apollo/apollo-11/apollo-11-mission-overview/",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "apo-0720-03",
+      "date": "1969-07-20",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "The landing was tense. During the descent the crew reported computer program alarms, \"1202\" and \"1201,\" over the radio. Near the end Armstrong took partial manual control to fly past a crater field strewn with boulders, landing about four miles past the planned spot, while Mission Control called out the fuel left: \"60 seconds,\" then \"30 seconds.\"",
+      "quote": null,
+      "source": {
+        "title": "NASA, Apollo 11 Mission Overview",
+        "citation": "NASA, 'Apollo 11 Mission Overview,' NASA History Office.",
+        "url": "https://www.nasa.gov/missions/apollo/apollo-11/apollo-11-mission-overview/",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "apo-0720-04",
+      "date": "1969-07-20",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "Capsule communicator Charlie Duke answered the landing call from Mission Control in Houston.",
+      "quote": "Roger, Tranquility, we copy you on the ground. You got a bunch of guys about to turn blue. We're breathing again. Thanks a lot.",
+      "source": {
+        "title": "Apollo 11 air-to-ground transcript, Jul 20, 1969",
+        "citation": "NASA, Apollo 11 Technical Air-to-Ground Voice Transcription, July 1969; annotated in the Apollo Lunar Surface Journal, ed. Eric M. Jones.",
+        "url": "https://www.nasa.gov/history/alsj-and-afj/",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "apo-0720-05",
+      "date": "1969-07-20",
+      "roles": [
+        "official",
+        "historian"
+      ],
+      "text": "Inside Mission Control, the call on the alarms fell to 26-year-old guidance officer Steve Bales, backed by computer specialist Jack Garman. They judged the alarms meant the guidance computer was overloaded but still doing its essential work, and told Flight Director Gene Kranz the landing could go on.",
+      "quote": null,
+      "source": {
+        "title": "Apollo 11 air-to-ground transcript, Jul 20, 1969",
+        "citation": "NASA, Apollo 11 Technical Air-to-Ground Voice Transcription, July 1969; annotated in the Apollo Lunar Surface Journal, ed. Eric M. Jones.",
+        "url": "https://www.nasa.gov/history/alsj-and-afj/",
+        "kind": "narration"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "apo-0720-06",
+      "date": "1969-07-20",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "The flight plan called for a four-hour rest after landing, but the crew asked to go outside as soon as possible. Even so, it took almost four hours of preparation before Armstrong opened the hatch.",
+      "quote": null,
+      "source": {
+        "title": "NASA, Apollo 11 Mission Overview",
+        "citation": "NASA, 'Apollo 11 Mission Overview,' NASA History Office.",
+        "url": "https://www.nasa.gov/missions/apollo/apollo-11/apollo-11-mission-overview/",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "apo-0720-07",
+      "date": "1969-07-20",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "About 20 minutes after Armstrong, Buzz Aldrin climbed down. Looking around, he described the landscape in two words.",
+      "quote": "Magnificent desolation.",
+      "source": {
+        "title": "NASA, '55 Years Ago: Apollo 11's One Small Step'",
+        "citation": "NASA History Office, '55 Years Ago: Apollo 11's One Small Step, One Giant Leap,' July 2024 (photo history of the mission).",
+        "url": "https://www.nasa.gov/history/55-years-ago-apollo-11s-one-small-step-one-giant-leap/",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "apo-0720-08",
+      "date": "1969-07-20",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "The astronauts read aloud the plaque fixed to Eagle's landing leg, signed by President Nixon and the three crewmen, and planted an American flag.",
+      "quote": "Here men from the planet Earth first set foot upon the Moon, July 1969 A.D. We came in peace for all mankind.",
+      "source": {
+        "title": "NASA, Apollo 11 Mission Overview",
+        "citation": "NASA, 'Apollo 11 Mission Overview,' NASA History Office.",
+        "url": "https://www.nasa.gov/missions/apollo/apollo-11/apollo-11-mission-overview/",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "apo-0720-09",
+      "date": "1969-07-20",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "President Nixon spoke to the two men on the Moon by radio-telephone from the Oval Office, calling it the most historic telephone call ever made from the White House.",
+      "quote": "For one priceless moment in the whole history of man all the people on this earth are truly one.",
+      "source": {
+        "title": "Nixon's telephone call to the Moon, Jul 20, 1969",
+        "citation": "Richard Nixon, 'Telephone Conversation With the Apollo 11 Astronauts on the Moon,' July 20, 1969. Public Papers of the Presidents, via The American Presidency Project.",
+        "url": "https://www.presidency.ucsb.edu/documents/telephone-conversation-with-the-apollo-11-astronauts-the-moon",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "apo-0720-10",
+      "date": "1969-07-20",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "Aldrin set up a seismometer, a laser reflector aimed at Earth and a sheet of foil to catch particles from the Sun. The crew collected rock and soil samples and left behind medallions honoring the three Apollo 1 astronauts and two Soviet cosmonauts who died, and a small disk carrying goodwill messages from 73 countries.",
+      "quote": null,
+      "source": {
+        "title": "NASA, Apollo 11 Mission Overview",
+        "citation": "NASA, 'Apollo 11 Mission Overview,' NASA History Office.",
+        "url": "https://www.nasa.gov/missions/apollo/apollo-11/apollo-11-mission-overview/",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "apo-0720-11",
+      "date": "1969-07-20",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "While his crewmates walked on the Moon, Michael Collins circled alone overhead in Columbia, cut off from all radio contact each time his orbit carried him behind the Moon.",
+      "quote": null,
+      "source": {
+        "title": "NASA, Apollo 11 Mission Overview",
+        "citation": "NASA, 'Apollo 11 Mission Overview,' NASA History Office.",
+        "url": "https://www.nasa.gov/missions/apollo/apollo-11/apollo-11-mission-overview/",
+        "kind": "narration"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "apo-0720-12",
+      "date": "1969-07-21",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "The moonwalk lasted about two and a half hours. After a rest, Eagle's ascent stage lifted off at 1:54 p.m. Eastern time on July 21 and rejoined Collins in Columbia. The landing stage stays on the Moon with the plaque.",
+      "quote": null,
+      "source": {
+        "title": "NASA, Apollo 11 Mission Overview",
+        "citation": "NASA, 'Apollo 11 Mission Overview,' NASA History Office.",
+        "url": "https://www.nasa.gov/missions/apollo/apollo-11/apollo-11-mission-overview/",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "apo-0720-13",
+      "date": "1969-07-21",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "The Soviet probe Luna 15 crashed into the Moon's Sea of Crises on July 21, hours before Eagle lifted off, ending its mission.",
+      "quote": null,
+      "source": {
+        "title": "NSSDCA catalog: Luna 15",
+        "citation": "NASA Space Science Data Coordinated Archive, spacecraft catalog entry 1969-058A (Luna 15).",
+        "url": null,
+        "kind": "narration"
+      },
+      "confidence": "medium",
+      "note": "Its purpose, a robotic sample return, was confirmed only years later."
+    },
+    {
+      "id": "apo-0720-14",
+      "date": "1969-07-24",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "Apollo 11 splashed down in the Pacific on July 24 after eight days, about 13 miles from the recovery ship USS Hornet, where President Nixon greeted the crew through the window of a sealed trailer. They began 21 days of quarantine in case they had brought back lunar germs.",
+      "quote": null,
+      "source": {
+        "title": "NASA, Apollo 11 Mission Overview",
+        "citation": "NASA, 'Apollo 11 Mission Overview,' NASA History Office.",
+        "url": "https://www.nasa.gov/missions/apollo/apollo-11/apollo-11-mission-overview/",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "apo-0720-15",
+      "date": "1969-07-20",
+      "roles": [
+        "historian"
+      ],
+      "text": "Armstrong said afterward that he meant to say \"one small step for a man\" and that the \"a\" was lost or unspoken. NASA's transcripts now print it as \"one small step for [a] man.\"",
+      "quote": null,
+      "source": {
+        "title": "NASA, '55 Years Ago: Apollo 11's One Small Step'",
+        "citation": "NASA History Office, '55 Years Ago: Apollo 11's One Small Step, One Giant Leap,' July 2024 (photo history of the mission).",
+        "url": "https://www.nasa.gov/history/55-years-ago-apollo-11s-one-small-step-one-giant-leap/",
+        "kind": "narration"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "apo-0720-16",
+      "date": "1969-08-01",
+      "roles": [
+        "historian"
+      ],
+      "text": "The laser reflector left by Aldrin worked: observatories first bounced laser pulses off it within weeks, and lunar laser ranging with it continues today, measuring the Earth-Moon distance to within centimeters.",
+      "quote": null,
+      "source": {
+        "title": "NASA, Apollo 11 Mission Overview",
+        "citation": "NASA, 'Apollo 11 Mission Overview,' NASA History Office.",
+        "url": "https://www.nasa.gov/missions/apollo/apollo-11/apollo-11-mission-overview/",
+        "kind": "narration"
+      },
+      "confidence": "medium",
+      "note": "The first-return date (Lick Observatory, Aug 1, 1969) is from secondary histories."
+    },
+    {
+      "id": "apo-0720-17",
+      "date": "1969-07-18",
+      "roles": [
+        "historian"
+      ],
+      "text": "The disaster speech Safire drafted was never needed or made public at the time. The memo surfaced decades later in the Nixon papers and is now one of the best-known speeches never given.",
+      "quote": null,
+      "source": {
+        "title": "'In Event of Moon Disaster,' Safire memo, Jul 18, 1969",
+        "citation": "William Safire to H.R. Haldeman, 'In Event of Moon Disaster,' July 18, 1969. Richard Nixon Presidential Library and Museum, National Archives.",
+        "url": "https://www.archives.gov/presidential-libraries/events/centennials/nixon/exhibit/nixon-online-exhibit-disaster.html",
+        "kind": "narration"
+      },
+      "confidence": "high",
+      "note": null
+    }
+  ]
+}

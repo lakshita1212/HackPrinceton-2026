@@ -1,0 +1,204 @@
+{
+  "pack": "apollo-1969",
+  "day": "1969-07-16",
+  "facts": [
+    {
+      "id": "apo-0716-01",
+      "date": "1969-07-16",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "Apollo 11 lifted off from Launch Pad 39A at Cape Kennedy at 9:32 a.m. Eastern time on a Saturn V rocket. The crew: Commander Neil Armstrong, Command Module Pilot Michael Collins and Lunar Module Pilot Edwin \"Buzz\" Aldrin. The flight's goal is the first landing of men on the Moon.",
+      "quote": null,
+      "source": {
+        "title": "NASA, Apollo 11 Mission Overview",
+        "citation": "NASA, 'Apollo 11 Mission Overview,' NASA History Office.",
+        "url": "https://www.nasa.gov/missions/apollo/apollo-11/apollo-11-mission-overview/",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "apo-0716-02",
+      "date": "1969-07-16",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "Former President Lyndon Johnson, Lady Bird Johnson and Vice President Spiro Agnew watched the launch from the VIP stands. About a million more people camped along the beaches and roads around the Cape to see it.",
+      "quote": null,
+      "source": {
+        "title": "NASA, '55 Years Ago: Apollo 11's One Small Step'",
+        "citation": "NASA History Office, '55 Years Ago: Apollo 11's One Small Step, One Giant Leap,' July 2024 (photo history of the mission).",
+        "url": "https://www.nasa.gov/history/55-years-ago-apollo-11s-one-small-step-one-giant-leap/",
+        "kind": "archival"
+      },
+      "confidence": "medium",
+      "note": "The crowd size is an estimate repeated by NASA; no exact count exists."
+    },
+    {
+      "id": "apo-0716-03",
+      "date": "1969-07-16",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "Two hours and 44 minutes after launch, the rocket's third stage fired again for nearly six minutes and sent Apollo 11 out of Earth orbit toward the Moon. The command module is named Columbia; the lunar module that will try to land is named Eagle.",
+      "quote": null,
+      "source": {
+        "title": "NASA, Apollo 11 Mission Overview",
+        "citation": "NASA, 'Apollo 11 Mission Overview,' NASA History Office.",
+        "url": "https://www.nasa.gov/missions/apollo/apollo-11/apollo-11-mission-overview/",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "apo-0716-04",
+      "date": "1969-07-16",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "On the eve of the launch, the Rev. Ralph Abernathy led a small Poor People's Campaign march to the Cape, with mule-drawn wagons, to protest that the country spent billions on space while millions went hungry. NASA Administrator Thomas Paine met the marchers.",
+      "quote": null,
+      "source": {
+        "title": "Press coverage of the Apollo 11 launch, Jul 1969",
+        "citation": "Contemporary U.S. newspaper and network coverage of the Apollo 11 launch, July 15-16, 1969.",
+        "url": null,
+        "kind": "narration"
+      },
+      "confidence": "medium",
+      "note": "Widely reported at the time and in later histories; we did not check a specific newspaper page."
+    },
+    {
+      "id": "apo-0716-05",
+      "date": "1969-07-13",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "Three days before Apollo 11, the Soviet Union launched an unmanned probe, Luna 15, toward the Moon. Moscow did not say what it was for, and Western reporters speculated it might try to scoop soil and race it back to Earth ahead of the Americans.",
+      "quote": null,
+      "source": {
+        "title": "NSSDCA catalog: Luna 15",
+        "citation": "NASA Space Science Data Coordinated Archive, spacecraft catalog entry 1969-058A (Luna 15).",
+        "url": null,
+        "kind": "narration"
+      },
+      "confidence": "medium",
+      "note": "The launch date is certain; the press speculation is summarized, not quoted."
+    },
+    {
+      "id": "apo-0716-06",
+      "date": "1961-05-25",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "The landing attempt answers a goal President John F. Kennedy set before Congress in May 1961: landing a man on the Moon and returning him safely to Earth before the decade is out.",
+      "quote": null,
+      "source": {
+        "title": "NASA, '55 Years Ago: Apollo 11's One Small Step'",
+        "citation": "NASA History Office, '55 Years Ago: Apollo 11's One Small Step, One Giant Leap,' July 2024 (photo history of the mission).",
+        "url": "https://www.nasa.gov/history/55-years-ago-apollo-11s-one-small-step-one-giant-leap/",
+        "kind": "narration"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "apo-0716-07",
+      "date": "1969-07-17",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "The flight to the Moon is going so smoothly that only one of four planned course corrections was needed, a three-second engine burn on July 17. The crew sent the first color television pictures from the spacecraft during the coast.",
+      "quote": null,
+      "source": {
+        "title": "NASA, Apollo 11 Mission Overview",
+        "citation": "NASA, 'Apollo 11 Mission Overview,' NASA History Office.",
+        "url": "https://www.nasa.gov/missions/apollo/apollo-11/apollo-11-mission-overview/",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "apo-0716-08",
+      "date": "1969-07-18",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "On July 18, Armstrong and Aldrin put on their spacesuits, crawled through the tunnel into Eagle to check it out, and sent a second television broadcast from inside the lunar module.",
+      "quote": null,
+      "source": {
+        "title": "NASA, Apollo 11 Mission Overview",
+        "citation": "NASA, 'Apollo 11 Mission Overview,' NASA History Office.",
+        "url": "https://www.nasa.gov/missions/apollo/apollo-11/apollo-11-mission-overview/",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "apo-0716-09",
+      "date": "1969-07-18",
+      "roles": [
+        "official",
+        "historian"
+      ],
+      "text": "The President's speechwriter, William Safire, sent Chief of Staff H.R. Haldeman a statement for the President to read if Armstrong and Aldrin were stranded on the Moon and could not return. It is to be kept ready and, everyone hopes, never used.",
+      "quote": "Fate has ordained that the men who went to the moon to explore in peace will stay on the moon to rest in peace.",
+      "source": {
+        "title": "'In Event of Moon Disaster,' Safire memo, Jul 18, 1969",
+        "citation": "William Safire to H.R. Haldeman, 'In Event of Moon Disaster,' July 18, 1969. Richard Nixon Presidential Library and Museum, National Archives.",
+        "url": "https://www.archives.gov/presidential-libraries/events/centennials/nixon/exhibit/nixon-online-exhibit-disaster.html",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "apo-0716-10",
+      "date": "1969-07-19",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "On July 19, behind the Moon and out of radio contact with Earth, Apollo 11 fired its main engine for about six minutes and went into lunar orbit. Before a second burn, the crew televised the surface below, including the planned landing area.",
+      "quote": null,
+      "source": {
+        "title": "NASA, Apollo 11 Mission Overview",
+        "citation": "NASA, 'Apollo 11 Mission Overview,' NASA History Office.",
+        "url": "https://www.nasa.gov/missions/apollo/apollo-11/apollo-11-mission-overview/",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    }
+  ]
+}

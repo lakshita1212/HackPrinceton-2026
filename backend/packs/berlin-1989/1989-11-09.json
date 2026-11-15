@@ -1,0 +1,365 @@
+{
+  "pack": "berlin-1989",
+  "day": "1989-11-09",
+  "facts": [
+    {
+      "id": "ber-1109-01",
+      "date": "1989-11-09",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "At about 6:50 p.m., near the end of an hour-long press conference broadcast live on East German television, Politburo spokesman Günter Schabowski read out new rules letting East Germans travel or emigrate through any border crossing, including into West Berlin. Asked when they took effect, he shuffled his papers and answered:",
+      "quote": "Das tritt nach meiner Kenntnis ... ist das sofort, unverzüglich. (As far as I know, that is immediately, without delay.)",
+      "source": {
+        "title": "Chronik der Mauer, November 1989",
+        "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+        "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "ber-1109-02",
+      "date": "1989-11-09",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "At 10:42 p.m., West Germany's ARD news anchor Hanns Joachim Friedrichs opened Tagesthemen by calling November 9 a historic day: the GDR had announced its borders were open to everyone.",
+      "quote": "The gates in the Wall are wide open.",
+      "source": {
+        "title": "Chronik der Mauer, November 1989",
+        "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+        "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "ber-1109-03",
+      "date": "1989-11-09",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "At 7:05 p.m., the AP wire flashed \"GDR opens border\"; the German agency DPA followed at 7:41 p.m. with \"The GDR border ... is open.\" It led the evening news on West German TV and radio, which most East Germans watch.",
+      "quote": null,
+      "source": {
+        "title": "Chronik der Mauer, November 1989",
+        "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+        "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "ber-1109-04",
+      "date": "1989-11-09",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "By 11:30 p.m., thousands of East Berliners were pressing against the Bornholmer Straße crossing. The officer in charge of passport control, Harald Jäger, gave up on checks and opened the gate, and the crowd poured into West Berlin. Other crossings opened through the night.",
+      "quote": null,
+      "source": {
+        "title": "Chronik der Mauer, November 1989",
+        "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+        "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "ber-1109-05",
+      "date": "1989-11-09",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "President Bush took questions in the Oval Office at 3:34 p.m. Washington time. Asked why he did not seem elated, he answered with the line below, then added that he was very pleased.",
+      "quote": "I am not an emotional kind of guy.",
+      "source": {
+        "title": "Bush remarks on East German border, Nov 9, 1989",
+        "citation": "George Bush, 'Remarks and a Question-and-Answer Session With Reporters on the Relaxation of East German Border Controls,' November 9, 1989, 3:34 p.m., Oval Office. Public Papers of the Presidents, via The American Presidency Project.",
+        "url": "https://www.presidency.ucsb.edu/documents/remarks-and-question-and-answer-session-with-reporters-the-relaxation-east-german-border",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "ber-1109-06",
+      "date": "1989-11-09",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "West German Chancellor Helmut Kohl was in Warsaw for a state visit to Poland when the news broke. He heard it at the end of a state banquet at about 9:30 p.m.",
+      "quote": null,
+      "source": {
+        "title": "Chronik der Mauer, November 1989",
+        "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+        "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "ber-1109-07",
+      "date": "1989-11-09",
+      "roles": [
+        "official",
+        "historian"
+      ],
+      "text": "Schabowski had not been briefed properly. Egon Krenz handed him the draft rules and a press release at 5:30 p.m. without saying they were meant to take effect only the next morning, so he announced them on the spot. The party's Central Committee met until 8:40 p.m. without noticing what was happening outside.",
+      "quote": null,
+      "source": {
+        "title": "Chronik der Mauer, November 1989",
+        "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+        "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+        "kind": "archival"
+      },
+      "confidence": "medium",
+      "note": "That the release was embargoed until the next morning is from later accounts (Hertle), not this chronology."
+    },
+    {
+      "id": "ber-1109-08",
+      "date": "1989-11-09",
+      "roles": [
+        "official",
+        "historian"
+      ],
+      "text": "At 8:15 p.m., a police situation report counted about 80 East Berliners at the Bornholmer Straße, Invalidenstraße and Heinrich-Heine-Straße crossings. Border guards were told to send them home and tell them to come back the next day.",
+      "quote": null,
+      "source": {
+        "title": "Chronik der Mauer, November 1989",
+        "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+        "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "ber-1109-09",
+      "date": "1989-11-09",
+      "roles": [
+        "official",
+        "historian"
+      ],
+      "text": "By 9:30 p.m., 500 to 1,000 people had gathered at Bornholmer Straße. The Stasi chose a \"valve solution\": let the loudest through a few at a time to relieve the pressure. It backfired, because those left waiting pushed even harder.",
+      "quote": null,
+      "source": {
+        "title": "Chronik der Mauer, November 1989",
+        "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+        "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "ber-1109-10",
+      "date": "1989-11-09",
+      "roles": [
+        "official",
+        "historian"
+      ],
+      "text": "At midnight, the Soviet deputy ambassador in East Berlin, Igor Maximychev, weighed telling Moscow the border was open and decided not to, for fear of a knee-jerk reaction.",
+      "quote": null,
+      "source": {
+        "title": "Chronik der Mauer, November 1989",
+        "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+        "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "ber-1109-19",
+      "date": "1989-11-10",
+      "roles": [
+        "official",
+        "historian"
+      ],
+      "text": "At a briefing in the Soviet embassy on the evening of November 10, on instructions from Moscow, the commander of Soviet forces in East Germany kept his 350,000 soldiers in their barracks.",
+      "quote": null,
+      "source": {
+        "title": "Chronik der Mauer, November 1989",
+        "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+        "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "ber-1109-11",
+      "date": "1989-11-10",
+      "roles": [
+        "official",
+        "historian"
+      ],
+      "text": "At 12:20 a.m., the East German army, unsure what to do, put the Berlin border regiments, about 12,000 soldiers, on \"increased readiness for action.\" When no further orders came, their commanders stood the measure down on their own.",
+      "quote": null,
+      "source": {
+        "title": "Chronik der Mauer, November 1989",
+        "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+        "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "ber-1109-12",
+      "date": "1989-11-10",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "Between 1 and 2 a.m. on November 10, thousands of East and West Berliners walked through the Brandenburg Gate and climbed on the Wall to dance. In West Berlin, the Kurfürstendamm turned into a street party that lasted all night.",
+      "quote": null,
+      "source": {
+        "title": "Chronik der Mauer, November 1989",
+        "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+        "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "ber-1109-13",
+      "date": "1989-11-10",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "On November 10, East Germans visiting the West lined up at banks for the 100-mark \"welcome money\" West Germany gives every visitor from the GDR. That evening the Glienicke Bridge between Potsdam and West Berlin opened as the first new crossing.",
+      "quote": null,
+      "source": {
+        "title": "Chronik der Mauer, November 1989",
+        "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+        "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "ber-1109-14",
+      "date": "1989-11-10",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "At a rally of 20,000 to 40,000 people outside Schöneberg Town Hall in West Berlin on November 10, Mayor Walter Momper, Foreign Minister Genscher, former Chancellor Willy Brandt and Chancellor Kohl spoke. Kohl was loudly booed by some of the crowd.",
+      "quote": null,
+      "source": {
+        "title": "Chronik der Mauer, November 1989",
+        "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+        "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "ber-1109-15",
+      "date": "1989-11-10",
+      "roles": [
+        "citizen",
+        "journalist",
+        "official",
+        "historian"
+      ],
+      "text": "Soviet Foreign Minister Eduard Shevardnadze said on November 10 that Moscow regarded events in the GDR as a matter for its new leadership and its people alone, and wished them every success.",
+      "quote": null,
+      "source": {
+        "title": "Chronik der Mauer, November 1989",
+        "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+        "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "ber-1109-16",
+      "date": "1990-10-03",
+      "roles": [
+        "historian"
+      ],
+      "text": "Less than a year after the Wall opened, East and West Germany were reunified on October 3, 1990.",
+      "quote": null,
+      "source": {
+        "title": "U.S. Office of the Historian: Fall of Communism, 1989",
+        "citation": "U.S. Department of State, Office of the Historian, 'Fall of Communism in Eastern Europe, 1989,' Milestones in the History of U.S. Foreign Relations.",
+        "url": "https://history.state.gov/milestones/1989-1992/fall-of-communism",
+        "kind": "narration"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "ber-1109-17",
+      "date": "1989-11-09",
+      "roles": [
+        "historian"
+      ],
+      "text": "Research by the Berlin Wall Memorial has documented at least 140 people killed at the Berlin Wall or in connection with it between 1961 and 1989.",
+      "quote": null,
+      "source": {
+        "title": "Berlin Wall Memorial",
+        "citation": "Berlin Wall Memorial (Gedenkstätte Berliner Mauer), research on the victims of the Berlin Wall, 1961-1989.",
+        "url": "https://www.berliner-mauer-gedenkstaette.de/en/",
+        "kind": "narration"
+      },
+      "confidence": "medium",
+      "note": "The count comes from later research and is still being revised."
+    },
+    {
+      "id": "ber-1109-18",
+      "date": "1989-11-09",
+      "roles": [
+        "historian"
+      ],
+      "text": "In hindsight the opening of the Wall was an accident of bad communication. The regime meant to ease pressure with controlled, paperwork-heavy travel starting the next day. Schabowski's \"immediately\" and the West German broadcasts that followed brought crowds the border guards could not hold back without bloodshed, and no one gave the order to shoot.",
+      "quote": null,
+      "source": {
+        "title": "Chronik der Mauer, November 1989",
+        "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+        "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+        "kind": "narration"
+      },
+      "confidence": "high",
+      "note": null
+    }
+  ]
+}
