@@ -7,14 +7,16 @@ from datetime import date as Date
 from pathlib import Path
 from typing import Annotated, Literal, Optional
 
-from fastapi import FastAPI, File, Form, HTTPException, UploadFile
+from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.concurrency import run_in_threadpool
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field, StringConstraints
 
+import answer_cache
 import archival
+import cloud
 import host
 import memories
 import photon_imessage
@@ -83,6 +85,12 @@ memories.DIR.mkdir(exist_ok=True)
 app.mount("/memories", StaticFiles(directory=memories.DIR), name="memories")
 
 
+@app.get("/config")
+def config():
+    """What this copy can do: the public copy (cloud) has no texting."""
+    return {"cloud": cloud.CLOUD, "texting": not cloud.CLOUD}
+
+
 @app.get("/health")
 def health():
     return {"ok": True}
@@ -119,7 +127,10 @@ def get_transcript(since: int = 0):
 
 
 @app.post("/ask", response_model=AskResponse)
-def ask(req: AskRequest) -> AskResponse:
+def ask(req: AskRequest, request: Request) -> AskResponse:
+    # On the public copy, new (unsaved) answers are rate-limited; saved ones are free.
+    if not answer_cache.get(req.question, req.role, req.date, req.pack) and not cloud.allow(request):
+        return AskResponse(answer=cloud.BUSY, sources=[], blocked=True, blocked_reason="unsupported")
     try:
         result = host.ask(req.question, req.role, req.date, req.pack)
         return AskResponse(**result, archival=archival.clip_for(result, req.date, req.pack))
@@ -132,6 +143,7 @@ def ask(req: AskRequest) -> AskResponse:
 
 @app.post("/voice")
 async def call_in(
+    request: Request,
     audio: UploadFile = File(...),
     role: Optional[Role] = Form(None),
     date: Optional[Date] = Form(None),
@@ -143,6 +155,8 @@ async def call_in(
     Returns the AskResponse fields plus `question` (what we heard) and
     `audio` (base64 WAV, or null when the browser should speak it).
     """
+    if not cloud.allow(request, "voice"):
+        raise HTTPException(429, "The switchboard is busy. Try typing one of the demo questions.")
     st = station.get()
     st.update({k: v for k, v in {"role": role, "date": date, "pack": pack}.items() if v})
     data = await audio.read()
@@ -250,6 +264,8 @@ async def connect_phone(req: TexterRequest):
     Returns {text_to, pretty, qr}. `qr` is an SVG QR code that opens Messages to
     `text_to` with a first question filled in. Their full number is never echoed back.
     """
+    if cloud.CLOUD:
+        raise HTTPException(403, "Texting the station is set up at our judging table.")
     import texters  # needs the Photon keys, so only loaded when used
 
     try:
@@ -292,3 +308,10 @@ def voice_status():
 def call_page():
     """Test page for the microphone call-in. Open http://localhost:8000/call"""
     return FileResponse(Path(__file__).parent / "static" / "call.html")
+
+
+# The public copy serves the front end itself, from the same address as the API.
+# Mounted last, so every API route above takes priority.
+FRONTEND = Path(__file__).parent.parent / "frontend"
+if cloud.CLOUD and FRONTEND.is_dir():
+    app.mount("/", StaticFiles(directory=FRONTEND, html=True), name="frontend")

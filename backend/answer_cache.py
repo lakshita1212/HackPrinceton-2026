@@ -26,12 +26,21 @@ def _key(question: str, role: str, day, pack: str) -> str:
     return f"{pack}|{role}|{day}|{q}"
 
 
+# Saved demo answers committed to the repo, for a fresh server with no cache yet
+# (the public copy on Render). Refresh after warm_cache.py: copy cache/answers.json here.
+SEED = Path(__file__).parent / "demo_answers.json"
+
+
 def _load() -> dict:
     global _data
     if _data is None:
-        try:
-            _data = json.loads(PATH.read_text(encoding="utf-8"))
-        except (FileNotFoundError, json.JSONDecodeError):
+        for source in (PATH, SEED):
+            try:
+                _data = json.loads(source.read_text(encoding="utf-8"))
+                break
+            except (FileNotFoundError, json.JSONDecodeError):
+                continue
+        else:
             _data = {}
     return _data
 

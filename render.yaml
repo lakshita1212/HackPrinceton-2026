@@ -1,0 +1,15 @@
+# Render blueprint for the public copy of Stay Tuned (free plan).
+# Render: New > Blueprint > pick this repo. It asks for GROQ_API_KEY: use a
+# different Groq account's key than the judging laptop, so the demo's quota is safe.
+services:
+  - type: web
+    name: stay-tuned
+    runtime: docker
+    plan: free
+    dockerfilePath: ./deploy/Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
