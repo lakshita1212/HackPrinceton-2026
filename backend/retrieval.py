@@ -41,6 +41,11 @@ def search(pack: str, role: str, day: date, question: str, k: int = 6) -> list[F
 
     matrix = np.stack([_vectors[(f.id, f.text)] for f in candidates])
     scores = matrix @ _embed([question])[0]
+    if role != "historian":
+        # "Is it over?" asked on the 28th means the 28th: favor the station's own
+        # day and the days just before it over older background.
+        age = np.array([(day - f.date).days for f in candidates])
+        scores = scores + np.where(age == 0, 0.08, np.where(age <= 3, 0.04, 0.0))
     top = np.argsort(-scores)[:k]
     return [candidates[i] for i in top]
 
