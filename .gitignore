@@ -29,3 +29,7 @@ backend/cache/
 
 # Photos people text to the station (their own memories, not ours to publish)
 backend/memories/
+
+# Your own copies of copyrighted songs for local demos (frontend/media.js `local`)
+frontend/media/local/*
+!frontend/media/local/README.md

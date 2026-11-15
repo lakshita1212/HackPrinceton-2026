@@ -1,8 +1,8 @@
 import { STATIONS, ROLES } from './stations.js';
 import { ROOMS, ROOM_IMAGES } from './rooms.js';
-import { clipsFor, channelName } from './media.js';
+import { clipsFor, channelName, checkLocal } from './media.js';
 import { createDial } from './dial.js';
-import { ask, tuneStation, fetchTranscript, callByVoice } from './host.js';
+import { ask, tuneStation, fetchTranscript, callByVoice, fetchMemories, hostAsset } from './host.js';
 import { sfx } from './audio.js';
 import { createFx } from './fx.js';
 import { playIntro } from './intro.js';
@@ -131,6 +131,7 @@ async function readyLive(s) {
 const longDate = (d) => new Date(`${d}T12:00:00`).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
 
 async function showLive(s) {
+  if (!s.live) { clearInterval(tvTimer); showTvFrame(null); }
   $('ticker').hidden = !s.live;
   $('liveNote').hidden = !s.live;
   if (!s.live) return;
@@ -155,6 +156,73 @@ async function showLive(s) {
   }
   // Crawl at a steady reading speed, however long the news is.
   el.style.animationDuration = `${Math.max(25, text.length / 9)}s`;
+  startTvRotation(s);
+}
+
+// ── Memories: photos people text to the station (GET /memories.json) ─────
+// A new photo goes "on the air" as a card over the room, and the 2026 TV
+// rotates between the top story and the latest photos.
+let memories = [];
+let tvTimer = 0;
+const MEMORIES_ON_TV = 5;
+
+async function pollMemories(first = false) {
+  const fresh = await fetchMemories(first ? null : memories[0]?.received_at);
+  const known = new Set(memories.map((m) => m.id));
+  const added = fresh.filter((m) => !known.has(m.id));
+  if (added.length) {
+    memories = [...added, ...memories].sort((a, b) => b.received_at.localeCompare(a.received_at));
+    if (!first) {
+      added.forEach((m, i) => setTimeout(() => announceMemory(m), i * 7500));
+      if (station().live) startTvRotation(station());
+    }
+  }
+  setTimeout(pollMemories, 3000);
+}
+
+function announceMemory(m) {
+  const card = $('onAirCard');
+  $('onAirPhoto').src = hostAsset(m.image);
+  $('onAirPhoto').alt = m.caption || 'A photo texted to the station';
+  $('onAirCaption').textContent = m.caption || '';
+  $('onAirFrom').textContent = `Texted in from ${m.from || 'a listener'}${station().live ? '' : ' · on the 2026 station'}`;
+  card.hidden = false;
+  card.classList.remove('show');
+  void card.offsetWidth;
+  card.classList.add('show');
+  clearTimeout(announceMemory.timer);
+  announceMemory.timer = setTimeout(() => { card.hidden = true; }, 7000);
+}
+
+// 2026: the TV shows the top story, then each recent photo, then the story again.
+function startTvRotation(s) {
+  clearInterval(tvTimer);
+  showTvFrame(null);
+  const photos = memories.slice(0, MEMORIES_ON_TV);
+  if (!s.live || !photos.length) return;
+  const frames = [null, ...photos];
+  let i = 0;
+  tvTimer = setInterval(() => {
+    if (station() !== s) { clearInterval(tvTimer); showTvFrame(null); return; }
+    i = (i + 1) % frames.length;
+    showTvFrame(frames[i]);
+  }, 6000);
+}
+
+function showTvFrame(m) {
+  const screen = $('screen');
+  screen.querySelector('.memory-shot')?.remove();
+  screen.classList.toggle('memory-on', !!m);
+  if (!m) return;
+  const fig = document.createElement('figure');
+  fig.className = 'memory-shot';
+  const img = document.createElement('img');
+  img.src = hostAsset(m.image);
+  img.alt = m.caption || 'A photo texted to the station';
+  const cap = document.createElement('figcaption');
+  cap.textContent = m.caption || `From ${m.from}`;
+  fig.append(img, cap);
+  screen.append(fig);
 }
 
 // ── TV and radio ─────────────────────────────────────────────────────────
@@ -383,6 +451,15 @@ async function openPaper(prop) {
     src.textContent = [it.source, style === 'books' && it.date ? shortDate(it.date) : ''].filter(Boolean).join(' · ');
     if (it.url) { src.href = it.url; src.target = '_blank'; src.rel = 'noopener'; }
     li.append(src);
+    if (it.listen) {
+      const a = document.createElement('a');
+      a.className = 'paper-listen';
+      a.textContent = 'Listen ▶';
+      a.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(it.listen)}`;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      li.append(a);
+    }
     return li;
   }));
   if (!items.length) $('paperItems').innerHTML = '<li><p>Nothing here yet.</p></li>';
@@ -628,6 +705,8 @@ async function pollSwitchboard() {
   setTimeout(pollSwitchboard, 2000);
 }
 pollSwitchboard();
+pollMemories(true);
+checkLocal();
 
 // ── Call by voice: hold the mic button (or the space bar) and talk ───────
 let recorder = null;

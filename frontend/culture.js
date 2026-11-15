@@ -1,6 +1,7 @@
 // What was popular at home in each era: the cards behind the living-room toys,
 // lava lamp and boombox. Every item says where it comes from, and items tied to a
-// date only show from that date on (`from`), so nothing is a spoiler.
+// date only show from that date on (`from`), so nothing is a spoiler. Songs get a
+// `listen` search: the recordings are copyrighted, so we link out instead of hosting them.
 export const CULTURE = {
   1962: {
     title: 'What kids are into, fall 1962',
@@ -14,9 +15,9 @@ export const CULTURE = {
       { text: "On TV: ABC's new cartoon The Jetsons, about a family in the space-age future, premiered September 23.",
         source: 'ABC, The Jetsons premiere, Sept 23, 1962' },
       { until: '1962-10-19', text: "On the radio: Bobby \"Boris\" Pickett's novelty song \"Monster Mash\" is climbing the charts for Halloween.",
-        source: 'Billboard Hot 100, October 1962' },
+        source: 'Billboard Hot 100, October 1962', listen: 'Bobby Boris Pickett Monster Mash' },
       { from: '1962-10-20', text: "On the radio: \"Monster Mash\" by Bobby \"Boris\" Pickett is the No. 1 song in the country.",
-        source: 'Billboard Hot 100, chart of Oct 20, 1962' },
+        source: 'Billboard Hot 100, chart of Oct 20, 1962', listen: 'Bobby Boris Pickett Monster Mash' },
     ],
   },
   1969: {
@@ -29,7 +30,7 @@ export const CULTURE = {
       { text: "Milton Bradley's Twister (1966): left hand red, right foot green.",
         source: 'The Strong National Toy Hall of Fame (Twister)' },
       { text: "On the radio: Zager and Evans' \"In the Year 2525\" is No. 1, a song about the far future.",
-        source: 'Billboard Hot 100, July 1969' },
+        source: 'Billboard Hot 100, July 1969', listen: 'Zager and Evans In the Year 2525' },
       { text: 'On TV tonight: every network is showing the Moon, live.',
         source: 'NASA television, July 20, 1969' },
     ],
@@ -46,7 +47,7 @@ export const CULTURE = {
       { text: 'Boomboxes and cassettes: you make a mixtape by recording songs off the radio.',
         source: 'Consumer electronics of the 1980s' },
       { text: "On the radio: Roxette's \"Listen to Your Heart\" topped the Billboard Hot 100 at the start of November.",
-        source: 'Billboard Hot 100, chart of Nov 4, 1989' },
+        source: 'Billboard Hot 100, chart of Nov 4, 1989', listen: 'Roxette Listen to Your Heart' },
     ],
   },
 };

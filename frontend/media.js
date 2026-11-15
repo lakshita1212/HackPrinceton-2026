@@ -69,6 +69,14 @@ export const MEDIA = [
     title: 'Launch day: liftoff from Cape Kennedy', label: 'archival',
     source: `NASA mission audio, July 16, 1969 · ${PD}` },
 
+  // Your own copy of a hit from that summer. Commercial recordings can't go in
+  // the repo, so this only plays if you put the file in media/local/ yourself
+  // (that folder is git-ignored; see checkLocal below).
+  { era: '1969', kind: 'audio', local: true, src: 'media/local/in-the-year-2525.mp3',
+    roles: ['citizen', 'journalist', 'official', 'historian'],
+    title: '"In the Year 2525", Zager and Evans: No. 1 this week', label: 'on the charts',
+    source: 'Your own copy, played locally; not in the repo' },
+
   // ── 1989 ──────────────────────────────────────────────────────────────
   // No public-domain footage of the Wall opening exists, so the channels
   // replay public-domain archive material about the Wall.
@@ -82,9 +90,17 @@ export const MEDIA = [
     source: `"Ich bin ein Berliner," presidential recording · ${PD}` },
 ];
 
+// Local-only clips play only if their file is there. Call once at startup.
+export async function checkLocal() {
+  await Promise.all(MEDIA.filter((m) => m.local).map(async (m) => {
+    try { m.available = (await fetch(m.src, { method: 'HEAD' })).ok; } catch { m.available = false; }
+  }));
+}
+
 // Every clip for this station and role, in channel order.
 export function clipsFor(station, role, kind) {
   return MEDIA.filter((m) => m.era === station.era && m.kind === kind
+    && (!m.local || m.available)
     && (!m.from || station.date >= m.from)
     && (!m.roles || m.roles.includes(role)));
 }
