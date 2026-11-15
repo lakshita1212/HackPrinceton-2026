@@ -158,7 +158,7 @@ def year_page_days(year: int, month: int) -> dict[date, list[RawEvent]]:
             current = None  # e.g. "November – ..." with no day: not datable
     # Year pages tag lines with topics named in hindsight ("Cold War and Fall of the
     # Berlin Wall: ..."), so drop the tag and keep the event.
-    tag = re.compile(r"^[A-Z][^:.]{2,60}:\s+(?=[A-Z])")
+    tag = re.compile(r"^(\d{1,2}\s*[–-]\s*)?([A-Z0-9][^:.]{2,60}:\s+)?(?=[A-Z])")  # "14 – 2026 FAA ground stop: ..."
     return {
         d: [RawEvent(f"{d:%m%d}-{n + 1:02d}", d, tag.sub("", t), str(year), anchor=month_name)
             for n, t in enumerate(evs)]

@@ -85,6 +85,31 @@ memories.DIR.mkdir(exist_ok=True)
 app.mount("/memories", StaticFiles(directory=memories.DIR), name="memories")
 
 
+@app.get("/bulletin")
+async def news_bulletin(pack: Pack, date: Date):
+    """This week's headlines read by an AI anchor, for the 2026 TV (bulletin.py).
+
+    {items: [{id, date, text, source}], lines, segments: [{start, end, item}], audio, label}.
+    `audio` is a path on this host, or null (then read `lines` aloud in the browser).
+    """
+    import bulletin
+
+    try:
+        return await run_in_threadpool(bulletin.build, pack, date)
+    except PackNotFound:
+        raise HTTPException(404, f"No story pack {pack!r}")
+
+
+@app.get("/bulletin-audio/{name}")
+def bulletin_audio(name: str):
+    import bulletin
+
+    path = (bulletin.DIR / name).resolve()
+    if path.parent != bulletin.DIR.resolve() or path.suffix != ".wav" or not path.exists():
+        raise HTTPException(404, "No such bulletin")
+    return FileResponse(path, media_type="audio/wav")
+
+
 @app.get("/config")
 def config():
     """What this copy can do: the public copy (cloud) has no texting."""

@@ -11,7 +11,7 @@ import { PAPERS } from './papers.js';
 import { cultureFor } from './culture.js';
 import { ambience } from './ambience.js';
 import * as polish from './polish.js';
-import { updateTimeLock, signalLost, renderPins, eraLine, onAirMs, archivalBubble, initTextCard } from './extras.js';
+import { updateTimeLock, signalLost, renderPins, eraLine, onAirMs, archivalBubble, initTextCard, playBulletin, stopBulletin } from './extras.js';
 
 initTextCard();
 
@@ -313,6 +313,20 @@ function showClip() {
   const { kind, clips, i } = viewerState;
   const clip = clips[i];
   const viewer = $('viewer');
+  // Live stations (2026, any day) have no footage: the TV runs this week's news,
+  // read by an AI anchor and labeled as narration.
+  if (kind === 'tv' && s.live && !clips.length) {
+    viewer.classList.add('has-clip', 'one-channel');
+    $('viewerChannel').textContent = '';
+    $('viewerTitle').textContent = 'The news this week';
+    $('viewerMeta').textContent = [s.day, ROOMS[r.id].name].filter(Boolean).join(' · ');
+    $('viewerStamp').textContent = 'AI narration';
+    $('viewerStamp').hidden = false;
+    $('viewerVideo').hidden = true;
+    $('viewerAudio').hidden = true;
+    readyLive(s).then(() => { if (!viewer.hidden) playBulletin(s, viewer.querySelector('.viewer-screen')); });
+    return;
+  }
   viewer.classList.toggle('has-clip', !!clip);
   viewer.classList.toggle('one-channel', clips.length < 2);
   $('viewerChannel').textContent = clip
@@ -369,6 +383,7 @@ function changeChannel(step) {
 }
 
 function closeViewer() {
+  stopBulletin();
   for (const el of [$('viewerVideo'), $('viewerAudio')]) {
     el.pause();
     el.removeAttribute('src');

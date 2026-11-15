@@ -31,6 +31,21 @@ export async function ask({ question, role, date, pack }) {
   }
 }
 
+// This week's headlines read by an AI anchor (GET /bulletin), for the 2026 TV.
+// { items, lines, segments, audio (URL or null), label } or null.
+export async function fetchBulletin({ pack, date }) {
+  if (!pack) return null;
+  try {
+    const res = await fetch(`${HOST_URL}/bulletin?pack=${encodeURIComponent(pack)}&date=${date}`,
+      { signal: AbortSignal.timeout(60000) });
+    if (!res.ok) return null;
+    const b = await res.json();
+    return { ...b, audio: b.audio ? hostAsset(b.audio) : null };
+  } catch {
+    return null;
+  }
+}
+
 // What this copy of the host can do. The public copy has no texting.
 export async function fetchConfig() {
   try {

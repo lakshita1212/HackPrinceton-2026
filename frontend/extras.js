@@ -3,7 +3,7 @@
 //      and a "signal lost" burst when a question reaches past the station's day.
 //   2. Gemini's pinned captions dropping onto a photo texted to the station.
 //   3. The real archival recording, as a bubble in the call thread.
-import { fetchKnowledge, connectPhone, fetchConfig } from './host.js';
+import { fetchKnowledge, connectPhone, fetchConfig, fetchBulletin } from './host.js';
 
 const $ = (id) => document.getElementById(id);
 const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -183,3 +183,77 @@ export function initTextCard() {
     $('textReady').hidden = false;
   });
 }
+
+// ── 2026 TV: this week's news, read by an AI anchor (GET /bulletin) ─────────
+// Shown on the big screen for live stations (2026 and any day). Each headline
+// card changes as the anchor reads it. Labeled "AI narration": it isn't a real
+// broadcast, it's this week's Wikipedia headlines read aloud.
+let bulletin = null;  // { audio, el, token }
+
+export async function playBulletin(station, screen) {
+  stopBulletin();
+  const token = {};
+  bulletin = { token };
+  const el = document.createElement('div');
+  el.className = 'bulletin';
+  el.innerHTML = `
+    <div class="bulletin-top"><span class="bulletin-brand">Stay Tuned News</span><span class="bulletin-live">AI narration · from Wikipedia</span></div>
+    <div class="bulletin-card"><span class="bulletin-date"></span><p class="bulletin-text">Tuning in to this week's news…</p><span class="bulletin-source"></span></div>
+    <div class="bulletin-bar"><span class="bulletin-count"></span><span class="bulletin-progress"><span></span></span></div>`;
+  screen.append(el);
+  bulletin.el = el;
+
+  const b = await fetchBulletin(station);
+  if (bulletin?.token !== token) return;  // closed or retuned while it loaded
+  const text = el.querySelector('.bulletin-text');
+  if (!b || !b.items?.length) { text.textContent = "No news on the wire for this week."; return; }
+
+  const show = (item) => {
+    const it = b.items[item];
+    el.querySelector('.bulletin-date').textContent = it
+      ? new Date(`${it.date}T12:00`).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })
+      : '';
+    text.textContent = it ? it.text : (item === 'end' ? "That's the news. Stay tuned." : `The news through ${station.day.replace(/^News through /, '')}`);
+    el.querySelector('.bulletin-source').textContent = it ? `Source: ${it.source.title}` : '';
+    el.querySelector('.bulletin-count').textContent = it ? `${item + 1} of ${b.items.length}` : '';
+    el.classList.remove('flip'); void el.offsetWidth; el.classList.add('flip');
+  };
+  show(null);
+
+  if (b.audio && b.segments?.length) {
+    const audio = new Audio(b.audio);
+    bulletin.audio = audio;
+    let current = null;
+    const total = b.segments[b.segments.length - 1].end;
+    audio.ontimeupdate = () => {
+      const t = audio.currentTime;
+      const seg = b.segments.find((s) => t >= s.start && t < s.end + 0.45);
+      const item = seg ? (seg.item ?? (seg === b.segments[b.segments.length - 1] ? 'end' : null)) : current;
+      if (item !== current) { current = item; show(item); }
+      el.querySelector('.bulletin-progress span').style.width = `${Math.min(100, (t / total) * 100)}%`;
+    };
+    audio.play().catch(() => {});
+  } else {
+    // No recorded voice: the browser reads the same lines.
+    let k = 0;
+    const next = () => {
+      if (bulletin?.token !== token || k >= b.lines.length) return;
+      const item = k === 0 ? null : (k <= b.items.length ? k - 1 : 'end');
+      show(item);
+      const u = new SpeechSynthesisUtterance(b.lines[k++]);
+      u.rate = 0.98;
+      u.onend = next;
+      speechSynthesis.speak(u);
+    };
+    next();
+  }
+}
+
+export function stopBulletin() {
+  if (!bulletin) return;
+  bulletin.audio?.pause();
+  speechSynthesis.cancel();
+  bulletin.el?.remove();
+  bulletin = null;
+}
+
