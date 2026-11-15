@@ -747,7 +747,19 @@ function showAnswer(li, reply) {
       onEnd: () => { ambience.duck(false); updateTvSound(); if (callScreen.isOpen()) callScreen.ready(); },
     });
   }
-  li.scrollIntoView({ block: 'end' });  // sources and the recording make the line taller
+  showExchange(li);  // sources and the recording make the line taller
+}
+
+// Scroll the call log so the question and its answer are both in view. When the
+// pair is taller than the log, keep the question at the top instead of
+// scrolling it out of sight.
+function showExchange(li) {
+  const log = $('transcript');
+  const q = li.previousElementSibling?.classList.contains('q') ? li.previousElementSibling : li;
+  const box = log.getBoundingClientRect();
+  const top = q.getBoundingClientRect().top;
+  const bottom = li.getBoundingClientRect().bottom;
+  log.scrollTop += bottom - top <= box.height ? bottom - box.bottom : top - box.top - 4;
 }
 
 const roleName = (id) => ROLES.find((r) => r.id === id)?.name || id;
@@ -774,8 +786,10 @@ $('askForm').addEventListener('submit', async (e) => {
   const reply = await ask({ question, role: r.id, date: s.date, pack: s.pack });
   button.disabled = false;
   showAnswer(pending, reply);
-  pending.playArchival?.();  // the real recording right after a typed answer
+  if (skipRecording) skipRecording = false;
+  else pending.playArchival?.();  // the real recording right after a typed answer
 });
+let skipRecording = false;  // demo mode: don't replay a recording it just played
 
 // ── Switchboard: texts and calls that reach the station from outside ─────
 // Polls the host's call log. Starts from what's already there, so only new
@@ -945,6 +959,7 @@ const demoControls = {
   role: (id) => roleButtons[ROLES.findIndex((r) => r.id === id)].click(),
   closePaper: () => { if (!$('paperView').hidden) closePaper(); },
   closeViewer: () => { if (!$('viewer').hidden) closeViewer(); },
+  skipNextRecording: () => { skipRecording = true; },
   showLatestMemory: () => { if (!memories.length) return false; announceMemory(memories[0]); return true; },
 };
 if (demoMode) import('./demo.js').then((m) => m.prepareDemo(demoControls));

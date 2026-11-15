@@ -29,10 +29,10 @@ export async function runDemo(app) {
   document.body.classList.add('demo-running');
   const say = async (text, ms) => { caption(text); await wait(ms); };
 
-  // Ask the room a question and wait for its answer; let a real recording that
-  // comes with it play for `listen` ms, then stop it so the demo keeps moving.
+  // Ask the room a question and wait for its answer. A real recording that comes
+  // with it keeps playing; the script stops it when it wants to move on.
   const stopRecording = () => document.querySelector('#transcript .archival.playing .archival-play')?.click();
-  const ask = async (question, listen = 0) => {
+  const ask = async (question) => {
     const answers = () => document.querySelectorAll('#transcript li.a');
     const before = answers().length;
     const button = $('askForm').querySelector('button[type="submit"]');
@@ -45,8 +45,6 @@ export async function runDemo(app) {
       if (answers().length > before && !button.disabled && text && text !== '…') break;
     }
     await wait(400);
-    if (listen) await wait(listen);
-    stopRecording();
   };
 
   await say('October 22, 1962. President Kennedy is on television about Soviet missiles in Cuba.', 4500);
@@ -54,7 +52,7 @@ export async function runDemo(app) {
 
   caption('Call the station: "Are we going to war?"');
   await wait(2200);
-  await ask('Are we going to war?', 0);
+  await ask('Are we going to war?');
   await say('Every claim cites a real source. And when there is a recording, you hear the real voice from that night.', 9000);
   stopRecording();
 
@@ -62,7 +60,8 @@ export async function runDemo(app) {
   await wait(800);
   caption('Same night, same question, inside the government.');
   await wait(2200);
-  await ask('Are we going to war?', 0);
+  app.skipNextRecording();  // Kennedy already played for the citizen; don't repeat him
+  await ask('Are we going to war?');
   await say('A different person knows different things: the official knows 48 facts, and none are secret from him.', 6000);
 
   app.role('citizen');
