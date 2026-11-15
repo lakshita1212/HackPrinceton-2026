@@ -1,7 +1,7 @@
 // Make the time lock visible to a judge:
 //   - a badge with how much this role could know on this day (GET /knowledge)
 //   - a "signal lost" burst of static when a question reaches past the station's day
-import { fetchKnowledge } from './host.js';
+import { fetchKnowledge, connectPhone } from './host.js';
 import { sfx } from './audio.js';
 
 const $ = (id) => document.getElementById(id);
@@ -45,4 +45,39 @@ export function signalLost() {
   el.classList.add('on');
   clearTimeout(signalLost.t);
   signalLost.t = setTimeout(() => { el.hidden = true; }, reduceMotion() ? 2500 : 2200);
+}
+
+// Text the station: a judge connects their phone, then scans a QR code that
+// opens Messages to their assigned number with a first question filled in.
+export function initTextCard() {
+  const card = $('textCard');
+  const toggle = $('textToggle');
+  if (!card || !toggle) return;
+  const open = (show) => {
+    card.hidden = !show;
+    toggle.setAttribute('aria-expanded', String(show));
+    if (show) $('textPhone').focus();
+  };
+  toggle.addEventListener('click', () => open(card.hidden));
+  $('textClose').addEventListener('click', () => open(false));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !card.hidden) open(false); });
+  $('textConnect').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const button = e.target.querySelector('button');
+    button.disabled = true;
+    button.textContent = 'Connecting…';
+    $('textError').hidden = true;
+    const r = await connectPhone($('textPhone').value);
+    button.disabled = false;
+    button.textContent = 'Connect';
+    if (r.error) {
+      $('textError').textContent = r.error;
+      $('textError').hidden = false;
+      return;
+    }
+    $('textPhone').value = ''; // don't leave their number on screen
+    $('textQr').src = r.qr;
+    $('textNumber').textContent = r.pretty;
+    $('textReady').hidden = false;
+  });
 }

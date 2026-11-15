@@ -27,6 +27,24 @@ export async function ask({ question, role, date, pack }) {
   }
 }
 
+// Let a judge text the station: register their phone with our Photon line.
+// Returns { text_to, pretty, qr } (qr is a URL on the host) or { error }.
+export async function connectPhone(phone) {
+  try {
+    const res = await fetch(`${HOST_URL}/texters`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phone }),
+      signal: AbortSignal.timeout(20000),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) return { error: typeof data.detail === 'string' ? data.detail : "Couldn't connect, try again." };
+    return { ...data, qr: hostAsset(data.qr) };
+  } catch {
+    return { error: "The station isn't reachable right now." };
+  }
+}
+
 // The time lock as numbers: how many facts each role could know on this day.
 // { total, roles: { citizen: n, ... }, today: {...}, later } or null.
 export async function fetchKnowledge({ pack, date }) {

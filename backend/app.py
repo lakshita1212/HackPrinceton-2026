@@ -239,6 +239,50 @@ def knowledge(pack: Pack, date: Date):
     }
 
 
+class TexterRequest(BaseModel):
+    phone: str = Field(min_length=7, max_length=40)
+
+
+@app.post("/texters")
+async def connect_phone(req: TexterRequest):
+    """Let a judge text the station: registers their phone with our shared Photon line.
+
+    Returns {text_to, pretty, qr}. `qr` is an SVG QR code that opens Messages to
+    `text_to` with a first question filled in. Their full number is never echoed back.
+    """
+    import texters  # needs the Photon keys, so only loaded when used
+
+    try:
+        info = await run_in_threadpool(texters.register, req.phone)
+    except texters.Refused as e:
+        raise HTTPException(422, str(e))
+    except Exception:
+        log.exception("couldn't register a texter")
+        raise HTTPException(503, "Couldn't reach Photon, try again")
+    from urllib.parse import quote
+
+    return {"text_to": info["text_to"], "pretty": info["pretty"], "qr": f"/qr?to={quote(info['text_to'], safe='')}"}
+
+
+@app.get("/qr")
+def qr_code(to: str, body: str = "citizen oct 22: are we going to war?"):
+    """An SVG QR code that opens Messages to `to` with `body` filled in."""
+    import io
+    import re as _re
+    from urllib.parse import quote
+
+    import qrcode
+    import qrcode.image.svg
+    from fastapi.responses import Response
+
+    if not _re.fullmatch(r"\+\d{10,15}", to):
+        raise HTTPException(422, "to must be a phone number like +16285551234")
+    img = qrcode.make(f"sms:{to}&body={quote(body)}", image_factory=qrcode.image.svg.SvgPathImage, box_size=10, border=2)
+    buf = io.BytesIO()
+    img.save(buf)
+    return Response(buf.getvalue(), media_type="image/svg+xml", headers={"Cache-Control": "max-age=3600"})
+
+
 @app.get("/voice/status")
 def voice_status():
     return voice.tts_status()

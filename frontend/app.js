@@ -10,7 +10,9 @@ import { liveStation, headlines } from './news.js';
 import { PAPERS } from './papers.js';
 import { cultureFor } from './culture.js';
 import { ambience } from './ambience.js';
-import { updateTimeLock, signalLost } from './extras.js';
+import { updateTimeLock, signalLost, initTextCard } from './extras.js';
+
+initTextCard();
 
 const $ = (id) => document.getElementById(id);
 const state = { station: 0, role: 0 };

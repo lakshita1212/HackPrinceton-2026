@@ -41,18 +41,34 @@ def assignments() -> list[dict]:
     return r.json().get("assignments", [])
 
 
-def add(handle: str) -> None:
+class Refused(Exception):
+    pass
+
+
+def register(handle: str) -> dict:
+    """Register a phone with the shared line. Returns {text_to, pretty, new}. Used by the app too."""
     handle = normalize(handle)
+    if not ("@" in handle or 11 <= len(handle) <= 16):
+        raise Refused("That doesn't look like a phone number.")
     existing = next((a for a in assignments() if a["handle"] == handle), None)
     if existing:
         a = existing
-        print("Already registered.")
     else:
         r = httpx.post(API, headers=HEADERS, json={"handle": handle}, timeout=20)
         if r.status_code >= 400:
-            sys.exit(f"Photon refused ({r.status_code}): {r.text[:400]}")
+            raise Refused(f"Photon refused ({r.status_code}): {r.text[:300]}")
         a = r.json()
-    print(f"\n  {handle} should text:  {pretty(a['assignedPhoneNumber'])}\n")
+    return {"text_to": a["assignedPhoneNumber"], "pretty": pretty(a["assignedPhoneNumber"]), "new": not existing}
+
+
+def add(handle: str) -> None:
+    try:
+        info = register(handle)
+    except Refused as e:
+        sys.exit(str(e))
+    if not info["new"]:
+        print("Already registered.")
+    print(f"\n  {normalize(handle)} should text:  {info['pretty']}\n")
     print('  Suggested first text:  "citizen oct 22: are we going to war?"')
 
 
