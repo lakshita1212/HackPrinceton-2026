@@ -1,0 +1,39 @@
+# Publish the radio app (frontend/) to GitHub Pages on every push to main.
+# One-time setup by a repo admin: Settings → Pages → Build and deployment →
+# Source: GitHub Actions. Then run this workflow once (Actions tab → Deploy
+# the front end to GitHub Pages → Run workflow) or push to main.
+#
+# Pages only serves files: the host (backend/) isn't deployed. Without it the
+# call-in panel uses scripted answers; add ?host=https://… to the site's URL to
+# point it at a running host (see the front-end README).
+name: Deploy the front end to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths: ['frontend/**', '.github/workflows/pages.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: frontend
+      - id: deployment
+        uses: actions/deploy-pages@v4

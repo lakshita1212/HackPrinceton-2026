@@ -13,6 +13,10 @@ Use `serve.py`, not `python3 -m http.server`. The plain server can't send part o
 
 Open http://localhost:8080. It calls the host at `http://localhost:8000` (see [Run the host](../README.md#run-the-host)); open `http://localhost:8080/?host=http://…` to point it somewhere else. Without the host, the call-in panel shows scripted placeholder answers.
 
+## Online (GitHub Pages)
+
+`.github/workflows/pages.yml` publishes this folder to https://lakshita1212.github.io/HackPrinceton-2026/ on every push to main, once a repo admin sets Settings → Pages → Source to **GitHub Actions**. Pages only serves the app: without a host, calls get scripted answers. To use a live host, add `?host=https://<host address>` to the URL, for example a `cloudflared tunnel --url http://localhost:8000` link.
+
 Controls: drag or scroll over the dial, click a date, or use the arrow keys. The tabs change the role.
 
 ## Files
