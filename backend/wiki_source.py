@@ -34,11 +34,12 @@ class RawEvent:
     id: str
     day: date
     text: str
-    page: str  # e.g. "October 1962"
+    page: str  # e.g. "October 1962", or "1989" for a year page
+    anchor: str = ""  # year pages link to the month section
 
     @property
     def url(self) -> str:
-        anchor = f"{self.day:%B}_{self.day.day},_{self.day.year}_({self.day:%A})"
+        anchor = self.anchor or f"{self.day:%B}_{self.day.day},_{self.day.year}_({self.day:%A})"
         return f"https://en.wikipedia.org/wiki/{self.page.replace(' ', '_')}#{anchor}"
 
 
@@ -101,11 +102,68 @@ def events_window(station_day: date, days_back: int = 3) -> list[RawEvent]:
         try:
             days = split_days(fetch_month(y, m), page_title(y, m))
         except NoMonthPage:
-            if (y, m) == (station_day.year, station_day.month):
+            days = year_page_days(y, m)  # e.g. November 1989 only exists as a section of "1989"
+            if not days and (y, m) == (station_day.year, station_day.month):
                 raise
-            continue
         out += [e for d, evs in days.items() if start <= d <= station_day for e in evs]
     return sorted(out, key=lambda e: (e.day, e.id))
+
+
+def fetch_page(title: str) -> str:
+    CACHE.mkdir(parents=True, exist_ok=True)
+    path = CACHE / f"{title.replace(' ', '_')}.txt"
+    if path.exists():
+        return path.read_text(encoding="utf-8")
+    r = httpx.get(
+        API,
+        params={"action": "query", "prop": "extracts", "explaintext": 1, "titles": title, "format": "json"},
+        headers=HEADERS,
+        timeout=30,
+    )
+    r.raise_for_status()
+    text = next(iter(r.json()["query"]["pages"].values())).get("extract") or ""
+    path.write_text(text, encoding="utf-8")
+    return text
+
+
+def year_page_days(year: int, month: int) -> dict[date, list[RawEvent]]:
+    """Events for one month from a year page ("1989"), whose month sections list
+    "November 9 – event" lines, or a "November 9" line followed by that day's events."""
+    month_name = calendar.month_name[month]
+    text = fetch_page(str(year))
+    m = re.search(rf"^===\s*{month_name}\s*===\s*$", text, re.M)
+    if not m:
+        return {}
+    end = re.search(r"^==", text[m.end():], re.M)
+    section = text[m.end(): m.end() + end.start() if end else len(text)]
+    line_re = re.compile(rf"^{month_name} (\d{{1,2}})(?:\s*[–-]\s*(.*))?$")
+    days: dict[date, list[str]] = {}
+    current: date | None = None
+    for ln in (x.strip() for x in section.splitlines()):
+        if not ln:
+            continue
+        if hit := line_re.match(ln):
+            try:
+                current = date(year, month, int(hit.group(1)))
+            except ValueError:
+                current = None
+                continue
+            if hit.group(2):
+                days.setdefault(current, []).append(hit.group(2).strip())
+            else:
+                days.setdefault(current, [])
+        elif current and not ln.startswith(month_name):
+            days[current].append(ln)  # an event under a bare "November 9" line
+        else:
+            current = None  # e.g. "November – ..." with no day: not datable
+    # Year pages tag lines with topics named in hindsight ("Cold War and Fall of the
+    # Berlin Wall: ..."), so drop the tag and keep the event.
+    tag = re.compile(r"^[A-Z][^:.]{2,60}:\s+(?=[A-Z])")
+    return {
+        d: [RawEvent(f"{d:%m%d}-{n + 1:02d}", d, tag.sub("", t), str(year), anchor=month_name)
+            for n, t in enumerate(evs)]
+        for d, evs in days.items() if evs
+    }
 
 
 # --- Plain-code hindsight cleaner: the fallback when the AI agent isn't available ---
@@ -113,12 +171,14 @@ def events_window(station_day: date, days_back: int = 3) -> list[RawEvent]:
 _HINDSIGHT = re.compile(
     r"\b(went on to|later (became|served|won|died|founded)|eventually|in retrospect|best known (for|as)|"
     r"(a|one|two|three|several|many|\d+) (days?|weeks?|months?|years?|decades?) later|"
-    r"(years|decades) later|the following year|until (his|her) death)\b",
+    r"(years|decades) later|the following year|until (his|her) death|"
+    r"(in|on) the first (week|month|year)|events? (on|in) .{0,40} history)\b",
     re.I,
 )
 # "would" in Wikipedia's past-tense narrative usually means hindsight ("he would declare
 # himself emperor"), except in reported speech ("Kennedy warned that any launch would...").
-_WOULD = re.compile(r"\bwould\b", re.I)
+# Year pages are written in the present tense, so "will" plays the same role there.
+_WOULD = re.compile(r"\b(would|will)\b", re.I)
 _REPORTED = re.compile(
     r"\b(said|says|warned|announced|promised|declared|stated|claimed|threatened|that)\b[^.]{0,80}$", re.I
 )
