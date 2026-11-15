@@ -88,6 +88,12 @@ export function onAirMs(memory) {
 
 // ── 3. The real recording, after the answer ──────────────────────────────
 // Returns a function that plays it (used to play it right after a spoken answer).
+// Every archival recording that has started, so hanging up can stop them.
+const playingClips = new Set();
+export function stopArchival() {
+  playingClips.forEach((a) => a.pause());
+}
+
 export function archivalBubble(li, clip, { onStart = () => {}, onEnd = () => {} } = {}) {
   if (!clip) return null;
   const box = document.createElement('div');
@@ -122,6 +128,7 @@ export function archivalBubble(li, clip, { onStart = () => {}, onEnd = () => {} 
   const play = () => {
     if (audio && !audio.paused) { stop(); return; }
     audio = audio || new Audio(clip.src);
+    playingClips.add(audio);
     const start = () => { audio.currentTime = clip.start; audio.play().catch(() => {}); };
     if (audio.readyState >= 1) start(); else audio.addEventListener('loadedmetadata', start, { once: true });
     button.textContent = '❚❚';
@@ -257,3 +264,148 @@ export function stopBulletin() {
   bulletin = null;
 }
 
+
+// ── The call screen: a telephone and big, readable lines during a voice call ──
+// Opens when you hold the mic: the phone of that era (rotary through the '60s,
+// push-button from the '80s), the status of the call, what you said, what they
+// said, and the real recording if there is one.
+const ROTARY = `
+<svg viewBox="0 0 240 200" aria-hidden="true">
+  <ellipse cx="120" cy="184" rx="96" ry="10" fill="rgba(0,0,0,.35)"/>
+  <path d="M40 176 C40 120 62 92 120 92 C178 92 200 120 200 176 Z" style="fill:var(--phone)"/>
+  <path d="M52 172 C54 128 72 104 120 104 C168 104 186 128 188 172 Z" style="fill:var(--phone-shine)" opacity=".18"/>
+  <circle cx="120" cy="140" r="34" fill="#f3ead6"/>
+  <g fill="#2a2018">${[...Array(10)].map((_, i) => {
+    const a = (-60 + i * 30) * Math.PI / 180;
+    return `<circle cx="${(120 + 23 * Math.cos(a)).toFixed(1)}" cy="${(140 + 23 * Math.sin(a)).toFixed(1)}" r="5.2"/>`;
+  }).join('')}</g>
+  <circle cx="120" cy="140" r="10" style="fill:var(--phone)"/>
+  <g class="handset"><path d="M30 78 C30 58 52 52 64 60 L176 60 C188 52 210 58 210 78 C210 90 196 92 186 86 L170 76 L70 76 L54 86 C44 92 30 90 30 78 Z" style="fill:var(--phone)"/>
+  <path d="M60 64 L180 64" style="stroke:var(--phone-shine)" stroke-opacity=".25" stroke-width="3"/></g>
+  <path class="cord" d="M196 168 q12 8 4 16 q-8 8 4 16" fill="none" style="stroke:var(--phone)" stroke-width="4"/>
+</svg>`;
+const TOUCHTONE = `
+<svg viewBox="0 0 240 200" aria-hidden="true">
+  <ellipse cx="120" cy="186" rx="92" ry="9" fill="rgba(0,0,0,.3)"/>
+  <path d="M44 178 L58 104 C60 96 66 92 74 92 L166 92 C174 92 180 96 182 104 L196 178 Z" style="fill:var(--phone)"/>
+  <rect x="88" y="108" width="64" height="62" rx="5" fill="rgba(0,0,0,.12)"/>
+  <g fill="#f6f1e6">${[...Array(12)].map((_, i) =>
+    `<rect x="${94 + (i % 3) * 19}" y="${113 + Math.floor(i / 3) * 14}" width="14" height="10" rx="2"/>`).join('')}</g>
+  <g class="handset"><path d="M34 76 C34 58 54 54 66 62 L174 62 C186 54 206 58 206 76 C206 88 192 90 182 84 L168 76 L72 76 L58 84 C48 90 34 88 34 76 Z" style="fill:var(--phone)"/></g>
+  <path class="cord" d="M192 170 q12 8 4 16 q-8 8 4 16" fill="none" style="stroke:var(--phone)" stroke-width="4"/>
+</svg>`;
+
+// How a call works: 📞 Call opens this screen and the phone rings, then connects.
+// Hold "Hold to talk" (or the space bar), ask, let go. The answer is spoken, then
+// the real recording plays if there is one. Ask again the same way; Hang up ends it.
+export const callScreen = {
+  onHangup: () => {},
+  onTalkStart: () => {},
+  onTalkStop: () => {},
+  open({ who, era }) {
+    const el = $('callScreen');
+    if (!el) return;
+    el.dataset.era = era;
+    $('callPhone').innerHTML = Number(era) >= 1980 ? TOUCHTONE : ROTARY;
+    $('callWho').textContent = who;
+    $('callLog').innerHTML = '';
+    el.hidden = false;
+    this.status('Ringing…', 'dialing');
+    clearTimeout(this.ringTimer);
+    this.ringTimer = setTimeout(() => this.ready('Connected. Hold to talk.'), 1400);
+    $('callTalk').focus();
+  },
+  // Waiting for the caller: they can hold to talk.
+  ready(text = 'Hold to talk to ask another question') {
+    this.status(text, 'connected');
+    $('callTalk').disabled = false;
+  },
+  listening() {
+    clearTimeout(this.ringTimer);
+    this.status("Listening… let go when you're done", 'listening');
+  },
+  sending() {
+    this.status('One moment…', 'dialing');
+    $('callTalk').disabled = true;
+  },
+  status(text, phase) {
+    if (!this.isOpen()) return;
+    $('callStatus').textContent = text;
+    if (phase) $('callScreen').className = `call-screen ${phase}`;
+  },
+  // One question and its answer, added to the conversation on screen.
+  exchange({ question, answer, sources = [], blocked = false, archival = null }) {
+    const log = $('callLog');
+    const you = document.createElement('div');
+    you.className = 'call-row you';
+    you.innerHTML = '<span class="call-label">You</span><p></p>';
+    you.querySelector('p').textContent = question;
+    const them = document.createElement('div');
+    them.className = `call-row them${blocked ? ' blocked' : ''}`;
+    them.innerHTML = '<span class="call-label">On the line</span><p></p><div class="call-sources"></div>';
+    them.querySelector('p').textContent = answer;
+    for (const src of sources.slice(0, 3)) {
+      const chip = document.createElement('span');
+      chip.className = 'call-source';
+      chip.textContent = src.title;
+      chip.title = src.citation || '';
+      them.querySelector('.call-sources').append(chip);
+    }
+    log.append(you, them);
+    if (archival) {
+      const ar = document.createElement('div');
+      ar.className = 'call-archival';
+      ar.innerHTML = '<span class="call-label">📼 Archival recording</span><span class="call-archival-title"></span><q></q>';
+      ar.querySelector('.call-archival-title').textContent = archival.title;
+      ar.querySelector('q').textContent = archival.quote;  // <q> adds the quotation marks
+      log.append(ar);
+    }
+    log.scrollTop = log.scrollHeight;
+  },
+  close() {
+    clearTimeout(this.ringTimer);
+    const el = $('callScreen');
+    if (el) el.hidden = true;
+  },
+  isOpen() {
+    return !!$('callScreen') && !$('callScreen').hidden;
+  },
+};
+
+export function initCallScreen() {
+  const el = $('callScreen');
+  if (!el) return;
+  const hangUp = () => { callScreen.onHangup(); callScreen.close(); };
+  $('callHangup').addEventListener('click', hangUp);
+  // Hold to talk. The pointer is captured while held, so sliding off the button
+  // doesn't cut you off mid-sentence; only letting go does.
+  const talk = $('callTalk');
+  talk.addEventListener('pointerdown', (e) => {
+    if (talk.disabled) return;
+    e.preventDefault();
+    talk.setPointerCapture?.(e.pointerId);
+    callScreen.onTalkStart();
+  });
+  talk.addEventListener('pointerup', () => callScreen.onTalkStop());
+  talk.addEventListener('pointercancel', () => callScreen.onTalkStop());
+  // While a call is open, the space bar always means "talk" (never "press the
+  // focused button", so it can't hang up by accident), and Esc hangs up.
+  window.addEventListener('keydown', (e) => {
+    if (!callScreen.isOpen()) return;
+    if (e.key === 'Escape') { e.preventDefault(); hangUp(); return; }
+    if (e.code === 'Space') {
+      e.preventDefault();
+      e.stopPropagation();
+      if (!e.repeat && !talk.disabled) callScreen.onTalkStart();
+    }
+  }, true);
+  window.addEventListener('keyup', (e) => {
+    if (!callScreen.isOpen() || e.code !== 'Space') return;
+    e.preventDefault();
+    e.stopPropagation();
+    callScreen.onTalkStop();
+  }, true);
+}
+
+// The two telephones, for previews and tests.
+export const PHONES = { ROTARY, TOUCHTONE };
