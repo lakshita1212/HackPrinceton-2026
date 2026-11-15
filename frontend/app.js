@@ -2,15 +2,19 @@ import { STATIONS, ROLES } from './stations.js';
 import { ROOMS, ROOM_IMAGES } from './rooms.js';
 import { mediaFor } from './media.js';
 import { createDial } from './dial.js';
-import { ask } from './host.js';
+import { ask, tuneStation, fetchTranscript, callByVoice } from './host.js';
 import { sfx } from './audio.js';
+import { createFx } from './fx.js';
+import { playIntro } from './intro.js';
 
 const $ = (id) => document.getElementById(id);
 const state = { station: 0, role: 0 };
 const radioAudio = new Audio();
 let drawn = '';          // role + era of the room currently drawn
 let captionTimer = 0;
+let tuneTimer = 0;
 
+const fx = createFx($('stage'), $('roomLayer'));
 const station = () => STATIONS[state.station];
 const role = () => ROLES[state.role];
 
@@ -37,6 +41,7 @@ function drawRoom(roleId, era) {
       .map((l) => `radial-gradient(circle at ${l.x}% ${l.y}%, rgba(255, 196, 110, .35), transparent ${l.r || 22}%)`)
       .join(', ') || 'none';
     $('stage').style.aspectRatio = pic.aspect || '3 / 2';
+    fx.setRoom(pic);
     for (const sp of pic.sprites || []) {
       const el = document.createElement('img');
       el.src = sp.src;
@@ -51,6 +56,7 @@ function drawRoom(roleId, era) {
     place($('screen'), { x: tv.x / 16, y: tv.y / 10, w: tv.w / 16, h: tv.h / 10 });
     $('glow').style.background = 'none';
     $('stage').style.aspectRatio = '16 / 10';
+    fx.setRoom(null);
   }
 }
 
@@ -73,7 +79,7 @@ function renderScene() {
   $('room').textContent = room.name;
   $('day').textContent = s.day;
   $('onAir').textContent = s.onAir;
-  $('question').placeholder = `Ask the ${r.name.toLowerCase()} a question…`;
+  setPlaceholder();
   $('screen').className = `screen static era-${era}`;
   // A painted broadcast stays visible: no static, no text, until a clip plays.
   if (ROOM_IMAGES[r.id]?.[era]?.painted) $('screen').classList.replace('static', 'painted');
@@ -83,6 +89,12 @@ function renderScene() {
   stage.className = `stage era-${era}${ROOM_IMAGES[r.id]?.[era] ? ' has-photo' : ''}`;
   void stage.offsetWidth; // restart the tuning flicker
   stage.classList.add('tuning');
+
+  // Tell the host where the dial is, so texts are answered by this room.
+  // Waits until the dial settles instead of sending every tick.
+  clearTimeout(tuneTimer);
+  tuneTimer = setTimeout(() => tuneStation({ role: r.id, date: s.date, pack: s.pack }), 400);
+  $('mic').disabled = !s.pack;
 }
 
 // ── TV and radio ─────────────────────────────────────────────────────────
@@ -155,9 +167,38 @@ $('art').addEventListener('click', (e) => {
 $('radioHit').addEventListener('click', playRadio);
 
 // ── Dial and rooms ───────────────────────────────────────────────────────
+// Crossing into another decade plays the time-travel tunnel; the new room is
+// swapped in while the tunnel hides it. Days within a decade just retune.
+let booted = false;
+let shownEra = STATIONS[0].era;
+let warpTimer = 0;
+let warpPending = false;
+function flyYear(text) {
+  const el = $('warpYear');
+  el.textContent = text;
+  el.classList.remove('go');
+  void el.offsetWidth;
+  el.classList.add('go');
+}
 const dial = createDial($('dial'), {
   stations: STATIONS,
-  onChange: (i) => { state.station = i; sfx.staticBurst(); renderScene(); },
+  onChange: (i) => {
+    state.station = i;
+    const s = STATIONS[i];
+    if (booted && s.era !== shownEra) {
+      shownEra = s.era;
+      sfx.warp();
+      fx.warp();
+      flyYear(s.era === '1962' ? 'October 1962' : s.era);
+      clearTimeout(warpTimer);
+      warpPending = true;
+      warpTimer = setTimeout(() => { warpPending = false; renderScene(); }, 380);
+    } else {
+      shownEra = s.era;
+      sfx.staticBurst();
+      if (!warpPending) renderScene();   // a pending warp will draw the latest station
+    }
+  },
 });
 
 const roleButtons = ROLES.map((r, i) => {
@@ -210,6 +251,25 @@ function addSources(li, sources) {
   li.append(chips);
 }
 
+// Fill in an answer line: in-character refusals in red, sources as chips.
+function showAnswer(li, reply) {
+  if (reply.blocked) {
+    // The host sends an in-character refusal; fall back to our own line if it's empty.
+    li.className = 'a blocked';
+    li.textContent = reply.answer || "The line crackles. That hasn't happened yet.";
+  } else {
+    li.className = reply.live === false ? 'a scripted' : 'a';
+    li.textContent = reply.answer;
+    addSources(li, reply.sources || []);
+  }
+}
+
+const roleName = (id) => ROLES.find((r) => r.id === id)?.name || id;
+const dayLabel = (date) => STATIONS.find((s) => s.date === date)?.label || date;
+function setPlaceholder() {
+  $('question').placeholder = `Ask the ${role().name.toLowerCase()} a question…`;
+}
+
 $('askForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   sfx.unlock();
@@ -218,25 +278,119 @@ $('askForm').addEventListener('submit', async (e) => {
   if (!question) return;
   const s = station();
   const r = role();
-  const who = `${r.name}, ${s.label}`;
 
   input.value = '';
   addLine('q', question);
-  const button = e.submitter || $('askForm').querySelector('button');
+  const button = $('askForm').querySelector('button[type="submit"]');
   button.disabled = true;
-  const pending = addLine('a', '…', who);
-
+  const pending = addLine('a', '…', `${r.name}, ${s.label}`);
   const reply = await ask({ question, role: r.id, date: s.date, pack: s.pack });
   button.disabled = false;
-  if (reply.blocked) {
-    // The host sends an in-character refusal; fall back to our own line if it's empty.
-    pending.className = 'a blocked';
-    pending.textContent = reply.answer || "The line crackles. That hasn't happened yet.";
+  showAnswer(pending, reply);
+});
+
+// ── Switchboard: texts and calls that reach the station from outside ─────
+// Polls the host's call log. Starts from what's already there, so only new
+// call-ins appear. Voice calls from this laptop are shown when they're made.
+let lastSeq = null;
+async function pollSwitchboard() {
+  const items = await fetchTranscript(lastSeq ?? 0);
+  if (lastSeq === null) {
+    lastSeq = items.reduce((m, it) => Math.max(m, it.seq), 0);
   } else {
-    pending.className = reply.live ? 'a' : 'a scripted';
-    pending.textContent = reply.answer;
-    addSources(pending, reply.sources);
+    for (const it of items) {
+      lastSeq = Math.max(lastSeq, it.seq);
+      if (it.channel === 'voice' && it.caller === 'laptop mic') continue;
+      const kind = it.channel === 'imessage' ? 'Text' : 'Call';
+      const who = `${roleName(it.role)}, ${dayLabel(it.date)}`;
+      addLine('caller', `${kind} from ${it.caller} · ${who}`);
+      addLine('q from-caller', it.question);
+      showAnswer(addLine('a', '', who), it);
+      sfx.tick();
+      showCaption(`${kind} coming in from ${it.caller}`, 3000);
+    }
   }
+  setTimeout(pollSwitchboard, 2000);
+}
+pollSwitchboard();
+
+// ── Call by voice: hold the mic button (or the space bar) and talk ───────
+let recorder = null;
+let micStream = null;
+let answerAudio = null;
+
+async function startTalking() {
+  sfx.unlock();
+  if (recorder?.state === 'recording' || $('mic').disabled) return;
+  try {
+    micStream ??= await navigator.mediaDevices.getUserMedia({ audio: true });
+  } catch {
+    showCaption('The microphone is blocked. Allow it in the browser, or type your question.', 4000);
+    return;
+  }
+  speechSynthesis.cancel();
+  answerAudio?.pause();
+  const chunks = [];
+  recorder = new MediaRecorder(micStream);
+  recorder.ondataavailable = (e) => { if (e.data.size) chunks.push(e.data); };
+  recorder.onstop = () => sendCall(new Blob(chunks, { type: recorder.mimeType }));
+  recorder.start();
+  $('mic').classList.add('live');
+  $('question').placeholder = 'Listening… let go to hang up';
+}
+
+function stopTalking() {
+  if (recorder?.state === 'recording') recorder.stop();
+  $('mic').classList.remove('live');
+  setPlaceholder();
+}
+
+async function sendCall(blob) {
+  if (blob.size < 1000) {
+    showCaption('Hold the button down while you talk.', 2500);
+    return;
+  }
+  const s = station();
+  const r = role();
+  const q = addLine('q', '…');
+  const a = addLine('a', '…', `${r.name}, ${s.label}`);
+  const reply = await callByVoice(blob, { role: r.id, date: s.date, pack: s.pack });
+  if (reply.error) {
+    q.remove();
+    a.className = 'a blocked';
+    a.textContent = reply.error;
+    return;
+  }
+  q.textContent = reply.question || '(the line crackled)';
+  showAnswer(a, reply);
+  speakAnswer(reply);
+}
+
+// Play the host's voice for the role, or let the browser read it out.
+function speakAnswer(reply) {
+  if (reply.audio) {
+    answerAudio = new Audio(`data:audio/wav;base64,${reply.audio}`);
+    answerAudio.play();
+  } else if (reply.answer) {
+    const u = new SpeechSynthesisUtterance(reply.answer);
+    u.rate = 0.95;
+    speechSynthesis.speak(u);
+  }
+}
+
+$('mic').addEventListener('pointerdown', (e) => { e.preventDefault(); startTalking(); });
+$('mic').addEventListener('pointerup', stopTalking);
+$('mic').addEventListener('pointerleave', stopTalking);
+const typing = (el) => el.matches('input, textarea, select, button');
+window.addEventListener('keydown', (e) => {
+  if (e.code === 'Space' && !e.repeat && !typing(e.target)) { e.preventDefault(); startTalking(); }
+});
+window.addEventListener('keyup', (e) => {
+  if (e.code === 'Space' && !typing(e.target)) stopTalking();
 });
 
 renderScene();
+booted = true;
+
+// Opening scene, once the fonts are in so the radio's dial is lettered properly.
+document.fonts.ready.then(() => playIntro($('intro')));
