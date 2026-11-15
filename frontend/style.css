@@ -1238,3 +1238,14 @@ a.chip:hover { border-style: solid; border-color: var(--red); color: var(--red);
 }
 .archival blockquote { margin: 4px 0 2px; font-style: italic; line-height: 1.4; }
 .archival small { display: block; font-family: var(--label); font-size: 10px; letter-spacing: .5px; color: var(--ink-soft); }
+/* Any day: a date field under the dial. */
+.any-day { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: -6px; font-family: var(--label); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--brass-light); }
+.any-day input {
+  padding: 4px 8px; border: 1px solid rgba(241, 212, 140, .6); border-radius: 4px;
+  background: #f4ead2; color: #2a1a0b; font-family: var(--label); font-size: 13px; letter-spacing: .5px;
+}
+.any-day input:focus-visible { outline: 2px solid var(--glow); }
+/* Small sets (the 1960s TVs) get a shorter headline; past days say NEWS, not LIVE. */
+.screen.news-card.era-1962 p, .screen.news-card.era-1969 p { -webkit-line-clamp: 4; font-size: clamp(7px, .7vw, 11px); }
+.screen.news-card.era-1962, .screen.news-card.era-1969 { place-items: center; padding: 8%; }
+.screen.news-card.past-news p::before { content: "NEWS"; }

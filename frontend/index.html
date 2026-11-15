@@ -91,7 +91,7 @@
         </figure>
         <!-- 2026: this week's headlines crawl across the bottom, cable-news style -->
         <div class="ticker" id="ticker" hidden>
-          <span class="ticker-tag">Live · This week</span>
+          <span class="ticker-tag" id="tickerTag">Live · This week</span>
           <div class="ticker-track"><span class="ticker-text" id="tickerText"></span></div>
         </div>
       </div>
@@ -103,6 +103,10 @@
         <span class="tagline">The only history class with no spoilers</span>
       </div>
       <div class="dial" id="dial"></div>
+      <label class="any-day">
+        <span>Or tune to any day</span>
+        <input type="date" id="anyDay" min="1900-01-01" aria-label="Tune to any day since 1900">
+      </label>
       <div class="roles" id="roles" role="tablist" aria-label="Rooms"></div>
 
       <section class="callin">
