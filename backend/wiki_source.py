@@ -172,7 +172,11 @@ _HINDSIGHT = re.compile(
     r"\b(went on to|later (became|served|won|died|founded)|eventually|in retrospect|best known (for|as)|"
     r"(a|one|two|three|several|many|\d+) (days?|weeks?|months?|years?|decades?) later|"
     r"(years|decades) later|the following year|until (his|her) death|"
-    r"(in|on) the first (week|month|year)|events? (on|in) .{0,40} history)\b",
+    r"(in|on) the first (week|month|year)|events? (on|in) .{0,40} history|"
+    # How long something lasted is only known once it ends: "without service for 23 days".
+    r"lasted|lasting|for (\d+|two|three|four|five|six|seven|eight|nine|ten|several|many|nearly \w+|over \w+) "
+    r"(more )?(days|weeks|months|years)|until (January|February|March|April|May|June|July|August|"
+    r"September|October|November|December))\b",
     re.I,
 )
 # "would" in Wikipedia's past-tense narrative usually means hindsight ("he would declare

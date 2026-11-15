@@ -82,7 +82,9 @@ def _chain(job: str) -> list[tuple[str, int, dict]]:
         ]
     else:
         steps = [(m, {}) for m in ids]
-    return [(m, 0 if i < len(steps) - 1 else 4, extra) for i, (m, extra) in enumerate(steps)]
+    # The last step waits out per-minute limits (Groq says when to retry) rather than failing:
+    # a slow answer beats "Host unavailable" in front of a judge.
+    return [(m, 0 if i < len(steps) - 1 else 7, extra) for i, (m, extra) in enumerate(steps)]
 
 
 def get_model(job: str = "answer", **kwargs):
