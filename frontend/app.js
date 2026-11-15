@@ -190,7 +190,9 @@ function stopMedia() {
 let ambientClip = null;
 function startAmbient() {
   const old = $('screen').querySelector('video');
-  if (old) { old.pause(); old.remove(); }
+  // Unload it as well as removing it: a removed <video> keeps downloading,
+  // and a few of those use up the browser's connections, so new clips stall at 0:00.
+  if (old) { old.pause(); old.removeAttribute('src'); old.load(); old.remove(); }
   const clips = clipsFor(station(), role().id, 'video');
   ambientClip = clips[Math.floor(Math.random() * clips.length)] || null;
   $('screen').classList.toggle('on-air', !!ambientClip);
