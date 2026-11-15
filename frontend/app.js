@@ -155,8 +155,34 @@ function showClip() {
   const audio = $('viewerAudio');
   video.hidden = !(clip && kind === 'tv');
   audio.hidden = !(clip && kind === 'radio');
-  if (clip && kind === 'tv') { video.src = clip.src; video.play().catch(() => {}); }
-  if (clip && kind === 'radio') { audio.src = clip.src; audio.play().catch(() => {}); }
+  if (clip && kind === 'tv') { setGain(video, clip.gain); video.src = clip.src; video.play().catch(() => {}); }
+  if (clip && kind === 'radio') { setGain(audio, clip.gain); audio.src = clip.src; audio.play().catch(() => {}); }
+}
+
+// Some archive clips are far quieter than the rest (NASA's Moon TV is about
+// 20 dB down), so the big screen plays through a per-clip gain and a limiter
+// that keeps the loud parts from distorting.
+let mediaCtx = null;
+const boosters = new Map();
+function setGain(el, gain = 1) {
+  if (gain === 1 && !boosters.has(el)) return; // no need to reroute it yet
+  try {
+    mediaCtx ||= new (window.AudioContext || window.webkitAudioContext)();
+    if (mediaCtx.state === 'suspended') mediaCtx.resume();
+    if (!boosters.has(el)) {
+      const source = mediaCtx.createMediaElementSource(el);
+      const boost = mediaCtx.createGain();
+      const limiter = mediaCtx.createDynamicsCompressor();
+      limiter.threshold.value = -6;
+      limiter.knee.value = 3;
+      limiter.ratio.value = 12;
+      limiter.attack.value = 0.003;
+      limiter.release.value = 0.25;
+      source.connect(boost).connect(limiter).connect(mediaCtx.destination);
+      boosters.set(el, boost);
+    }
+    boosters.get(el).gain.value = gain;
+  } catch { /* no Web Audio: the clip plays at its own level */ }
 }
 
 // Turn the knob: the next or previous channel, wrapping around.

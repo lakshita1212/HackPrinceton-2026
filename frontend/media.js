@@ -7,12 +7,14 @@
 //   from   the first station date it may play on, so nothing airs before it happened
 //   kind   'video' (TV) or 'audio' (radio)
 //   roles  rooms that get it
+//   gain   volume boost for clips recorded much quieter than the rest (NASA's Moon
+//          TV is about 20 dB down); the big screen plays through a limiter
 //   title, label ('archival'), source: shown on the card under the big screen
 const PD = 'public domain';
 
 export const MEDIA = [
   // ── 1962 ──────────────────────────────────────────────────────────────
-  { era: '1962', from: '1962-10-22', kind: 'video', src: 'media/kennedy-address-1962-10-22.mp4',
+  { era: '1962', from: '1962-10-22', kind: 'video', src: 'media/kennedy-address-1962-10-22.mp4', gain: 1.8,
     roles: ['citizen', 'journalist', 'official', 'historian'],
     title: "President Kennedy's address on Cuba", label: 'archival',
     source: `U.S. Information Agency film, National Archives · ${PD}` },
@@ -20,7 +22,7 @@ export const MEDIA = [
     roles: ['citizen', 'historian'],
     title: 'Duck and Cover: civil defense film for schools', label: 'archival',
     source: `Federal Civil Defense Administration, National Archives · ${PD}` },
-  { era: '1962', kind: 'video', src: 'media/vienna-summit-1961.mp4',
+  { era: '1962', kind: 'video', src: 'media/vienna-summit-1961.mp4', gain: 2.5,
     roles: ['official', 'journalist', 'historian'],
     title: 'Kennedy and Khrushchev meet in Vienna, June 1961', label: 'archival',
     source: `U.S. Information Agency film, National Archives · ${PD}` },
@@ -34,23 +36,23 @@ export const MEDIA = [
     source: `Federal Civil Defense Administration · ${PD}` },
 
   // ── 1969 ──────────────────────────────────────────────────────────────
-  { era: '1969', kind: 'video', src: 'media/apollo11-first-step.mp4',
+  { era: '1969', kind: 'video', src: 'media/apollo11-first-step.mp4', gain: 7,
     roles: ['citizen', 'journalist', 'official', 'historian'],
     title: 'Live from the Moon: Armstrong steps off the ladder', label: 'archival',
     source: `NASA television, restored 2009 · ${PD}` },
-  { era: '1969', kind: 'video', src: 'media/apollo11-flag.mp4',
+  { era: '1969', kind: 'video', src: 'media/apollo11-flag.mp4', gain: 10,
     roles: ['citizen', 'historian'],
     title: 'Armstrong and Aldrin raise the flag', label: 'archival',
     source: `NASA television, restored 2009 · ${PD}` },
-  { era: '1969', kind: 'video', src: 'media/apollo11-aldrin-running.mp4',
+  { era: '1969', kind: 'video', src: 'media/apollo11-aldrin-running.mp4', gain: 7,
     roles: ['citizen', 'journalist'],
     title: 'Aldrin tries out walking and running on the Moon', label: 'archival',
     source: `NASA television, restored 2009 · ${PD}` },
-  { era: '1969', kind: 'video', src: 'media/apollo11-nixon-call.mp4',
+  { era: '1969', kind: 'video', src: 'media/apollo11-nixon-call.mp4', gain: 6,
     roles: ['official', 'journalist', 'historian'],
     title: 'President Nixon calls the astronauts on the Moon', label: 'archival',
     source: `NASA television, restored 2009 · ${PD}` },
-  { era: '1969', kind: 'video', src: 'media/apollo11-tv-panorama.mp4',
+  { era: '1969', kind: 'video', src: 'media/apollo11-tv-panorama.mp4', gain: 6,
     roles: ['official', 'historian'],
     title: "Armstrong's TV panorama of Tranquility Base", label: 'archival',
     source: `NASA television, restored 2009 · ${PD}` },
@@ -72,7 +74,7 @@ export const MEDIA = [
   // replay public-domain archive material about the Wall.
   { era: '1989', kind: 'video', src: 'media/berlin-border-1961.mp4',
     roles: ['citizen', 'journalist', 'official', 'historian'],
-    title: 'From the archive: U.S. tanks at the new border, August 1961', label: 'archival',
+    title: 'From the archive: U.S. tanks at the new border, August 1961 (silent film)', label: 'archival',
     source: `U.S. Army Signal Corps film, National Archives · ${PD}` },
   { era: '1989', kind: 'audio', src: 'media/kennedy-ich-bin-ein-berliner-1963.mp3',
     roles: ['citizen', 'journalist', 'official', 'historian'],
