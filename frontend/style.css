@@ -640,3 +640,90 @@ a.chip:hover { border-style: solid; border-color: var(--red); color: var(--red);
 @media (prefers-reduced-motion: reduce) {
   .stage.tuning, .screen.static::after, .grain, .glow, .lamp-glow, .tv-glow, .sprite, .ask .mic.live, .warp-year.go { animation: none; }
 }
+
+/* ── Intro: the radio in the dark ─────────────────────────────────────── */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: radial-gradient(ellipse at 50% 55%, #3a1e0e, #120804 70%);
+  transition: opacity .7s ease;
+}
+.intro.done { opacity: 0; pointer-events: none; }
+.intro-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.intro-copy {
+  position: absolute;
+  top: 7vh;
+  left: 0;
+  right: 0;
+  text-align: center;
+  pointer-events: none;
+  transition: opacity .6s;
+}
+.intro-copy h1 {
+  margin: 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 800;
+  font-size: clamp(48px, 8vw, 104px);
+  color: var(--brass-light);
+  text-shadow: 0 0 40px rgba(255, 180, 80, .45), 0 4px 0 rgba(0, 0, 0, .5);
+}
+.intro-copy p {
+  margin: 6px 0 0;
+  font-family: var(--label);
+  font-size: clamp(11px, 1.2vw, 15px);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--cream);
+  opacity: .8;
+}
+.intro-actions {
+  position: absolute;
+  bottom: 8vh;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  transition: opacity .5s;
+}
+.intro-tune {
+  padding: 14px 40px;
+  border: 0;
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 30%, #e0603f, var(--red) 55%, #6a1b0f);
+  color: #fff3dc;
+  font-family: var(--label);
+  font-size: 20px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #4a120a, 0 0 30px rgba(224, 96, 63, .45);
+  animation: on-air 1.6s ease-in-out infinite;
+}
+.intro-tune:active { transform: translateY(2px); }
+.intro-skip {
+  border: 0;
+  background: none;
+  color: var(--cream);
+  opacity: .6;
+  font-family: var(--label);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.intro-skip:hover { opacity: 1; }
+.intro.tuning .intro-copy, .intro.tuning .intro-actions { opacity: 0; pointer-events: none; }
+.intro-flash {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle, #fff6dc, #f2c27a 60%, #c9893a);
+  opacity: 0;
+  transition: opacity .35s ease-in;
+}
+.intro.flash .intro-flash { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .intro-tune { animation: none; } }

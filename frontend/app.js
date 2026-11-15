@@ -5,6 +5,7 @@ import { createDial } from './dial.js';
 import { ask, tuneStation, fetchTranscript, callByVoice } from './host.js';
 import { sfx } from './audio.js';
 import { createFx } from './fx.js';
+import { playIntro } from './intro.js';
 
 const $ = (id) => document.getElementById(id);
 const state = { station: 0, role: 0 };
@@ -390,3 +391,6 @@ window.addEventListener('keyup', (e) => {
 
 renderScene();
 booted = true;
+
+// Opening scene, once the fonts are in so the radio's dial is lettered properly.
+document.fonts.ready.then(() => playIntro($('intro')));
