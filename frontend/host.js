@@ -17,7 +17,7 @@ export async function ask({ question, role, date, pack }) {
     });
     if (!res.ok) throw new Error(`host returned ${res.status}`);
     const data = await res.json();
-    return { answer: data.answer || '', sources: data.sources || [], blocked: !!data.blocked, live: true };
+    return { answer: data.answer || '', sources: data.sources || [], blocked: !!data.blocked, archival: data.archival || null, live: true };
   } catch {
     return { ...scripted(question, role, date), live: false };
   }

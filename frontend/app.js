@@ -2,7 +2,7 @@ import { STATIONS, ROLES } from './stations.js';
 import { ROOMS, ROOM_IMAGES } from './rooms.js';
 import { clipsFor, channelName, checkLocal } from './media.js';
 import { createDial } from './dial.js';
-import { ask, tuneStation, fetchTranscript, callByVoice, fetchMemories, hostAsset } from './host.js';
+import { ask, tuneStation, fetchTranscript, callByVoice, fetchMemories, hostAsset, buildStation } from './host.js';
 import { sfx } from './audio.js';
 import { createFx } from './fx.js';
 import { playIntro } from './intro.js';
@@ -18,7 +18,8 @@ let captionTimer = 0;
 let tuneTimer = 0;
 
 const fx = createFx($('stage'), $('roomLayer'));
-const station = () => STATIONS[state.station];
+let anyDay = null;  // a station built for any date (the picker under the dial); null = the dial
+const station = () => anyDay || STATIONS[state.station];
 const role = () => ROLES[state.role];
 
 // ── Scene ────────────────────────────────────────────────────────────────
@@ -119,6 +120,13 @@ function renderScene() {
 // ticker shows the same days' headlines and the call panel says where they're from.
 async function readyLive(s) {
   if (!s.live || s.pack) return s;
+  if (s.anyDay) {
+    s.building ||= buildStation(s.date);
+    const st = await s.building;
+    if (st?.pack) s.pack = st.pack;
+    else s.failed = true;
+    return s;
+  }
   const st = await liveStation();
   if (st) {
     s.pack = st.pack;
@@ -135,8 +143,10 @@ async function showLive(s) {
   $('ticker').hidden = !s.live;
   $('liveNote').hidden = !s.live;
   if (!s.live) return;
+  $('tickerTag').textContent = s.anyDay ? `Wikipedia · ${s.label}` : 'Live · This week';
   await readyLive(s);
   if (station() !== s) return; // tuned away meanwhile
+  if (s.failed) showCaption("Wikipedia has no day-by-day page for that day, so there's no station. Try another date.", 6000);
   $('day').textContent = s.day;
   if (s.pack) tuneStation({ role: role().id, date: s.date, pack: s.pack });
   const items = await headlines(s.date);
@@ -153,6 +163,7 @@ async function showLive(s) {
     $('onAir').textContent = s.onAir;
     $('screen').classList.remove('painted', 'static');
     $('screen').classList.add('news-card');
+    $('screen').classList.toggle('past-news', !!s.anyDay);
   }
   // Crawl at a steady reading speed, however long the news is.
   el.style.animationDuration = `${Math.max(25, text.length / 9)}s`;
@@ -180,18 +191,37 @@ async function pollMemories(first = false) {
   setTimeout(pollMemories, 3000);
 }
 
+// Gemini's pinned captions: a dot and a label on each object it picked out
+// (x, y are fractions of the photo), drawn over the photo at its own shape.
+function pinPhoto(frame, img, m) {
+  frame.querySelectorAll('.pin').forEach((p) => p.remove());
+  img.src = hostAsset(m.image);
+  img.alt = m.alt_text || m.caption || 'A photo texted to the station';
+  if (m.width && m.height) frame.style.aspectRatio = `${m.width} / ${m.height}`;
+  for (const pin of m.pins || []) {
+    const el = document.createElement('span');
+    el.className = `pin${pin.x > 0.6 ? ' left' : ''}`;
+    el.style.left = `${pin.x * 100}%`;
+    el.style.top = `${pin.y * 100}%`;
+    el.textContent = pin.label;
+    frame.append(el);
+  }
+}
+const eraLine = (m) => (m.era_guess ? `Looks like the ${m.era_guess} (a guess)` : '');
+
 function announceMemory(m) {
   const card = $('onAirCard');
-  $('onAirPhoto').src = hostAsset(m.image);
-  $('onAirPhoto').alt = m.caption || 'A photo texted to the station';
+  pinPhoto($('onAirFrame'), $('onAirPhoto'), m);
   $('onAirCaption').textContent = m.caption || '';
+  $('onAirEra').textContent = eraLine(m);
+  $('onAirEra').title = m.era_reason || '';
   $('onAirFrom').textContent = `Texted in from ${m.from || 'a listener'}${station().live ? '' : ' · on the 2026 station'}`;
   card.hidden = false;
   card.classList.remove('show');
   void card.offsetWidth;
   card.classList.add('show');
   clearTimeout(announceMemory.timer);
-  announceMemory.timer = setTimeout(() => { card.hidden = true; }, 7000);
+  announceMemory.timer = setTimeout(() => { card.hidden = true; }, 9000);
 }
 
 // 2026: the TV shows the top story, then each recent photo, then the story again.
@@ -199,7 +229,7 @@ function startTvRotation(s) {
   clearInterval(tvTimer);
   showTvFrame(null);
   const photos = memories.slice(0, MEMORIES_ON_TV);
-  if (!s.live || !photos.length) return;
+  if (!s.live || s.anyDay || !photos.length) return;
   const frames = [null, ...photos];
   let i = 0;
   tvTimer = setInterval(() => {
@@ -218,9 +248,9 @@ function showTvFrame(m) {
   fig.className = 'memory-shot';
   const img = document.createElement('img');
   img.src = hostAsset(m.image);
-  img.alt = m.caption || 'A photo texted to the station';
+  img.alt = m.alt_text || m.caption || 'A photo texted to the station';
   const cap = document.createElement('figcaption');
-  cap.textContent = m.caption || `From ${m.from}`;
+  cap.textContent = [m.caption || `From ${m.from}`, eraLine(m)].filter(Boolean).join(' · ');
   fig.append(img, cap);
   screen.append(fig);
 }
@@ -409,7 +439,7 @@ async function openPaper(prop) {
   let title;
   let items;
   let foot = '';
-  if (prop.kind === 'culture') {
+  if (prop.kind === 'culture' && !s.anyDay) {
     const card = cultureFor(s.era, s.date);
     style = 'culture';
     kicker = prop.label;
@@ -419,9 +449,10 @@ async function openPaper(prop) {
     // 2026: this week's headlines, the same ones the host knows.
     await readyLive(s);
     style = 'feed';
-    kicker = 'This week · auto-built from Wikipedia, not reviewed';
-    title = r.id === 'official' ? 'No classified files: only what is public' : 'This week';
-    items = (await headlines(s.date)).map((h) => ({ date: h.date, text: h.text, source: 'Wikipedia: 2026', url: 'https://en.wikipedia.org/wiki/2026' }));
+    kicker = `${s.anyDay ? 'That week' : 'This week'} · auto-built from Wikipedia, not reviewed`;
+    title = r.id === 'official' ? 'No classified files: only what is public' : s.anyDay ? s.label : 'This week';
+    const yr = s.date.slice(0, 4);
+    items = (await headlines(s.date)).map((h) => ({ date: h.date, text: h.text, source: `Wikipedia: ${yr}`, url: `https://en.wikipedia.org/wiki/${yr}` }));
   } else {
     const look = PAPER_STYLE[r.id];
     style = look.style;
@@ -529,6 +560,7 @@ const dial = createDial($('dial'), {
   stations: STATIONS,
   onChange: (i) => {
     state.station = i;
+    if (anyDay) { anyDay = null; $('anyDay').value = ''; }
     const s = STATIONS[i];
     if (booted && s.era !== shownEra) {
       shownEra = s.era;
@@ -544,6 +576,33 @@ const dial = createDial($('dial'), {
     }
   },
 });
+
+// ── Any day: build a station for a date from Wikipedia (POST /stations) ──
+// The room is drawn for the nearest decade we have paintings for; the TV,
+// ticker and papers show that day's headlines. Turning the dial goes back.
+const eraFor = (year) => (year < 1966 ? '1962' : year < 1980 ? '1969' : year < 2008 ? '1989' : '2026');
+{
+  const input = $('anyDay');
+  const yesterday = new Date(Date.now() - 864e5);
+  input.max = `${yesterday.getFullYear()}-${String(yesterday.getMonth() + 1).padStart(2, '0')}-${String(yesterday.getDate()).padStart(2, '0')}`;
+  input.addEventListener('change', () => {
+    const date = input.value;
+    if (!date) return;
+    const d = new Date(`${date}T12:00:00`);
+    anyDay = {
+      date,
+      label: d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+      day: `${d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })} · from Wikipedia`,
+      era: eraFor(d.getFullYear()),
+      pack: null,
+      live: true,
+      anyDay: true,
+      onAir: 'Tuning in…',
+    };
+    showCaption(`Tuning to ${anyDay.label}: building the station from Wikipedia…`, 3000);
+    renderScene();
+  });
+}
 
 const roleButtons = ROLES.map((r, i) => {
   const b = document.createElement('button');
@@ -653,7 +712,52 @@ function showAnswer(li, reply) {
     li.className = `${reply.live === false ? 'a scripted' : 'a'} with-avatar`;
     textOf(li).textContent = reply.answer;
     addSources(msgOf(li), reply.sources || []);
+    if (reply.archival) addArchival(li, reply.archival);
   }
+}
+
+// ── The real recording after an answer (`archival` in /ask and /voice) ───
+// A few seconds of the actual voice from that day, labeled so it's clear
+// what's real. Typed answers play it right away; spoken ones after the voice.
+let archivalAudio = null;
+function addArchival(li, clip) {
+  const box = document.createElement('div');
+  box.className = 'archival';
+  const tag = document.createElement('span');
+  tag.className = 'archival-tag';
+  tag.textContent = 'Archival recording';
+  const play = document.createElement('button');
+  play.type = 'button';
+  play.className = 'archival-play';
+  play.textContent = '▶ Play';
+  play.addEventListener('click', () => playArchival(clip, play));
+  const q = document.createElement('blockquote');
+  q.textContent = `"${clip.quote}"`;
+  const src = document.createElement('small');
+  src.textContent = clip.title;
+  src.title = clip.source || '';
+  box.append(tag, play, q, src);
+  msgOf(li).append(box);
+  li.archivalButton = play;
+  li.scrollIntoView({ block: 'end' });
+}
+
+function playArchival(clip, button) {
+  if (!clip) return;
+  archivalAudio?.pause();
+  const a = new Audio(clip.src);
+  archivalAudio = a;
+  ambience.duck(true);
+  updateTvSound();
+  const done = () => {
+    a.pause();
+    if (button) button.textContent = '▶ Play';
+    if (archivalAudio === a) { ambience.duck(false); updateTvSound(); }
+  };
+  a.addEventListener('loadedmetadata', () => { a.currentTime = clip.start || 0; a.play().catch(done); }, { once: true });
+  a.addEventListener('timeupdate', () => { if (clip.end && a.currentTime >= clip.end) done(); });
+  a.addEventListener('ended', done);
+  if (button) button.textContent = '■ Playing';
 }
 
 const roleName = (id) => ROLES.find((r) => r.id === id)?.name || id;
@@ -680,6 +784,7 @@ $('askForm').addEventListener('submit', async (e) => {
   const reply = await ask({ question, role: r.id, date: s.date, pack: s.pack });
   button.disabled = false;
   showAnswer(pending, reply);
+  if (reply.archival && !reply.blocked) playArchival(reply.archival, pending.archivalButton);
 });
 
 // ── Switchboard: texts and calls that reach the station from outside ─────
@@ -758,23 +863,23 @@ async function sendCall(blob) {
   }
   q.textContent = reply.question || '(the line crackled)';
   showAnswer(a, reply);
-  speakAnswer(reply);
+  speakAnswer(reply, () => { if (reply.archival && !reply.blocked) playArchival(reply.archival, a.archivalButton); });
 }
 
 // Play the host's voice for the role, or let the browser read it out.
-function speakAnswer(reply) {
+function speakAnswer(reply, then = () => {}) {
   if (reply.audio) {
     answerAudio = new Audio(`data:audio/wav;base64,${reply.audio}`);
     ambience.duck(true);
     updateTvSound();
-    answerAudio.addEventListener('ended', () => { ambience.duck(false); updateTvSound(); }, { once: true });
+    answerAudio.addEventListener('ended', () => { ambience.duck(false); updateTvSound(); then(); }, { once: true });
     answerAudio.play();
   } else if (reply.answer) {
     const u = new SpeechSynthesisUtterance(reply.answer);
     u.rate = 0.95;
     ambience.duck(true);
     updateTvSound();
-    u.addEventListener('end', () => { ambience.duck(false); updateTvSound(); });
+    u.addEventListener('end', () => { ambience.duck(false); updateTvSound(); then(); });
     speechSynthesis.speak(u);
   }
 }

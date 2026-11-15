@@ -99,6 +99,7 @@ export async function checkLocal() {
 
 // Every clip for this station and role, in channel order.
 export function clipsFor(station, role, kind) {
+  if (station.anyDay) return [];  // a day picked from Wikipedia has no footage of its own
   return MEDIA.filter((m) => m.era === station.era && m.kind === kind
     && (!m.local || m.available)
     && (!m.from || station.date >= m.from)
