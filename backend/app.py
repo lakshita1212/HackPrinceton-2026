@@ -11,7 +11,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 import host
+import photon_imessage
 import retrieval
+import station
 from packs import PackNotFound
 
 logging.basicConfig(level=logging.INFO)
@@ -56,9 +58,33 @@ def health():
 
 
 @app.on_event("startup")
-def _warm_up():
+def _start():
     # Load the embedding model now so the first caller doesn't wait for it.
     retrieval.warm_up()
+    photon_imessage.start_in_background()
+
+
+class Station(BaseModel):
+    pack: Pack
+    role: Role
+    date: Date
+
+
+@app.get("/station", response_model=Station)
+def get_station():
+    return station.get()
+
+
+@app.post("/station", response_model=Station)
+def set_station(st: Station):
+    """The laptop app calls this whenever the dial moves, so texts reach the right room."""
+    return station.tune(st.pack, st.role, st.date)
+
+
+@app.get("/transcript")
+def get_transcript(since: int = 0):
+    """Call-ins (texts, later voice) newer than `since`, for the on-screen switchboard."""
+    return {"items": station.transcript(since)}
 
 
 @app.post("/ask", response_model=AskResponse)
