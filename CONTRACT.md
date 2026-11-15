@@ -136,6 +136,32 @@ Returns the `/ask` response fields plus:
 Each call also appears in `/transcript` with `channel: "voice"`.
 A working example page is served at `http://localhost:8000/call` (`backend/static/call.html`).
 
+## `POST /stations`: tune to any day
+
+```json
+{ "date": "1975-03-02" }
+```
+
+Builds a time-locked station for that day from Wikipedia's day-by-day month
+pages (the day and the 3 days before it), about 2 seconds the first time,
+instant after that. Returns:
+
+```json
+{ "pack": "wiki-1975-03", "date": "1975-03-02", "state": "ready", "facts": 20, "built_by": "rules", "upgrading": true }
+```
+
+Then use that `pack` and `date` with `/ask`, `/station` and `/voice` as usual.
+`upgrading: true` means the deepagents research team is improving the station in
+the background (about 2 minutes); `GET /stations/1975-03-02` shows when it's done
+(`built_by: "agent"`). Nothing changes for the app when it finishes.
+
+- Roles: citizen, journalist and historian answer. The official has no sources
+  (Wikipedia isn't anyone's secret files) and says so.
+- Label these stations in the UI as **"Auto-built from Wikipedia, not reviewed"**.
+  Every source chip links to the Wikipedia section it came from.
+- `404` if Wikipedia has no day-by-day page for that month (common before about
+  1900 and for some recent months); `422` for future dates.
+
 ## Notes for the app side
 
 - Base URL in dev: `http://localhost:8000`. CORS is open in dev.
