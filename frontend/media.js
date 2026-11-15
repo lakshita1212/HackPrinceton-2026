@@ -6,8 +6,12 @@
 //   roles  rooms that get it; leave out for every room
 //   source where it's from, shown under the big screen (e.g. 'JFK Library, public domain')
 export const MEDIA = [
-  // { date: '1962-10-22', kind: 'video', src: 'media/kennedy-address.mp4',
-  //   title: "Kennedy's address to the nation", label: 'archival', roles: ['citizen', 'journalist'] },
+  { date: '1962-10-22', kind: 'video', src: 'media/kennedy-address-1962-10-22.mp4',
+    title: "President Kennedy's address on Cuba", label: 'archival',
+    source: 'U.S. Information Agency film, National Archives · public domain' },
+  { date: '1962-10-22', kind: 'audio', src: 'media/kennedy-address-1962-10-22.mp3',
+    title: "President Kennedy's address to the nation on Cuba", label: 'archival',
+    source: 'Oval Office broadcast, 7 PM, Oct 22, 1962 · public domain' },
 ];
 
 export function mediaFor(date, role, kind) {
