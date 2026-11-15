@@ -20,3 +20,6 @@ __pycache__/
 *.pyc
 .venv/
 venv/
+
+# Original room PNGs (the app uses the JPG copies)
+frontend/rooms/*.png

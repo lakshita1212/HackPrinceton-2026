@@ -1,6 +1,6 @@
 # Stay Tuned
 
-**The only history class with no spoilers.** A radio you tune through time: rotate your phone like a dial to land on a day in history, step into the rooms of the people living through it, and call the station to talk to them. They only know what was known on that day.
+**The only history class with no spoilers.** A radio you tune through time: turn the dial to land on a day in history, step into the rooms of the people living through it, and call the station to talk to them. They only know what was known on that day.
 
 Built at HackPrinceton 2026.
 
@@ -9,7 +9,7 @@ Built at HackPrinceton 2026.
 | Part | Tech | Folder |
 |------|------|--------|
 | Host (the brain) | Python, FastAPI, LangChain deepagents | [backend/](backend/) |
-| Radio app + phone dial (the experience) | JS front end, WebSockets | [frontend/](frontend/) |
+| Radio app (the experience) | Plain JS, runs on the laptop | [frontend/](frontend/) |
 | Call-in | Photon 2.0 voice | backend |
 
 The app and the host talk through one endpoint, described in [CONTRACT.md](CONTRACT.md).
