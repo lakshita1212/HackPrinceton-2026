@@ -3,7 +3,11 @@
 // The host URL defaults to http://localhost:8000; open the app with ?host=http://… to change it.
 // If the host is down or rejects the request, a scripted answer comes back instead
 // (live: false), so the screen keeps working during the demo.
-const HOST_URL = (new URLSearchParams(location.search).get('host') || 'http://localhost:8000').replace(/\/+$/, '');
+// Run locally (port 8080, serve.py), the host is on localhost:8000. Deployed, the
+// host serves this page itself, so it's the same address.
+const LOCAL = ['localhost', '127.0.0.1', ''].includes(location.hostname) && location.port !== '8000';
+const HOST_URL = (new URLSearchParams(location.search).get('host')
+  || (LOCAL ? 'http://localhost:8000' : location.origin)).replace(/\/+$/, '');
 // Long enough for the host to wait out a rate limit rather than fail.
 const TIMEOUT_MS = 45000;
 
@@ -24,6 +28,16 @@ export async function ask({ question, role, date, pack }) {
     };
   } catch {
     return { ...scripted(question, role, date), live: false };
+  }
+}
+
+// What this copy of the host can do. The public copy has no texting.
+export async function fetchConfig() {
+  try {
+    const res = await fetch(`${HOST_URL}/config`, { signal: AbortSignal.timeout(5000) });
+    return res.ok ? await res.json() : { texting: true };
+  } catch {
+    return { texting: true };
   }
 }
 

@@ -3,7 +3,7 @@
 //      and a "signal lost" burst when a question reaches past the station's day.
 //   2. Gemini's pinned captions dropping onto a photo texted to the station.
 //   3. The real archival recording, as a bubble in the call thread.
-import { fetchKnowledge, connectPhone } from './host.js';
+import { fetchKnowledge, connectPhone, fetchConfig } from './host.js';
 
 const $ = (id) => document.getElementById(id);
 const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -153,6 +153,8 @@ export function initTextCard() {
   const card = $('textCard');
   const toggle = $('textToggle');
   if (!card || !toggle) return;
+  // The public copy online has no texting: that runs from our judging-table laptop.
+  fetchConfig().then((c) => { if (c.texting === false) toggle.hidden = true; });
   const open = (show) => {
     card.hidden = !show;
     toggle.setAttribute('aria-expanded', String(show));

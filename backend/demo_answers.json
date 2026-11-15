@@ -1,0 +1,747 @@
+{
+ "cmc-1962|citizen|1962-10-22|are we going to war": {
+  "answer": "The President said we're putting a strict quarantine on offensive weapons headed to Cuba and warned that this is a difficult and dangerous effort on which we have set out.",
+  "sources": [
+   {
+    "id": "cmc-1022-13",
+    "title": "JFK address to the nation, Oct 22, 1962",
+    "date": "1962-10-22",
+    "citation": "John F. Kennedy, 'Radio and Television Report to the American People on the Soviet Arms Buildup in Cuba,' October 22, 1962. John F. Kennedy Presidential Library; Public Papers of the Presidents: John F. Kennedy, 1962.",
+    "url": "https://microsites.jfklibrary.org/cmc/oct22/doc5.html",
+    "kind": "archival"
+   },
+   {
+    "id": "cmc-1022-18",
+    "title": "JFK address to the nation, Oct 22, 1962",
+    "date": "1962-10-22",
+    "citation": "John F. Kennedy, 'Radio and Television Report to the American People on the Soviet Arms Buildup in Cuba,' October 22, 1962. John F. Kennedy Presidential Library; Public Papers of the Presidents: John F. Kennedy, 1962.",
+    "url": "https://microsites.jfklibrary.org/cmc/oct22/doc5.html",
+    "kind": "archival"
+   }
+  ],
+  "blocked": false,
+  "blocked_reason": null
+ },
+ "apollo-1969|citizen|1969-07-16|did they land on the moon": {
+  "answer": "I haven't heard anything about a landing yet; the mission just lifted off today and is headed for the Moon.",
+  "sources": [
+   {
+    "id": "apo-0716-01",
+    "title": "NASA, Apollo 11 Mission Overview",
+    "date": "1969-07-16",
+    "citation": "NASA, 'Apollo 11 Mission Overview,' NASA History Office.",
+    "url": "https://www.nasa.gov/missions/apollo/apollo-11/apollo-11-mission-overview/",
+    "kind": "archival"
+   }
+  ],
+  "blocked": false,
+  "blocked_reason": null
+ },
+ "apollo-1969|citizen|1969-07-20|what is happening tonight": {
+  "answer": "The Eagle has landed, and later tonight Neil Armstrong will step onto the Moon. He'll say, \"That's one small step for man, one giant leap for mankind.\"",
+  "sources": [
+   {
+    "id": "apo-0720-01",
+    "title": "Apollo 11 air-to-ground transcript, Jul 20, 1969",
+    "date": "1969-07-20",
+    "citation": "NASA, Apollo 11 Technical Air-to-Ground Voice Transcription, July 1969; annotated in the Apollo Lunar Surface Journal, ed. Eric M. Jones.",
+    "url": "https://www.nasa.gov/history/alsj-and-afj/",
+    "kind": "archival"
+   },
+   {
+    "id": "apo-0720-02",
+    "title": "NASA, Apollo 11 Mission Overview",
+    "date": "1969-07-20",
+    "citation": "NASA, 'Apollo 11 Mission Overview,' NASA History Office.",
+    "url": "https://www.nasa.gov/missions/apollo/apollo-11/apollo-11-mission-overview/",
+    "kind": "archival"
+   }
+  ],
+  "blocked": false,
+  "blocked_reason": null
+ },
+ "berlin-1989|citizen|1989-11-09|what is happening in berlin tonight": {
+  "answer": "The East German border is open, and people are moving through crossings like Bornholmer Straße. The gates are wide open, and thousands are pouring into West Berlin. It’s a historic day for us all.",
+  "sources": [
+   {
+    "id": "ber-1109-01",
+    "title": "Chronik der Mauer, November 1989",
+    "date": "1989-11-09",
+    "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+    "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+    "kind": "archival"
+   },
+   {
+    "id": "ber-1109-02",
+    "title": "Chronik der Mauer, November 1989",
+    "date": "1989-11-09",
+    "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+    "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+    "kind": "archival"
+   },
+   {
+    "id": "ber-1109-04",
+    "title": "Chronik der Mauer, November 1989",
+    "date": "1989-11-09",
+    "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+    "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+    "kind": "archival"
+   }
+  ],
+  "blocked": false,
+  "blocked_reason": null
+ },
+ "berlin-1989|official|1989-11-09|when will germany be reunified": {
+  "answer": "I have not heard anything about a reunification date.",
+  "sources": [
+   {
+    "id": "ber-1109-01",
+    "title": "Chronik der Mauer, November 1989",
+    "date": "1989-11-09",
+    "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+    "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+    "kind": "archival"
+   },
+   {
+    "id": "ber-1109-02",
+    "title": "Chronik der Mauer, November 1989",
+    "date": "1989-11-09",
+    "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+    "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+    "kind": "archival"
+   },
+   {
+    "id": "ber-1109-06",
+    "title": "Chronik der Mauer, November 1989",
+    "date": "1989-11-09",
+    "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+    "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+    "kind": "archival"
+   },
+   {
+    "id": "ber-1104-14",
+    "title": "Chronik der Mauer, November 1989",
+    "date": "1989-11-07",
+    "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+    "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+    "kind": "archival"
+   },
+   {
+    "id": "ber-1104-03",
+    "title": "Chronik der Mauer, November 1989",
+    "date": "1989-11-04",
+    "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+    "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+    "kind": "archival"
+   },
+   {
+    "id": "ber-1104-09",
+    "title": "Chronik der Mauer, September 1989",
+    "date": "1989-09-11",
+    "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), chronology for September 1989.",
+    "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month9/?month=9&year=1989&moc=1",
+    "kind": "archival"
+   }
+  ],
+  "blocked": false,
+  "blocked_reason": null
+ },
+ "berlin-1989|historian|1989-11-04|what happened in the days after this": {
+  "answer": "In the days following the Wall's opening, the East German government collapsed rapidly. On November 7, the entire Council of Ministers resigned, and on November 8, the whole Politburo stepped down. The opposition group Neues Forum was also finally allowed to register on November 8.",
+  "sources": [
+   {
+    "id": "ber-1104-14",
+    "title": "Chronik der Mauer, November 1989",
+    "date": "1989-11-07",
+    "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+    "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+    "kind": "archival"
+   }
+  ],
+  "blocked": false,
+  "blocked_reason": null
+ },
+ "cmc-1962|official|1962-10-22|are we going to war": {
+  "answer": "The President has rejected an air strike and opted for a naval quarantine instead. He says the blockade is meant to stop offensive weapons, not to start a war.",
+  "sources": [
+   {
+    "id": "cmc-1022-02",
+    "title": "Minutes of the 507th NSC meeting, Oct 22, 1962",
+    "date": "1962-10-22",
+    "citation": "Minutes of the 507th Meeting of the National Security Council, Washington, October 22, 1962, 3 p.m. John F. Kennedy Presidential Library; also in Foreign Relations of the United States, 1961-1963, Volume XI.",
+    "url": "https://microsites.jfklibrary.org/cmc/oct22/doc1.html",
+    "kind": "archival"
+   },
+   {
+    "id": "cmc-1022-13",
+    "title": "JFK address to the nation, Oct 22, 1962",
+    "date": "1962-10-22",
+    "citation": "John F. Kennedy, 'Radio and Television Report to the American People on the Soviet Arms Buildup in Cuba,' October 22, 1962. John F. Kennedy Presidential Library; Public Papers of the Presidents: John F. Kennedy, 1962.",
+    "url": "https://microsites.jfklibrary.org/cmc/oct22/doc5.html",
+    "kind": "archival"
+   }
+  ],
+  "blocked": false,
+  "blocked_reason": null
+ },
+ "cmc-1962|citizen|1962-10-22|how does this all end": {
+  "answer": "Nobody here knows how this ends yet. If you want to find out, turn the dial forward.",
+  "sources": [],
+  "blocked": true,
+  "blocked_reason": "future"
+ },
+ "apollo-1969|citizen|1969-07-20|did they make it": {
+  "answer": "Yes, they made it. The lunar module landed in the Sea of Tranquility this afternoon, and Neil Armstrong just stepped onto the Moon on live TV. I'm still shaking, but I'm so proud.",
+  "sources": [
+   {
+    "id": "apo-0720-01",
+    "title": "Apollo 11 air-to-ground transcript, Jul 20, 1969",
+    "date": "1969-07-20",
+    "citation": "NASA, Apollo 11 Technical Air-to-Ground Voice Transcription, July 1969; annotated in the Apollo Lunar Surface Journal, ed. Eric M. Jones.",
+    "url": "https://www.nasa.gov/history/alsj-and-afj/",
+    "kind": "archival"
+   },
+   {
+    "id": "apo-0720-02",
+    "title": "NASA, Apollo 11 Mission Overview",
+    "date": "1969-07-20",
+    "citation": "NASA, 'Apollo 11 Mission Overview,' NASA History Office.",
+    "url": "https://www.nasa.gov/missions/apollo/apollo-11/apollo-11-mission-overview/",
+    "kind": "archival"
+   }
+  ],
+  "blocked": false,
+  "blocked_reason": null
+ },
+ "apollo-1969|official|1969-07-20|what would the president say if they got stuck up there": {
+  "answer": "Safire drafted a statement for the President to read if Armstrong and Aldrin were stranded and couldn't come home. It's been kept ready, and everyone hopes it's never used. The words go: \"Fate has ordained that the men who went to the moon to explore in peace will stay on the moon to rest in peace.\"",
+  "sources": [
+   {
+    "id": "apo-0716-09",
+    "title": "'In Event of Moon Disaster,' Safire memo, Jul 18, 1969",
+    "date": "1969-07-18",
+    "citation": "William Safire to H.R. Haldeman, 'In Event of Moon Disaster,' July 18, 1969. Richard Nixon Presidential Library and Museum, National Archives.",
+    "url": "https://www.archives.gov/presidential-libraries/events/centennials/nixon/exhibit/nixon-online-exhibit-disaster.html",
+    "kind": "archival"
+   }
+  ],
+  "blocked": false,
+  "blocked_reason": null
+ },
+ "berlin-1989|citizen|1989-11-09|whats happening at the border tonight": {
+  "answer": "Well, I just heard on the news that the East German government announced the borders are open to everyone, effective immediately. It's already past eleven, and thousands of East Berliners are pressing against the Bornholmer Straße crossing, and the gate has been opened. People are pouring into West Berlin as we speak.",
+  "sources": [
+   {
+    "id": "ber-1109-01",
+    "title": "Chronik der Mauer, November 1989",
+    "date": "1989-11-09",
+    "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+    "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+    "kind": "archival"
+   },
+   {
+    "id": "ber-1109-02",
+    "title": "Chronik der Mauer, November 1989",
+    "date": "1989-11-09",
+    "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+    "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+    "kind": "archival"
+   },
+   {
+    "id": "ber-1109-04",
+    "title": "Chronik der Mauer, November 1989",
+    "date": "1989-11-09",
+    "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+    "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+    "kind": "archival"
+   }
+  ],
+  "blocked": false,
+  "blocked_reason": null
+ },
+ "berlin-1989|official|1989-11-09|why did schabowski say immediately": {
+  "answer": "He wasn't briefed properly. Krenz handed him the draft rules at 5:30 p.m. without saying they were meant to take effect only the next morning, so he announced them on the spot.",
+  "sources": [
+   {
+    "id": "ber-1109-07",
+    "title": "Chronik der Mauer, November 1989",
+    "date": "1989-11-09",
+    "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+    "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+    "kind": "archival"
+   }
+  ],
+  "blocked": false,
+  "blocked_reason": null
+ },
+ "cmc-1962|citizen|1962-10-16|whats in the news today": {
+  "answer": "Well, the big thing is the Yankees just won the World Series, beating the Giants 1 to 0 in Game 7. Also, the President was back on his normal schedule today, hosting a luncheon for a Libyan prince and meeting with a panel on mental retardation. Nothing about Cuba was announced, which is a relief after the missile talk last month.",
+  "sources": [
+   {
+    "id": "cmc-1016-16",
+    "title": "Iamarino, Seven Games in '62 (2021)",
+    "date": "1962-10-16",
+    "citation": "John Iamarino, Seven Games in '62: The Yankees and Giants Square Off in a Classic World Series (Jefferson, NC: McFarland, 2021).",
+    "url": null,
+    "kind": "narration"
+   },
+   {
+    "id": "cmc-1016-04",
+    "title": "JFK appointment schedule, Oct 16, 1962",
+    "date": "1962-10-16",
+    "citation": "President Kennedy's appointments, October 16, 1962. John F. Kennedy Presidential Library, 'World on the Brink' online exhibit, which notes that the President maintained his official schedule to avoid arousing public concern.",
+    "url": "https://microsites.jfklibrary.org/cmc/oct16/doc1.html",
+    "kind": "archival"
+   },
+   {
+    "id": "cmc-bg-05",
+    "title": "FRUS 1961-63 vol. X, doc. 411 (Sept 4 statement)",
+    "date": "1962-09-04",
+    "citation": "Foreign Relations of the United States, 1961-1963, Volume X, Cuba 1961-1962, Document 411, Editorial Note, quoting the President's statement of September 4, 1962, read to the White House press corps by Press Secretary Pierre Salinger (text in Department of State Bulletin, September 24, 1962, p. 450).",
+    "url": "https://history.state.gov/historicaldocuments/frus1961-63v10/d411",
+    "kind": "archival"
+   }
+  ],
+  "blocked": false,
+  "blocked_reason": null
+ },
+ "cmc-1962|official|1962-10-16|what did the photos show": {
+  "answer": "The U-2 photos from Sunday showed Soviet medium-range ballistic missile sites under construction in western Cuba. They also showed crates for Soviet IL-28 bombers at San Julian airfield.",
+  "sources": [
+   {
+    "id": "cmc-1016-01",
+    "title": "FRUS 1961-63 vol. XI, doc. 16 (editorial note)",
+    "date": "1962-10-16",
+    "citation": "Foreign Relations of the United States, 1961-1963, Volume XI, Cuban Missile Crisis and Aftermath, Document 16, Editorial Note.",
+    "url": "https://history.state.gov/historicaldocuments/frus1961-63v11/d16",
+    "kind": "archival"
+   }
+  ],
+  "blocked": false,
+  "blocked_reason": null
+ },
+ "cmc-1962|journalist|1962-10-22|are we going to war": {
+  "answer": "I can't tell you that. What the President announced tonight is a naval quarantine of Cuba to stop the offensive missile buildup, not a declaration of war. He did warn that the effort ahead would be difficult and dangerous, and that many months of sacrifice lie ahead. So the situation is serious, but as of right now, the U.S. has not gone to war.\"",
+  "sources": [
+   {
+    "id": "cmc-1022-13",
+    "title": "JFK address to the nation, Oct 22, 1962",
+    "date": "1962-10-22",
+    "citation": "John F. Kennedy, 'Radio and Television Report to the American People on the Soviet Arms Buildup in Cuba,' October 22, 1962. John F. Kennedy Presidential Library; Public Papers of the Presidents: John F. Kennedy, 1962.",
+    "url": "https://microsites.jfklibrary.org/cmc/oct22/doc5.html",
+    "kind": "archival"
+   },
+   {
+    "id": "cmc-1022-18",
+    "title": "JFK address to the nation, Oct 22, 1962",
+    "date": "1962-10-22",
+    "citation": "John F. Kennedy, 'Radio and Television Report to the American People on the Soviet Arms Buildup in Cuba,' October 22, 1962. John F. Kennedy Presidential Library; Public Papers of the Presidents: John F. Kennedy, 1962.",
+    "url": "https://microsites.jfklibrary.org/cmc/oct22/doc5.html",
+    "kind": "archival"
+   }
+  ],
+  "blocked": false,
+  "blocked_reason": null
+ },
+ "cmc-1962|citizen|1962-10-22|what did the president say tonight": {
+  "answer": "Well, he told us the Soviets are building offensive missile sites right there in Cuba, and some of those missiles could hit Washington or even our own cities. He also announced a strict quarantine on all offensive military equipment being shipped to Cuba, so any ships carrying those weapons will be turned back. It's a real scary situation, and I just hope we can get through this without a war.",
+  "sources": [
+   {
+    "id": "cmc-1022-11",
+    "title": "JFK address to the nation, Oct 22, 1962",
+    "date": "1962-10-22",
+    "citation": "John F. Kennedy, 'Radio and Television Report to the American People on the Soviet Arms Buildup in Cuba,' October 22, 1962, delivered from the President's office at 7 p.m. John F. Kennedy Presidential Library; Public Papers of the Presidents: John F. Kennedy, 1962.",
+    "url": "https://microsites.jfklibrary.org/cmc/oct22/doc5.html",
+    "kind": "archival"
+   },
+   {
+    "id": "cmc-1022-13",
+    "title": "JFK address to the nation, Oct 22, 1962",
+    "date": "1962-10-22",
+    "citation": "John F. Kennedy, 'Radio and Television Report to the American People on the Soviet Arms Buildup in Cuba,' October 22, 1962. John F. Kennedy Presidential Library; Public Papers of the Presidents: John F. Kennedy, 1962.",
+    "url": "https://microsites.jfklibrary.org/cmc/oct22/doc5.html",
+    "kind": "archival"
+   },
+   {
+    "id": "cmc-1022-12",
+    "title": "JFK address to the nation, Oct 22, 1962",
+    "date": "1962-10-22",
+    "citation": "John F. Kennedy, 'Radio and Television Report to the American People on the Soviet Arms Buildup in Cuba,' October 22, 1962. John F. Kennedy Presidential Library; Public Papers of the Presidents: John F. Kennedy, 1962.",
+    "url": "https://microsites.jfklibrary.org/cmc/oct22/doc5.html",
+    "kind": "archival"
+   }
+  ],
+  "blocked": false,
+  "blocked_reason": null
+ },
+ "cmc-1962|citizen|1962-10-24|should we be scared": {
+  "answer": "Lord, I'm scared enough for the whole neighborhood. The President said this is a difficult and dangerous effort, and folks here are calling schools all day asking if the kids will be sent home if an attack comes. I just hope we all stay calm and do what we're told.",
+  "sources": [
+   {
+    "id": "cmc-1022-18",
+    "title": "JFK address to the nation, Oct 22, 1962",
+    "date": "1962-10-22",
+    "citation": "John F. Kennedy, 'Radio and Television Report to the American People on the Soviet Arms Buildup in Cuba,' October 22, 1962. John F. Kennedy Presidential Library; Public Papers of the Presidents: John F. Kennedy, 1962.",
+    "url": "https://microsites.jfklibrary.org/cmc/oct22/doc5.html",
+    "kind": "archival"
+   },
+   {
+    "id": "cmc-1024-12",
+    "title": "Torrance Press, Oct 24, 1962, front page",
+    "date": "1962-10-24",
+    "citation": "'Cuban Crisis Brings Fast Reaction Here' and 'Armed Services Signups Triple,' Torrance Press (Torrance, CA), Vol. XIV, No. 54, October 24, 1962, front page. Torrance Public Library digital newspaper archive.",
+    "url": "https://libarch.torranceca.gov/archivednewspapers/Press/1962%20Jul%20-%20Dec/PDF/00000723.pdf",
+    "kind": "archival"
+   }
+  ],
+  "blocked": false,
+  "blocked_reason": null
+ },
+ "cmc-1962|citizen|1962-10-27|whats the latest news": {
+  "answer": "Well, Khrushchev put out a message today offering to pull the missiles out of Cuba if we take ours out of Turkey. But the White House already shot that down, saying we need the Cuban bases shut down and the weapons made unusable first. To make matters worse, a U-2 plane went missing over Cuba this evening, and Castro's people are threatening to shoot down any foreign planes that fly over there.",
+  "sources": [
+   {
+    "id": "cmc-1027-01",
+    "title": "UPI, 'Kennedy rejects Turkey deal,' Oct 27, 1962",
+    "date": "1962-10-27",
+    "citation": "United Press International, 'Kennedy rejects Turkey deal, demands removal of Cuba missiles,' Washington, October 27, 1962. UPI Archives.",
+    "url": "https://www.upi.com/Archives/1962/10/27/Kennedy-rejects-Turkey-deal-demands-removal-of-Cuba-missiles/5455421028389/",
+    "kind": "archival"
+   },
+   {
+    "id": "cmc-1027-03",
+    "title": "White House statement, Oct 27, 1962",
+    "date": "1962-10-27",
+    "citation": "White House Statement on Soviet Proposals Relating to International Security, October 27, 1962. Public Papers of the Presidents: John F. Kennedy, 1962; copy of the official text preserved in the CIA Reading Room (CIA-RDP80B01676R001700140006-5).",
+    "url": "https://www.cia.gov/readingroom/document/cia-rdp80b01676r001700140006-5",
+    "kind": "archival"
+   },
+   {
+    "id": "cmc-1027-04",
+    "title": "FRUS 1961-63 vol. XI, doc. 100 (cable on public statements)",
+    "date": "1962-10-27",
+    "citation": "Foreign Relations of the United States, 1961-1963, Volume XI, Document 100, State Department telegram instructing the briefing of NATO and listing that day's public U.S. statements, including the Defense Department announcement of continued surveillance and of the air reserve call-up.",
+    "url": "https://history.state.gov/historicaldocuments/frus1961-63v11/d100",
+    "kind": "archival"
+   },
+   {
+    "id": "cmc-1027-07",
+    "title": "CIA memorandum 'The Crisis: USSR/Cuba,' Oct 28",
+    "date": "1962-10-27",
+    "citation": "Central Intelligence Agency, 'The Crisis: USSR/Cuba,' October 28, 1962 (summarizing Cuban public announcements of October 27). CIA Reading Room.",
+    "url": "https://www.cia.gov/readingroom/node/2069709",
+    "kind": "archival"
+   }
+  ],
+  "blocked": false,
+  "blocked_reason": null
+ },
+ "cmc-1962|citizen|1962-10-28|is it over": {
+  "answer": "Well, it looks like the worst of it may be behind us. Khrushchev put out a message this morning saying he's stopping work on the Cuban sites and taking those weapons apart to ship them back, and the President welcomed that decision. But I'll be honest, I'm still holding my breath until we see it actually done under UN checks.",
+  "sources": [
+   {
+    "id": "cmc-1028-01",
+    "title": "Khrushchev message to JFK, Oct 28, 1962",
+    "date": "1962-10-28",
+    "citation": "Message from Chairman Khrushchev to President Kennedy, October 28, 1962, as transmitted by Moscow TASS in English. Department of State translation and text, John F. Kennedy Presidential Library.",
+    "url": "https://microsites.jfklibrary.org/cmc/oct28/doc1.html",
+    "kind": "archival"
+   },
+   {
+    "id": "cmc-1028-02",
+    "title": "JFK statement on Soviet withdrawal, Oct 28, 1962",
+    "date": "1962-10-28",
+    "citation": "Statement by the President Following the Soviet Decision To Withdraw Missiles From Cuba, October 28, 1962. Public Papers of the Presidents: John F. Kennedy, 1962; original at the John F. Kennedy Presidential Library.",
+    "url": "https://microsites.jfklibrary.org/cmc/images/sub/oct28/cmc_jfk_statement_oct28.jpg",
+    "kind": "archival"
+   }
+  ],
+  "blocked": false,
+  "blocked_reason": null
+ },
+ "cmc-1962|historian|1962-10-28|how did the crisis end": {
+  "answer": "The crisis ended on October 28, 1962, when Khrushchev broadcast a message to Kennedy announcing he had ordered work on the Cuban missile sites stopped and the offensive weapons dismantled, crated, and shipped back to the Soviet Union. Kennedy welcomed the decision as a constructive contribution to peace and treated their exchange of letters as the basis for settling the crisis. However, Soviet documents later revealed that short-range tactical nuclear warheads actually remained in Cuba until December 1, 1962, and U.S. intelligence had never detected them during the crisis.",
+  "sources": [
+   {
+    "id": "cmc-1028-01",
+    "title": "Khrushchev message to JFK, Oct 28, 1962",
+    "date": "1962-10-28",
+    "citation": "Message from Chairman Khrushchev to President Kennedy, October 28, 1962, as transmitted by Moscow TASS in English. Department of State translation and text, John F. Kennedy Presidential Library.",
+    "url": "https://microsites.jfklibrary.org/cmc/oct28/doc1.html",
+    "kind": "archival"
+   },
+   {
+    "id": "cmc-1028-02",
+    "title": "JFK statement on Soviet withdrawal, Oct 28, 1962",
+    "date": "1962-10-28",
+    "citation": "Statement by the President Following the Soviet Decision To Withdraw Missiles From Cuba, October 28, 1962. Public Papers of the Presidents: John F. Kennedy, 1962; original at the John F. Kennedy Presidential Library.",
+    "url": "https://microsites.jfklibrary.org/cmc/images/sub/oct28/cmc_jfk_statement_oct28.jpg",
+    "kind": "archival"
+   },
+   {
+    "id": "cmc-1028-03",
+    "title": "ExComm record of action, Oct 28, 11 a.m.",
+    "date": "1962-10-28",
+    "citation": "NSC Executive Committee Record of Action, October 28, 1962, 11:00 a.m., Meeting No. 10, item 6. John F. Kennedy Presidential Library; also Foreign Relations of the United States, 1961-1963, Volumes X/XI/XII Microfiche Supplement, Document 443.",
+    "url": "https://microsites.jfklibrary.org/cmc/oct28/doc2.html",
+    "kind": "archival"
+   },
+   {
+    "id": "cmc-1028-13",
+    "title": "NSA Electronic Briefing Book No. 449",
+    "date": "2013-12-11",
+    "citation": "Svetlana Savranskaya and Thomas Blanton, eds., 'The Last Nuclear Weapons Left Cuba in December 1962,' National Security Archive Electronic Briefing Book No. 449, posted December 11, 2013.",
+    "url": "https://nsarchive2.gwu.edu/NSAEBB/NSAEBB449/",
+    "kind": "narration"
+   }
+  ],
+  "blocked": false,
+  "blocked_reason": null
+ },
+ "cmc-1962|historian|1962-10-22|what did people not know at the time": {
+  "answer": "During the crisis, U.S. leaders had no idea that the Soviets had deployed short-range tactical nuclear weapons in Cuba, a fact that wasn't revealed until 1992. Additionally, the public didn't know about the secret White House taping system that recorded the October 16 meetings until 1973.",
+  "sources": [
+   {
+    "id": "cmc-1016-19",
+    "title": "NSA Electronic Briefing Book No. 449",
+    "date": "1992-01-09",
+    "citation": "Svetlana Savranskaya and Thomas Blanton, eds., 'The Last Nuclear Weapons Left Cuba in December 1962,' National Security Archive Electronic Briefing Book No. 449, George Washington University.",
+    "url": "https://nsarchive2.gwu.edu/NSAEBB/NSAEBB449/",
+    "kind": "narration"
+   },
+   {
+    "id": "cmc-1016-17",
+    "title": "JFK Library: White House Tape Recordings",
+    "date": "1973-07-17",
+    "citation": "John F. Kennedy Presidential Library and Museum, 'White House Tape Recordings' (JFK in History).",
+    "url": "https://jfklibrary.org/JFK/JFK-in-History/White-House-Tape-Recordings.aspx",
+    "kind": "narration"
+   }
+  ],
+  "blocked": false,
+  "blocked_reason": null
+ },
+ "apollo-1969|journalist|1969-07-20|what happened during the landing": {
+  "answer": "It was a tense one. The crew got computer alarms over the radio, and Armstrong had to take partial manual control to steer past a boulder-strewn crater field, landing about four miles off the planned spot. Mission Control was calling out the fuel left, \"60 seconds,\" then \"30 seconds,\" before Eagle touched down in the Sea of Tranquility.",
+  "sources": [
+   {
+    "id": "apo-0720-03",
+    "title": "NASA, Apollo 11 Mission Overview",
+    "date": "1969-07-20",
+    "citation": "NASA, 'Apollo 11 Mission Overview,' NASA History Office.",
+    "url": "https://www.nasa.gov/missions/apollo/apollo-11/apollo-11-mission-overview/",
+    "kind": "archival"
+   },
+   {
+    "id": "apo-0720-01",
+    "title": "Apollo 11 air-to-ground transcript, Jul 20, 1969",
+    "date": "1969-07-20",
+    "citation": "NASA, Apollo 11 Technical Air-to-Ground Voice Transcription, July 1969; annotated in the Apollo Lunar Surface Journal, ed. Eric M. Jones.",
+    "url": "https://www.nasa.gov/history/alsj-and-afj/",
+    "kind": "archival"
+   }
+  ],
+  "blocked": false,
+  "blocked_reason": null
+ },
+ "apollo-1969|citizen|1969-07-20|did the astronauts get home safely": {
+  "answer": "Well, I can't tell you that yet. As of this evening, they're still up there on the Moon, and we're all just holding our breath waiting for the return trip. The landing itself was a tense one, but they made it, and now we're praying they get home safe and sound.",
+  "sources": [
+   {
+    "id": "apo-0720-01",
+    "title": "Apollo 11 air-to-ground transcript, Jul 20, 1969",
+    "date": "1969-07-20",
+    "citation": "NASA, Apollo 11 Technical Air-to-Ground Voice Transcription, July 1969; annotated in the Apollo Lunar Surface Journal, ed. Eric M. Jones.",
+    "url": "https://www.nasa.gov/history/alsj-and-afj/",
+    "kind": "archival"
+   },
+   {
+    "id": "apo-0720-03",
+    "title": "NASA, Apollo 11 Mission Overview",
+    "date": "1969-07-20",
+    "citation": "NASA, 'Apollo 11 Mission Overview,' NASA History Office.",
+    "url": "https://www.nasa.gov/missions/apollo/apollo-11/apollo-11-mission-overview/",
+    "kind": "archival"
+   }
+  ],
+  "blocked": false,
+  "blocked_reason": null
+ },
+ "apollo-1969|historian|1969-07-20|why does the moon landing matter": {
+  "answer": "The moon landing mattered because it fulfilled a goal President Kennedy set in 1961: landing a man on the Moon and returning him safely before the decade was out. It was the first time humans landed on another world, and Armstrong's step onto the lunar surface was watched live by an estimated 650 million people worldwide.",
+  "sources": [
+   {
+    "id": "apo-0716-06",
+    "title": "NASA, '55 Years Ago: Apollo 11's One Small Step'",
+    "date": "1961-05-25",
+    "citation": "NASA History Office, '55 Years Ago: Apollo 11's One Small Step, One Giant Leap,' July 2024 (photo history of the mission).",
+    "url": "https://www.nasa.gov/history/55-years-ago-apollo-11s-one-small-step-one-giant-leap/",
+    "kind": "narration"
+   },
+   {
+    "id": "apo-0720-01",
+    "title": "Apollo 11 air-to-ground transcript, Jul 20, 1969",
+    "date": "1969-07-20",
+    "citation": "NASA, Apollo 11 Technical Air-to-Ground Voice Transcription, July 1969; annotated in the Apollo Lunar Surface Journal, ed. Eric M. Jones.",
+    "url": "https://www.nasa.gov/history/alsj-and-afj/",
+    "kind": "archival"
+   },
+   {
+    "id": "apo-0720-02",
+    "title": "NASA, Apollo 11 Mission Overview",
+    "date": "1969-07-20",
+    "citation": "NASA, 'Apollo 11 Mission Overview,' NASA History Office.",
+    "url": "https://www.nasa.gov/missions/apollo/apollo-11/apollo-11-mission-overview/",
+    "kind": "archival"
+   }
+  ],
+  "blocked": false,
+  "blocked_reason": null
+ },
+ "berlin-1989|journalist|1989-11-09|when will germany be reunified": {
+  "answer": "I haven't heard anything about a timeline for reunification. What I can tell you is that the East German government announced today that its borders are open to everyone, and the gates in the Wall are wide open. But beyond that, I have no confirmed information on when or how reunification would happen.",
+  "sources": [
+   {
+    "id": "ber-1109-01",
+    "title": "Chronik der Mauer, November 1989",
+    "date": "1989-11-09",
+    "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+    "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+    "kind": "archival"
+   },
+   {
+    "id": "ber-1109-02",
+    "title": "Chronik der Mauer, November 1989",
+    "date": "1989-11-09",
+    "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+    "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+    "kind": "archival"
+   }
+  ],
+  "blocked": false,
+  "blocked_reason": null
+ },
+ "berlin-1989|citizen|1989-11-09|is the wall really open": {
+  "answer": "I sure hope so, because the news on the West German TV said the gates in the Wall are wide open. They announced the borders are open to everyone, and by late last night thousands of people were already pouring through the crossings. It sounds like it's really happening.",
+  "sources": [
+   {
+    "id": "ber-1109-02",
+    "title": "Chronik der Mauer, November 1989",
+    "date": "1989-11-09",
+    "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+    "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+    "kind": "archival"
+   },
+   {
+    "id": "ber-1109-04",
+    "title": "Chronik der Mauer, November 1989",
+    "date": "1989-11-09",
+    "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+    "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+    "kind": "archival"
+   }
+  ],
+  "blocked": false,
+  "blocked_reason": null
+ },
+ "berlin-1989|historian|1989-11-09|why did the wall open": {
+  "answer": "The Wall opened largely by accident, due to a mix-up in communication. The East German regime actually intended to ease pressure with controlled, paperwork-heavy travel starting the next day, but spokesman Günter Schabowski mistakenly announced the new travel rules took effect immediately. That slip, amplified by West German broadcasts, brought crowds to the borders that guards couldn't hold back without bloodshed, and no one gave the order to shoot.",
+  "sources": [
+   {
+    "id": "ber-1109-01",
+    "title": "Chronik der Mauer, November 1989",
+    "date": "1989-11-09",
+    "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+    "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+    "kind": "archival"
+   },
+   {
+    "id": "ber-1109-18",
+    "title": "Chronik der Mauer, November 1989",
+    "date": "1989-11-09",
+    "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+    "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+    "kind": "narration"
+   },
+   {
+    "id": "ber-1109-03",
+    "title": "Chronik der Mauer, November 1989",
+    "date": "1989-11-09",
+    "citation": "Chronik der Mauer (Federal Agency for Civic Education, Deutschlandradio, Centre for Contemporary History Potsdam), hour-by-hour chronology for November 1989.",
+    "url": "https://www.chronik-der-mauer.de/en/chronicle/_year1989/_month11/?month=11&year=1989&moc=1",
+    "kind": "archival"
+   }
+  ],
+  "blocked": false,
+  "blocked_reason": null
+ },
+ "wiki-2026-11|citizen|2026-11-14|whats in the news this week": {
+  "answer": "We had the first Eurovision Song Contest Asia in Bangkok, Thailand. There was a big Microsoft 365 outage that knocked out Outlook, Teams and Copilot. The FAA shut down U.S. airspace with its largest ground stop since 9/11 because of tech communication problems, and Nvidia’s CEO Jensen Huang stepped down amid a Chinese spying scandal.",
+  "sources": [
+   {
+    "id": "wiki-20261114-01",
+    "title": "Wikipedia: 2026, Nov 14",
+    "date": "2026-11-14",
+    "citation": "Wikipedia contributors, \"2026\", events of November 14, 2026. CC BY-SA 4.0. Retrieved November 15, 2026.",
+    "url": "https://en.wikipedia.org/wiki/2026#November",
+    "kind": "narration"
+   },
+   {
+    "id": "wiki-20261112-02",
+    "title": "Wikipedia: 2026, Nov 12",
+    "date": "2026-11-12",
+    "citation": "Wikipedia contributors, \"2026\", events of November 12, 2026. CC BY-SA 4.0. Retrieved November 15, 2026.",
+    "url": "https://en.wikipedia.org/wiki/2026#November",
+    "kind": "narration"
+   },
+   {
+    "id": "wiki-20261113-01",
+    "title": "Wikipedia: 2026, Nov 13",
+    "date": "2026-11-13",
+    "citation": "Wikipedia contributors, \"2026\", events of November 13, 2026. CC BY-SA 4.0. Retrieved November 15, 2026.",
+    "url": "https://en.wikipedia.org/wiki/2026#November",
+    "kind": "narration"
+   },
+   {
+    "id": "wiki-20261112-01",
+    "title": "Wikipedia: 2026, Nov 12",
+    "date": "2026-11-12",
+    "citation": "Wikipedia contributors, \"2026\", events of November 12, 2026. CC BY-SA 4.0. Retrieved November 15, 2026.",
+    "url": "https://en.wikipedia.org/wiki/2026#November",
+    "kind": "narration"
+   }
+  ],
+  "blocked": false,
+  "blocked_reason": null
+ },
+ "wiki-2026-11|journalist|2026-11-14|what happened with flights in the us": {
+  "answer": "The FAA just carried out the largest ground stop since 9/11, shutting down US airspace after some technological communication issues. It's a major disruption, and we're still waiting on more details about when things will reopen.",
+  "sources": [
+   {
+    "id": "wiki-20261113-01",
+    "title": "Wikipedia: 2026, Nov 13",
+    "date": "2026-11-13",
+    "citation": "Wikipedia contributors, \"2026\", events of November 13, 2026. CC BY-SA 4.0. Retrieved November 15, 2026.",
+    "url": "https://en.wikipedia.org/wiki/2026#November",
+    "kind": "narration"
+   }
+  ],
+  "blocked": false,
+  "blocked_reason": null
+ },
+ "cmc-1962|journalist|1962-10-24|what did the newspapers say about cuba": {
+  "answer": "Reporters have been kept out of the fleet and are relying on bulletins from Pierre Salinger, which has left many of us grumbling about how tightly the news is being controlled.",
+  "sources": [
+   {
+    "id": "cmc-1024-05",
+    "title": "TIME, 'The Press: Quarantining the News,' 1962",
+    "date": "1962-10-24",
+    "citation": "'The Press: Quarantining the News,' TIME, issue of November 2, 1962.",
+    "url": "https://time.com/archive/6812336/the-press-quarantining-the-news/",
+    "kind": "archival"
+   }
+  ],
+  "blocked": false,
+  "blocked_reason": null
+ }
+}
