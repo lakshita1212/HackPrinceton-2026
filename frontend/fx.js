@@ -2,7 +2,6 @@
 //   - floating dust that glows near the lamps, at different depths, so the
 //     room feels deep when the mouse moves (parallax)
 //   - soft light rays falling from each lamp, and the TV's flickering spill
-//   - quiet rain outside the windows now and then
 //   - a time-travel tunnel when the dial crosses into another decade
 // The painting itself stays a plain <img>; the room layer tilts slightly with the mouse.
 // If WebGL isn't available everything here quietly does nothing.
@@ -10,12 +9,7 @@ import * as THREE from './vendor/three.module.min.js';
 
 const MAX_LAMPS = 4;
 const DUST = 420;
-const MAX_WINDOWS = 2;
-const RAIN_CHANCE = 0.45;      // chance a room is rainy when you tune in
-const WEATHER_EVERY = 40000;   // how often the weather may change while you stay (ms)
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-// ?weather=rain or ?weather=dry pins the weather (handy for the demo); otherwise it's random.
-const forcedWeather = new URLSearchParams(location.search).get('weather');
 
 export function createFx(stage, roomLayer) {
   let renderer;
@@ -26,7 +20,7 @@ export function createFx(stage, roomLayer) {
   }
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   renderer.domElement.className = 'fx';
-  // Inside the room layer, so lamp light and rain tilt with the painting.
+  // Inside the room layer, so lamp light tilts with the painting.
   roomLayer.append(renderer.domElement);
 
   // World: the painting is the plane z = 0, 3 units wide by 2 tall (3:2).
@@ -129,61 +123,6 @@ export function createFx(stage, roomLayer) {
   tvGlow.position.z = 0.02;
   scene.add(tvGlow);
 
-  // ── Rain outside the windows ──────────────────────────────────────────
-  // Each window gets falling streaks clipped to its glass.
-  // `rain.value` eases between 0 (dry) and 1 (pouring).
-  const rain = { value: 0 };
-  const rainSystems = Array.from({ length: MAX_WINDOWS }, () => {
-    const drops = 220;
-    const seeds = new Float32Array(drops * 2 * 4);
-    for (let i = 0; i < drops; i++) {
-      const s = [Math.random(), 0.55 + Math.random() * 0.6, Math.random(), Math.random()];
-      seeds.set([...s.slice(0, 3), 0, ...s.slice(0, 3), 1], i * 8);
-    }
-    const geo = new THREE.BufferGeometry();
-    geo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(drops * 2 * 3), 3));
-    geo.setAttribute('seed', new THREE.BufferAttribute(seeds, 4));
-    const rect = { value: new THREE.Vector4() };
-    const streaks = new THREE.LineSegments(geo, new THREE.ShaderMaterial({
-      transparent: true,
-      depthWrite: false,
-      blending: THREE.CustomBlending,
-      blendSrc: THREE.OneFactor,
-      blendDst: THREE.OneFactor,
-      blendSrcAlpha: THREE.OneFactor,
-      blendDstAlpha: THREE.OneFactor,
-      uniforms: { time, rect, rain },
-      vertexShader: `
-        uniform float time; uniform vec4 rect; attribute vec4 seed; varying vec2 vPos; varying float vHead;
-        void main() {
-          float top = rect.w, bottom = rect.y, len = 0.05 + seed.y * 0.05;
-          float fall = fract(seed.z - time * seed.y * 0.9);
-          float head = top - fall * (top - bottom + len * 2.0) + len;
-          float y = seed.w > 0.5 ? head : head + len;
-          float x = mix(rect.x, rect.z, seed.x) + (top - y) * 0.12;   // a little wind
-          vPos = vec2(x, y);
-          vHead = seed.w;
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(x, y, 0.03, 1.0);
-        }`,
-      fragmentShader: `
-        uniform vec4 rect; uniform float rain; varying vec2 vPos; varying float vHead;
-        void main() {
-          if (vPos.x < rect.x || vPos.x > rect.z || vPos.y < rect.y || vPos.y > rect.w) discard;
-          float a = rain * mix(0.12, 0.5, vHead);
-          gl_FragColor = vec4(vec3(0.78, 0.85, 1.0) * a, a);
-        }`,
-    }));
-    streaks.frustumCulled = false;
-    scene.add(streaks);
-    return { streaks, rect };
-  });
-  let raining = false;
-  let weatherTimer = 0;
-  let hasWindows = false;
-  function setWeather(wet) {
-    raining = hasWindows && wet;
-  }
-
   // ── Time-travel tunnel (drawn over everything while it runs) ───────────
   const warpUniforms = { time: { value: 0 }, fade: { value: 0 }, aspect: { value: 1.5 } };
   const tunnel = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.ShaderMaterial({
@@ -219,25 +158,6 @@ export function createFx(stage, roomLayer) {
 
   // ── Room setup from the marks in ROOM_IMAGES ───────────────────────────
   function setRoom(pic) {
-    const windows = (pic?.windows || []).slice(0, MAX_WINDOWS);
-    hasWindows = windows.length > 0;
-    rainSystems.forEach((sys, i) => {
-      const w = windows[i];
-      sys.streaks.visible = !!w;
-      if (!w) return;
-      const a = toWorld(w.x, w.y + w.h);
-      const b = toWorld(w.x + w.w, w.y);
-      sys.rect.value.set(a.x, a.y, b.x, b.y);
-    });
-    // Each room is rainy or dry when you tune in; it may change while you stay.
-    rain.value = 0;
-    clearInterval(weatherTimer);
-    if (forcedWeather) {
-      setWeather(forcedWeather === 'rain');
-    } else {
-      setWeather(Math.random() < RAIN_CHANCE);
-      weatherTimer = setInterval(() => { if (Math.random() < 0.35) setWeather(!raining); }, WEATHER_EVERY);
-    }
     const lamps = (pic?.lamps || []).slice(0, MAX_LAMPS);
     lampUniform.forEach((v, i) => {
       const l = lamps[i];
@@ -309,9 +229,6 @@ export function createFx(stage, roomLayer) {
       roomLayer.style.transform =
         `perspective(1400px) rotateY(${eased.x * 1.6}deg) rotateX(${-eased.y * 1.2}deg) scale(1.05) translate(${-eased.x * 0.6}%, ${-eased.y * 0.5}%)`;
     }
-    // Rain eases in and out, silently.
-    rain.value += ((raining ? 1 : 0) - rain.value) * 0.01;
-
     if (warpStart >= 0) {
       const k = (performance.now() - warpStart) / WARP_MS;
       warpUniforms.time.value = k * 1.6;
