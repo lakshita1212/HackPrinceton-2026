@@ -35,6 +35,14 @@ No public-domain footage of the Wall opening exists (the TV coverage belongs to 
 | `berlin-border-1961.mp4` | TV, every role | U.S. tanks and military police at the new sector border, Aug 23–24, 1961 (silent). | [archive.org `111-lc-44802`](https://archive.org/details/111-lc-44802), Army Signal Corps, [NARA 28459](https://catalog.archives.gov/id/28459) | Public domain (U.S. government work) |
 | `kennedy-ich-bin-ein-berliner-1963.mp3` | Radio, every role | Kennedy's "Ich bin ein Berliner" speech, June 26, 1963, 8:37. | [archive.org `jfks19630626`](https://archive.org/details/jfks19630626) | Public domain (official presidential address) |
 
+## 2026 news
+
+| File | Plays on | What it is | Source | Rights |
+|---|---|---|---|---|
+| `news/jensen-huang-white-house-2025.jpg` | 2026 TV, with the Nov 12 Nvidia story | Jensen Huang speaks as President Trump looks on, "Investing in America" event, White House, April 30, 2025 | Official White House photo by Joyce N. Boghosian, [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:P20250430JB-0891.jpg) | Public domain (U.S. government work) |
+
+The story text is our own summary of [ABC News, Nov 12, 2026](https://abcnews.com/Business/timeline-stunning-fall-powerful-nvidia-ceo-jensen-huang/story?id=138041659), credited and linked on screen. ABC's own photos and video are licensed from AP, Reuters and Getty, so they aren't used.
+
 ## Room sound
 
 Background sound for the offices and the study (`frontend/media/ambience/`, used by `frontend/ambience.js`). From Wikimedia Commons; the CC BY and CC BY-SA files need the credit shown here, which also goes on the Devpost.

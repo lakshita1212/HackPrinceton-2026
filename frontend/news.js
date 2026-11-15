@@ -37,17 +37,38 @@ const SNAPSHOT = [
   { date: '2026-11-14', text: 'The first Eurovision Song Contest Asia is held in Bangkok, Thailand.' },
 ];
 
-// Headlines for the window ending on `date`, newest first: [{ date, text }].
+// Lead stories picked by hand, with a picture for the TV. The text is our own
+// summary of the reporting, credited and linked; the picture is a public-domain
+// official photo, since news agencies' photos (AP, Reuters, Getty) can't be hosted
+// in this public repo. A lead story replaces the Wikipedia line it covers.
+const FEATURED = [
+  { date: '2026-11-12',
+    text: "Nvidia CEO Jensen Huang resigns as federal investigators and Nvidia's board examine his relationship with a woman officials suspected of spying for China. Colette Kress is named interim CEO.",
+    source: 'ABC News, Nov 12, 2026',
+    url: 'https://abcnews.com/Business/timeline-stunning-fall-powerful-nvidia-ceo-jensen-huang/story?id=138041659',
+    image: 'media/news/jensen-huang-white-house-2025.jpg',
+    credit: 'Huang with President Trump at the White House, April 30, 2025 · White House photo, public domain',
+    replaces: /jensen huang|nvidia/i },
+];
+
+function withFeatured(items, date, inWindow) {
+  const lead = FEATURED.filter((f) => inWindow(f.date));
+  const rest = items.filter((h) => !lead.some((f) => f.replaces?.test(h.text)));
+  return [...lead, ...rest.sort((a, b) => b.date.localeCompare(a.date))];
+}
+
+// Headlines for the window ending on `date`, lead stories first, then newest first:
+// [{ date, text, source?, url?, image?, credit? }].
 export async function headlines(date) {
   const key = `stay-tuned-headlines-${date}`;
-  try {
-    const cached = JSON.parse(localStorage.getItem(key) || 'null');
-    if (cached?.length) return cached;
-  } catch { /* storage blocked: fetch again */ }
-
   const end = parse(date);
   const start = new Date(end.getFullYear(), end.getMonth(), end.getDate() - (WINDOW_DAYS - 1));
   const inWindow = (d) => d >= iso(start) && d <= date;
+  try {
+    const cached = JSON.parse(localStorage.getItem(key) || 'null');
+    if (cached?.length) return withFeatured(cached, date, inWindow);
+  } catch { /* storage blocked: fetch again */ }
+
   let items = [];
   try {
     items = await fromWikipedia(end.getFullYear(), end.getMonth());
@@ -57,7 +78,7 @@ export async function headlines(date) {
   if (!items.length) items = SNAPSHOT.filter((h) => inWindow(h.date));
   items.sort((a, b) => b.date.localeCompare(a.date));
   try { localStorage.setItem(key, JSON.stringify(items)); } catch { /* fine */ }
-  return items;
+  return withFeatured(items, date, inWindow);
 }
 
 // A year page ("2026") lists each month's events as "November 13 – text",
