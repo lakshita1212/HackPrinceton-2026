@@ -3,7 +3,7 @@
 //      and a "signal lost" burst when a question reaches past the station's day.
 //   2. Gemini's pinned captions dropping onto a photo texted to the station.
 //   3. The real archival recording, as a bubble in the call thread.
-import { fetchKnowledge } from './host.js';
+import { fetchKnowledge, connectPhone } from './host.js';
 
 const $ = (id) => document.getElementById(id);
 const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -145,4 +145,39 @@ export function archivalBubble(li, clip, { onStart = () => {}, onEnd = () => {} 
   };
   button.addEventListener('click', play);
   return play;
+}
+
+// Text the station: a judge connects their phone, then scans a QR code that
+// opens Messages to their assigned number with a first question filled in.
+export function initTextCard() {
+  const card = $('textCard');
+  const toggle = $('textToggle');
+  if (!card || !toggle) return;
+  const open = (show) => {
+    card.hidden = !show;
+    toggle.setAttribute('aria-expanded', String(show));
+    if (show) $('textPhone').focus();
+  };
+  toggle.addEventListener('click', () => open(card.hidden));
+  $('textClose').addEventListener('click', () => open(false));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !card.hidden) open(false); });
+  $('textConnect').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const button = e.target.querySelector('button');
+    button.disabled = true;
+    button.textContent = 'Connecting…';
+    $('textError').hidden = true;
+    const r = await connectPhone($('textPhone').value);
+    button.disabled = false;
+    button.textContent = 'Connect';
+    if (r.error) {
+      $('textError').textContent = r.error;
+      $('textError').hidden = false;
+      return;
+    }
+    $('textPhone').value = ''; // don't leave their number on screen
+    $('textQr').src = r.qr;
+    $('textNumber').textContent = r.pretty;
+    $('textReady').hidden = false;
+  });
 }

@@ -11,7 +11,9 @@ import { PAPERS } from './papers.js';
 import { cultureFor } from './culture.js';
 import { ambience } from './ambience.js';
 import * as polish from './polish.js';
-import { updateTimeLock, signalLost, renderPins, eraLine, onAirMs, archivalBubble } from './extras.js';
+import { updateTimeLock, signalLost, renderPins, eraLine, onAirMs, archivalBubble, initTextCard } from './extras.js';
+
+initTextCard();
 
 const $ = (id) => document.getElementById(id);
 const state = { station: 0, role: 0 };

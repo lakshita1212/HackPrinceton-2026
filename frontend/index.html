@@ -66,6 +66,7 @@
         <span class="room" id="room">Living room</span>
         <span class="day" id="day">Tuesday, October 16, 1962</span>
         <span class="timelock" id="timelock" aria-live="polite" hidden></span>
+        <button class="text-toggle" id="textToggle" type="button" aria-expanded="false" aria-controls="textCard">📱 Text the station</button>
         <button class="sound-toggle" id="soundToggle" type="button" aria-pressed="true" title="Room sound on or off">Sound on</button>
       </div>
       <div class="stage" id="stage">
@@ -92,6 +93,30 @@
           <div class="pin-frame" id="onAirFrame"><img id="onAirPhoto" alt=""></div>
           <figcaption><span id="onAirCaption"></span><small class="on-air-era" id="onAirEra"></small><small id="onAirFrom"></small></figcaption>
         </figure>
+        <!-- Text the station from your own phone: connect it, then scan the QR code -->
+        <div class="text-card" id="textCard" role="dialog" aria-label="Text the station" hidden>
+          <button class="text-close" id="textClose" type="button" aria-label="Close">×</button>
+          <span class="text-kicker">Photon · iMessage</span>
+          <h3>Text the station</h3>
+          <p class="text-how">Ask 1962 anything, or send a photo to put your own memory on the 2026 station.</p>
+          <form class="text-connect" id="textConnect">
+            <label for="textPhone">Your iPhone number</label>
+            <div class="text-row">
+              <input id="textPhone" type="tel" inputmode="tel" autocomplete="off" placeholder="(555) 123-4567" required>
+              <button type="submit">Connect</button>
+            </div>
+            <small class="text-fine">Registers your number with our Photon line so the station can reply. Never shown on screen.</small>
+          </form>
+          <div class="text-ready" id="textReady" hidden>
+            <img id="textQr" alt="QR code that opens Messages to the station">
+            <div>
+              <b>Scan, then press send</b>
+              <span class="text-number" id="textNumber"></span>
+              <span class="text-try">Try: “citizen oct 22: are we going to war?”</span>
+            </div>
+          </div>
+          <p class="text-error" id="textError" hidden></p>
+        </div>
         <!-- A question that reaches past the station's day: the signal drops out -->
         <div class="signal-lost" id="signalLost" aria-live="assertive" hidden>
           <span class="signal-lost-title">Signal lost</span>
