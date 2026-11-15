@@ -5,26 +5,29 @@ Run: uvicorn app:app --reload --port 8000   (from backend/)
 import logging
 from datetime import date as Date
 from pathlib import Path
-from typing import Literal, Optional
+from typing import Annotated, Literal, Optional
 
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.concurrency import run_in_threadpool
 from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, StringConstraints
 
 import host
 import photon_imessage
 import retrieval
 import station
 import voice
+import wiki_station
+import wiki_source
 from packs import PackNotFound
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger("app")
 
 Role = Literal["citizen", "journalist", "official", "historian"]
-Pack = Literal["cmc-1962", "apollo-1969", "berlin-1989"]
+# Curated packs, plus any-day stations built from Wikipedia: "wiki-YYYY-MM".
+Pack = Annotated[str, StringConstraints(pattern=r"^(cmc-1962|apollo-1969|berlin-1989|wiki-\d{4}-\d{2})$")]
 
 
 class AskRequest(BaseModel):
@@ -141,6 +144,35 @@ async def call_in(
 
 def _station_json(st: dict) -> dict:
     return {"role": st["role"], "date": st["date"].isoformat(), "pack": st["pack"]}
+
+
+class StationRequest(BaseModel):
+    date: Date
+
+
+@app.post("/stations")
+async def any_day_station(req: StationRequest):
+    """Tune to any day: builds a time-locked station from Wikipedia (about 2 seconds the
+    first time), then the deepagents research team improves it in the background.
+
+    Returns {pack, date, state: "ready", facts, built_by, upgrading?}. Use the returned
+    `pack` with /ask, /station and /voice. 404 if Wikipedia has no day-by-day page.
+    """
+    if not (Date(1900, 1, 1) <= req.date < Date.today()):
+        raise HTTPException(422, "Pick a past date from 1900 on")
+    try:
+        return await run_in_threadpool(wiki_station.ensure, req.date)
+    except wiki_source.NoMonthPage as e:
+        raise HTTPException(404, str(e))
+    except Exception:
+        log.exception("station build failed")
+        raise HTTPException(503, "Couldn't reach Wikipedia, try again")
+
+
+@app.get("/stations/{day}")
+def any_day_status(day: Date):
+    """Whether the station for `day` exists, and whether the agent is still improving it."""
+    return wiki_station.status(day)
 
 
 @app.get("/voice/status")
