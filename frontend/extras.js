@@ -25,11 +25,11 @@ export async function updateTimeLock({ pack, date }, roleId, roleName) {
   el.hidden = false;
   el.innerHTML = `
     <span class="lock-icon" aria-hidden="true">🔒</span>
-    <span class="lock-text"><b></b> knows <b class="lock-n"></b> facts · <span class="lock-future"></span> haven't happened yet<span class="lock-secret"></span></span>`;
-  el.querySelector('b').textContent = `The ${roleName.toLowerCase()}`;
+    <span class="lock-text"><b></b> <b class="lock-n"></b> facts · <span class="lock-future"></span> still ahead<span class="lock-secret"></span></span>`;
+  el.querySelector('b').textContent = 'Knows';
   el.querySelector('.lock-n').textContent = known;
   el.querySelector('.lock-future').textContent = future;
-  el.querySelector('.lock-secret').textContent = secret ? ` · ${secret} are secret` : '';
+  el.querySelector('.lock-secret').textContent = secret ? ` · ${secret} secret` : '';
   el.title = `Of ${k.total} facts in this story: ${known} known to the ${roleName.toLowerCase()} today, ${future} still in the future, ${secret} known only to others.`;
   el.classList.remove('pulse');
   void el.offsetWidth;

@@ -874,5 +874,18 @@ window.addEventListener('keyup', (e) => {
 renderScene();
 booted = true;
 
+// Demo mode (?demo=1, demo.js): the demo runs itself after you press Tune in.
+const demoMode = params.get('demo') === '1';
+const demoControls = {
+  tune: (label) => dial.setIndex(STATIONS.findIndex((s) => s.label === label)),
+  role: (id) => roleButtons[ROLES.findIndex((r) => r.id === id)].click(),
+  closePaper: () => { if (!$('paperView').hidden) closePaper(); },
+  closeViewer: () => { if (!$('viewer').hidden) closeViewer(); },
+  showLatestMemory: () => { if (!memories.length) return false; announceMemory(memories[0]); return true; },
+};
+if (demoMode) import('./demo.js').then((m) => m.prepareDemo(demoControls));
+
 // Opening scene, once the fonts are in so the radio's dial is lettered properly.
-document.fonts.ready.then(() => playIntro($('intro')));
+document.fonts.ready.then(() => playIntro($('intro'))).then(() => {
+  if (demoMode) import('./demo.js').then((m) => m.runDemo(demoControls));
+});
