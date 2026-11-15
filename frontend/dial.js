@@ -1,159 +1,164 @@
-// Round tuning dial: drag it, scroll over it, or use the arrow keys.
-// It snaps to each station with a tick, like a detented radio knob.
+// Slide-rule tuning dial, like an old radio: a lit glass window with a red
+// needle that moves left to right through time. Days of the same year are
+// grouped under that year. Move it by dragging the needle, clicking a date,
+// turning the knob, the arrow buttons, the scroll wheel or the arrow keys.
 import { sfx } from './audio.js';
 
-const SVG_NS = 'http://www.w3.org/2000/svg';
-const STEP = 30;            // degrees of turn per station
-const SWITCH_PAST = 18;     // must turn past this before the station changes
-const DETENT_PULL = 0.35;   // how far the knob follows between detents
-const WHEEL_PER_STEP = 120; // wheel delta that moves one station
+const GROUP_STEP = 9;   // spacing between days in the same year (percent of the window)
+const ERA_GAP = 18;     // spacing between years
+const EDGE = 9;         // margin at each end of the window
 
-export function createDial(svg, { stations, onChange }) {
-  const max = (stations.length - 1) * STEP;
-  const arcStart = -max / 2;
-  let angle = 0;
+// Lay the stations out as a timeline: close together within a year, wider between years.
+function layout(stations) {
+  const raw = [];
+  stations.forEach((s, i) => {
+    if (i === 0) raw.push(0);
+    else raw.push(raw[i - 1] + (s.era === stations[i - 1].era ? GROUP_STEP : ERA_GAP));
+  });
+  const span = raw[raw.length - 1] || 1;
+  return raw.map((x) => EDGE + (x / span) * (100 - 2 * EDGE));
+}
+
+export function createDial(root, { stations, onChange }) {
+  const pos = layout(stations);
   let index = 0;
-  let snapTimer = 0;
+  let needle = pos[0];          // where the needle is drawn (percent)
 
-  svg.setAttribute('viewBox', '0 0 300 300');
-  svg.setAttribute('tabindex', '0');
-  svg.setAttribute('role', 'slider');
-  svg.setAttribute('aria-label', 'Station dial');
-  const polar = (deg, r) => {
-    const rad = (deg * Math.PI) / 180;
-    return [150 + r * Math.sin(rad), 150 - r * Math.cos(rad)];
-  };
-
-  // A vintage radio dial: brass bezel, ivory face, red needle, ribbed bakelite knob.
-  const minorTicks = [];
-  for (let d = arcStart - 12; d <= -arcStart + 12; d += 6) {
-    const [x1, y1] = polar(d, 104);
-    const [x2, y2] = polar(d, 109);
-    minorTicks.push(`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" class="dial-minor"/>`);
-  }
-  const [ax1, ay1] = polar(arcStart - 14, 100);
-  const [ax2, ay2] = polar(-arcStart + 14, 100);
-  const ribs = Array.from({ length: 40 }, (_, i) => {
-    const [x1, y1] = polar(i * 9, 56);
-    const [x2, y2] = polar(i * 9, 64);
-    return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" class="dial-rib"/>`;
-  }).join('');
-  svg.innerHTML = `
-    <defs>
-      <linearGradient id="dial-brass" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stop-color="#f3d58a"/><stop offset=".45" stop-color="#b8862f"/>
-        <stop offset=".7" stop-color="#e6c06a"/><stop offset="1" stop-color="#7a5418"/></linearGradient>
-      <radialGradient id="dial-ivory" cx=".45" cy=".4" r=".7">
-        <stop offset="0" stop-color="#fbf1d6"/><stop offset=".8" stop-color="#ead7a8"/><stop offset="1" stop-color="#cdb07a"/></radialGradient>
-      <radialGradient id="dial-bakelite" cx=".38" cy=".32" r=".75">
-        <stop offset="0" stop-color="#8a4a26"/><stop offset=".55" stop-color="#4a2412"/><stop offset="1" stop-color="#24110a"/></radialGradient>
-      <radialGradient id="dial-cap" cx=".4" cy=".35" r=".7">
-        <stop offset="0" stop-color="#f7e2a4"/><stop offset="1" stop-color="#9a6d24"/></radialGradient>
-    </defs>
-    <circle cx="150" cy="154" r="147" fill="#000" opacity=".35"/>
-    <circle class="dial-bezel" cx="150" cy="150" r="147" fill="url(#dial-brass)"/>
-    <circle class="dial-face" cx="150" cy="150" r="137" fill="url(#dial-ivory)"/>
-    <path d="M${ax1} ${ay1} A100 100 0 1 1 ${ax2} ${ay2}" class="dial-band"/>
-    ${minorTicks.join('')}
-    <g class="dial-labels"></g>
-    <text x="150" y="246" class="dial-brand">STAY TUNED</text>
-    <text x="150" y="262" class="dial-sub">BROADCAST · 1962–2026</text>
-    <g class="dial-knob">
-      <line class="dial-pointer" x1="150" y1="150" x2="150" y2="40"/>
-      <circle cx="150" cy="153" r="64" fill="#000" opacity=".35"/>
-      <circle class="dial-cap" cx="150" cy="150" r="64" fill="url(#dial-bakelite)"/>
-      ${ribs}
-      <circle cx="150" cy="150" r="20" fill="url(#dial-cap)"/>
-      <circle cx="150" cy="96" r="4" fill="#f3d58a"/>
-    </g>
-    <ellipse cx="112" cy="84" rx="70" ry="34" fill="#fff" opacity=".13" transform="rotate(-28 112 84)" pointer-events="none"/>`;
-  const knob = svg.querySelector('.dial-knob');
-  const labelsGroup = svg.querySelector('.dial-labels');
-  const el = (tag, attrs) => {
-    const node = document.createElementNS(SVG_NS, tag);
-    for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, v);
-    return node;
-  };
-
-  const labels = stations.map((s, i) => {
-    const deg = arcStart + i * STEP;
-    const [x1, y1] = polar(deg, 102);
-    const [x2, y2] = polar(deg, 112);
-    const [tx, ty] = polar(deg, 124);
-    const text = el('text', { x: tx, y: ty, class: 'dial-label' });
-    text.textContent = s.label;
-    text.addEventListener('click', () => setIndex(i));
-    labelsGroup.append(el('line', { x1, y1, x2, y2, class: 'dial-tick' }), text);
-    return text;
+  // Years with several days get one label under a bracket; single-day years are labelled once.
+  const eras = [];
+  stations.forEach((s, i) => {
+    const last = eras[eras.length - 1];
+    if (last && last.era === s.era) last.to = i;
+    else eras.push({ era: s.era, from: i, to: i });
   });
 
+  const single = (era) => eras.find((e) => e.era === era).from === eras.find((e) => e.era === era).to;
+  root.innerHTML = `
+    <div class="tuner" tabindex="0" role="slider" aria-label="Station dial: drag or use the arrow keys">
+      <div class="tuner-glass">
+        <div class="tuner-scale">
+          ${stations.map((s, i) => `
+            <button type="button" class="tuner-stop" data-i="${i}" style="left:${pos[i]}%">
+              <span class="tuner-tick"></span>
+              <span class="tuner-day${single(s.era) ? ' tuner-yearstop' : ''}">${single(s.era) ? s.era : s.label.replace(/^[A-Za-z]+ /, '')}</span>
+            </button>`).join('')}
+          ${eras.filter((e) => e.to > e.from).map((e) => `
+            <div class="tuner-era" style="left:${pos[e.from]}%;width:${pos[e.to] - pos[e.from]}%">
+              <span class="tuner-bracket"></span>
+              <span class="tuner-year">${stations[e.from].day.split(', ')[1].split(' ')[0]} ${e.era}</span>
+            </div>`).join('')}
+        </div>
+        <div class="tuner-needle"></div>
+        <div class="tuner-shine"></div>
+      </div>
+    </div>
+    <div class="tuner-controls">
+      <button type="button" class="tuner-arrow" data-dir="-1" aria-label="Earlier">◀</button>
+      <div class="tuner-knob" aria-hidden="true"><div class="tuner-knob-face"></div></div>
+      <button type="button" class="tuner-arrow" data-dir="1" aria-label="Later">▶</button>
+    </div>
+    <p class="tuner-hint">Drag the needle or click a date</p>`;
+
+  const tuner = root.querySelector('.tuner');
+  const glass = root.querySelector('.tuner-glass');
+  const needleEl = root.querySelector('.tuner-needle');
+  const knobFace = root.querySelector('.tuner-knob-face');
+  const stops = [...root.querySelectorAll('.tuner-stop')];
+
   function render(animate) {
-    const shown = index * STEP + (angle - index * STEP) * DETENT_PULL;
-    knob.style.transition = animate ? 'transform .18s ease-out' : 'none';
-    knob.style.transform = `rotate(${arcStart + shown}deg)`;
-    labels.forEach((t, i) => t.classList.toggle('on', i === index));
-    svg.setAttribute('aria-valuetext', stations[index].label);
+    needleEl.style.transition = animate ? 'left .25s cubic-bezier(.3, 1.4, .5, 1)' : 'none';
+    needleEl.style.left = `${needle}%`;
+    knobFace.style.transition = animate ? 'transform .25s ease-out' : 'none';
+    knobFace.style.transform = `rotate(${needle * 5.4}deg)`;
+    stops.forEach((b, i) => b.classList.toggle('on', i === index));
+    tuner.setAttribute('aria-valuetext', stations[index].day);
   }
 
-  function setAngle(next) {
-    angle = Math.min(max, Math.max(0, next));
-    const target = Math.round(angle / STEP);
-    if (target !== index && Math.abs(angle - index * STEP) > SWITCH_PAST) {
-      index = target;
-      sfx.tick();
-      onChange(index);
-    }
-    render(false);
-    clearTimeout(snapTimer);
-    snapTimer = setTimeout(snap, 250);
+  function nearest(p) {
+    let best = 0;
+    pos.forEach((x, i) => { if (Math.abs(x - p) < Math.abs(pos[best] - p)) best = i; });
+    return best;
   }
 
-  function snap() {
-    angle = index * STEP;
-    render(true);
+  function select(i) {
+    if (i === index) return;
+    index = i;
+    sfx.tick();
+    onChange(index);
   }
 
   function setIndex(i) {
-    setAngle(i * STEP);
-    snap();
+    const clamped = Math.min(stations.length - 1, Math.max(0, i));
+    select(clamped);
+    needle = pos[clamped];
+    render(true);
   }
 
-  // Drag around the centre.
-  let dragFrom = null;
-  const pointerAngle = (e) => {
-    const r = svg.getBoundingClientRect();
-    return (Math.atan2(e.clientX - (r.left + r.width / 2), -(e.clientY - (r.top + r.height / 2))) * 180) / Math.PI;
+  // Drag the needle anywhere along the glass (or turn the knob by dragging sideways).
+  let dragging = null;
+  const percentAt = (e) => {
+    const r = glass.getBoundingClientRect();
+    return Math.min(100 - EDGE / 2, Math.max(EDGE / 2, ((e.clientX - r.left) / r.width) * 100));
   };
-  const wrap = (d) => (d > 180 ? d - 360 : d < -180 ? d + 360 : d);
-  svg.addEventListener('pointerdown', (e) => {
+  glass.addEventListener('pointerdown', (e) => {
     sfx.unlock();
-    dragFrom = pointerAngle(e);
-    svg.setPointerCapture(e.pointerId);
+    dragging = { from: 'glass' };
+    glass.setPointerCapture(e.pointerId);
+    needle = percentAt(e);
+    select(nearest(needle));
+    render(false);
   });
-  svg.addEventListener('pointermove', (e) => {
-    if (dragFrom === null) return;
-    const a = pointerAngle(e);
-    setAngle(angle + wrap(a - dragFrom));
-    dragFrom = a;
+  const knob = root.querySelector('.tuner-knob');
+  knob.addEventListener('pointerdown', (e) => {
+    sfx.unlock();
+    dragging = { from: 'knob', x: e.clientX, start: needle };
+    knob.setPointerCapture(e.pointerId);
   });
-  const endDrag = () => { if (dragFrom !== null) { dragFrom = null; snap(); } };
-  svg.addEventListener('pointerup', endDrag);
-  svg.addEventListener('pointercancel', endDrag);
+  const move = (e) => {
+    if (!dragging) return;
+    needle = dragging.from === 'glass'
+      ? percentAt(e)
+      : Math.min(100 - EDGE / 2, Math.max(EDGE / 2, dragging.start + (e.clientX - dragging.x) * 0.5));
+    select(nearest(needle));
+    render(false);
+  };
+  const end = () => {
+    if (!dragging) return;
+    dragging = null;
+    needle = pos[index];   // settle onto the station
+    render(true);
+  };
+  for (const el of [glass, knob]) {
+    el.addEventListener('pointermove', move);
+    el.addEventListener('pointerup', end);
+    el.addEventListener('pointercancel', end);
+  }
 
-  // Scroll wheel or trackpad.
-  svg.addEventListener('wheel', (e) => {
-    e.preventDefault();
+  // Click a date, or the arrows.
+  stops.forEach((b, i) => b.addEventListener('click', (e) => { e.stopPropagation(); setIndex(i); }));
+  stops.forEach((b) => b.addEventListener('pointerdown', (e) => e.stopPropagation()));
+  root.querySelectorAll('.tuner-arrow').forEach((b) => b.addEventListener('click', () => {
     sfx.unlock();
-    setAngle(angle + (e.deltaY / WHEEL_PER_STEP) * STEP);
+    setIndex(index + Number(b.dataset.dir));
+  }));
+
+  // Scroll wheel: one station per notch.
+  let wheelAt = 0;
+  root.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    if (performance.now() - wheelAt < 180) return;
+    wheelAt = performance.now();
+    sfx.unlock();
+    setIndex(index + (e.deltaY + e.deltaX > 0 ? 1 : -1));
   }, { passive: false });
 
   // Arrow keys when the dial has focus.
-  svg.addEventListener('keydown', (e) => {
+  tuner.addEventListener('keydown', (e) => {
     const dir = { ArrowRight: 1, ArrowUp: 1, ArrowLeft: -1, ArrowDown: -1 }[e.key];
     if (!dir) return;
     e.preventDefault();
     sfx.unlock();
-    setIndex(Math.min(stations.length - 1, Math.max(0, index + dir)));
+    setIndex(index + dir);
   });
 
   render(false);

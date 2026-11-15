@@ -84,6 +84,33 @@ body {
 @media (max-width: 900px) {
   .stage { width: calc(100vw - 36px - 24px); }
 }
+/* The room's own layer, so it can tilt as one piece; the three.js canvas sits on top. */
+.room-layer { position: absolute; inset: 0; transform-origin: 50% 50%; will-change: transform; }
+.fx { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+.fx:not(.warping) { mix-blend-mode: screen; }
+/* The new year flies at you through the time-travel tunnel. */
+.warp-year {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 800;
+  font-size: clamp(48px, 9vw, 130px);
+  color: #fff3d6;
+  text-shadow: 0 0 30px rgba(255, 190, 90, .9), 0 4px 0 rgba(60, 25, 5, .6);
+  opacity: 0;
+}
+.warp-year.go { animation: fly-year 1.7s ease-in forwards; }
+@keyframes fly-year {
+  0% { opacity: 0; transform: scale(.25); filter: blur(6px); }
+  30% { opacity: 1; transform: scale(.8); filter: blur(0); }
+  70% { opacity: 1; transform: scale(1.25); }
+  100% { opacity: 0; transform: scale(3); filter: blur(8px); }
+}
 #art { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 
 #photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -313,28 +340,156 @@ body {
 .brand { font-family: var(--serif); font-style: italic; font-weight: 800; font-size: 24px; line-height: 1; }
 .tagline { font-family: var(--label); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; margin-top: 3px; }
 
-/* ── Dial ─────────────────────────────────────────────────────────────── */
-.dial { width: 270px; align-self: center; cursor: grab; touch-action: none; outline: none; }
-.dial:active { cursor: grabbing; }
-.dial:focus-visible .dial-bezel { stroke: var(--amber); stroke-width: 4; }
-.dial-band { fill: none; stroke: var(--red); stroke-width: 1.5; opacity: .7; }
-.dial-minor { stroke: #7a5a3a; stroke-width: 1; }
-.dial-tick { stroke: var(--ink); stroke-width: 2.5; }
-.dial-label {
-  fill: var(--ink);
-  font-family: var(--label);
-  font-size: 12px;
-  letter-spacing: .5px;
-  text-anchor: middle;
-  dominant-baseline: middle;
+/* ── Dial: a slide-rule tuner with a lit glass window ─────────────────── */
+.dial { display: flex; flex-direction: column; gap: 8px; }
+.tuner { outline: none; border-radius: 12px; }
+.tuner:focus-visible { box-shadow: 0 0 0 3px var(--amber); }
+.tuner-glass {
+  position: relative;
+  height: 112px;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: ew-resize;
+  touch-action: none;
+  /* warm backlit glass inside a brass frame */
+  background:
+    radial-gradient(ellipse at 50% 40%, #fff4d6 0%, #f6dfa6 45%, #d9b06a 100%);
+  box-shadow:
+    0 0 0 3px var(--brass),
+    0 0 0 6px var(--walnut-dark),
+    inset 0 0 22px rgba(120, 70, 10, .45),
+    inset 0 0 60px rgba(255, 190, 90, .35),
+    0 6px 16px rgba(0, 0, 0, .5);
+}
+.tuner-scale { position: absolute; inset: 0; }
+/* A thin printed rail the needle runs along */
+.tuner-scale::before {
+  content: "";
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  top: 34px;
+  height: 2px;
+  background: rgba(43, 26, 16, .55);
+}
+.tuner-stop {
+  position: absolute;
+  top: 18px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 0 4px;
+  border: 0;
+  background: none;
+  color: var(--ink);
   cursor: pointer;
 }
-.dial-label.on { fill: var(--red); font-size: 14px; }
-.dial-brand { fill: var(--red); font-family: var(--serif); font-style: italic; font-weight: 800; font-size: 13px; text-anchor: middle; }
-.dial-sub { fill: var(--ink-soft); font-family: var(--label); font-size: 7px; letter-spacing: 1.5px; text-anchor: middle; }
-.dial-knob { transform-origin: 150px 150px; }
-.dial-rib { stroke: rgba(0, 0, 0, .45); stroke-width: 2; }
-.dial-pointer { stroke: var(--red); stroke-width: 3; stroke-linecap: round; }
+.tuner-tick { width: 2px; height: 22px; background: var(--ink); }
+.tuner-day { font-family: var(--label); font-size: 15px; line-height: 1; }
+.tuner-stop:hover .tuner-day { color: var(--red); }
+.tuner-stop.on .tuner-tick { background: var(--red); }
+.tuner-stop.on .tuner-day { color: var(--red); }
+.tuner-era {
+  position: absolute;
+  top: 66px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+.tuner-bracket {
+  align-self: stretch;
+  height: 7px;
+  border: 1.5px solid rgba(43, 26, 16, .6);
+  border-top: 0;
+  border-radius: 0 0 4px 4px;
+}
+.tuner-year {
+  margin-top: 4px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--ink);
+  white-space: nowrap;
+}
+/* Single-day years: the year itself is the label, set larger. */
+.tuner-day.tuner-yearstop { font-family: var(--serif); font-weight: 800; font-size: 19px; }
+.tuner-needle {
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  margin-left: -1.5px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #e04a2f, var(--red));
+  box-shadow: 0 0 8px rgba(224, 74, 47, .7), 0 0 2px rgba(0, 0, 0, .4);
+  pointer-events: none;
+}
+.tuner-needle::before {   /* a little grip at the top */
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: 50%;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle at 35% 30%, #ff8a6a, var(--red) 60%, #6a1b0f);
+}
+.tuner-shine {   /* glass reflection */
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(170deg, rgba(255, 255, 255, .35), rgba(255, 255, 255, 0) 38%);
+}
+
+.tuner-controls { display: flex; align-items: center; justify-content: center; gap: 18px; }
+.tuner-arrow {
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff8e6, var(--ivory) 55%, #cdb88a);
+  color: var(--ink);
+  font-size: 13px;
+  cursor: pointer;
+  box-shadow: 0 3px 0 #a99368, 0 5px 8px rgba(0, 0, 0, .45);
+}
+.tuner-arrow:active { transform: translateY(2px); box-shadow: 0 1px 0 #a99368; }
+/* A big ribbed bakelite knob with a brass cap; it turns as you tune. */
+.tuner-knob {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  cursor: ew-resize;
+  touch-action: none;
+  background: var(--walnut-dark);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, .6);
+}
+.tuner-knob-face {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, var(--brass-light) 0 11px, #9a6d24 12px, transparent 13px),
+    radial-gradient(circle at 50% 12%, #f3d58a 0 3px, transparent 4px),
+    repeating-conic-gradient(from 0deg, #5a2c14 0 5deg, #3a1a0b 5deg 10deg),
+    radial-gradient(circle at 38% 32%, #8a4a26, #24110a);
+  box-shadow: inset 0 0 0 3px rgba(0, 0, 0, .35), inset 0 6px 10px rgba(255, 200, 150, .15);
+}
+.tuner-hint {
+  margin: 0;
+  text-align: center;
+  font-family: var(--label);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--brass-light);
+  opacity: .8;
+}
 
 /* Band-selector keys: ivory piano keys that press in and light up. */
 .roles {
@@ -396,6 +551,7 @@ body {
 .transcript { flex: 1; overflow-y: auto; margin: 0; padding: 0 4px 0 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
 .transcript li { font-size: 14px; line-height: 24px; }
 .transcript .q { color: #1f3a6b; }
+.transcript .q.from-caller::before { content: "CALLER: "; }
 .transcript .q::before { content: "YOU: "; font-family: var(--label); font-size: 11px; letter-spacing: 1px; color: var(--red); }
 .transcript .a::before { content: attr(data-who) ": "; font-family: var(--label); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-soft); }
 .transcript .blocked { color: var(--red); font-style: italic; }
@@ -447,8 +603,40 @@ a.chip:hover { border-style: solid; border-color: var(--red); color: var(--red);
   transition: transform .08s, box-shadow .08s;
 }
 .ask button:active { transform: translateY(2px); box-shadow: 0 1px 0 #4a120a; }
+/* Hold-to-talk: a round brass microphone button that glows red while live. */
+.ask .mic {
+  flex: none;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 35% 30%, var(--brass-light), var(--brass) 55%, #7a5418);
+  color: #3a240c;
+  box-shadow: 0 3px 0 #5a3c10, 0 5px 10px rgba(0, 0, 0, .4);
+  touch-action: none;
+}
+.ask .mic svg { width: 20px; height: 20px; fill: currentColor; }
+.ask .mic.live {
+  background: radial-gradient(circle at 35% 30%, #ff7a5a, var(--red) 60%, #6a1b0f);
+  color: #fff3dc;
+  animation: on-air 1s ease-in-out infinite;
+}
+.ask .mic:disabled { opacity: .35; cursor: not-allowed; }
+@keyframes on-air { 50% { box-shadow: 0 3px 0 #4a120a, 0 0 0 6px rgba(168, 50, 31, .25), 0 0 18px rgba(255, 90, 60, .6); } }
+/* An incoming text or call on the switchboard. */
+.transcript .caller {
+  margin-top: 4px;
+  font-family: var(--label);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--red);
+  border-top: 1px dashed rgba(168, 50, 31, .5);
+  padding-top: 4px;
+}
 .ask button:disabled { opacity: .6; cursor: wait; }
 
 @media (prefers-reduced-motion: reduce) {
-  .stage.tuning, .screen.static::after, .grain, .glow, .lamp-glow, .tv-glow, .sprite { animation: none; }
+  .stage.tuning, .screen.static::after, .grain, .glow, .lamp-glow, .tv-glow, .sprite, .ask .mic.live, .warp-year.go { animation: none; }
 }
