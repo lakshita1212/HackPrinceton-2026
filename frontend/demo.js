@@ -5,8 +5,11 @@
 // The script is DEMO.md's; the questions are saved answers, so they're instant.
 const $ = (id) => document.getElementById(id);
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+// ?captions=0: same demo, no captions, for when you narrate it yourself.
+const showCaptions = new URLSearchParams(location.search).get('captions') !== '0';
 
 function caption(text) {
+  if (!showCaptions) return;
   let el = $('demoCaption');
   if (!el) {
     el = document.createElement('div');

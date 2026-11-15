@@ -31,6 +31,8 @@ The same script works live at the table and for the video. Every question is alr
 
 **Easiest: let it run itself.** Open http://localhost:8080/?demo=1, start recording, and press **Tune in**. That's the only click. The demo plays the whole script by itself, with the narration as captions and the cursor hidden, then ends on a title card (about 1.5 minutes). No talking needed. If someone texts the station a photo before you record, the demo shows it on the air at the end; otherwise it shows the QR code card. Record at 1920×1080 so the header fits on one line.
 
+**Talking over it:** open http://localhost:8080/?demo=1&captions=0 for the same self-running demo with no captions, and read the spoken script (shot by shot, with timings) while it plays.
+
 
 - **Record your Mac's sound.** JFK's voice and the room sound are half the demo. QuickTime and Cmd+Shift+5 don't capture what the Mac plays, but OBS Studio does (macOS 13 or later: Sources → macOS Screen Capture, which captures audio too). Talk over it live with a mic, or add the voiceover after.
 - **A clean screen.** Use Chrome in full screen (Ctrl+Cmd+F) with no other tabs, turn on Focus mode so no notifications pop up, and make the window about 1440×900.
