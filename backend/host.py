@@ -13,6 +13,7 @@ from datetime import date
 
 from pydantic import BaseModel, Field
 
+import answer_cache
 from llm import get_structured
 from packs import Fact, PackNotFound
 from retrieval import search
@@ -152,19 +153,26 @@ def _blocked(reason: str) -> dict:
 def ask(question: str, role: str, day: date, pack: str) -> dict:
     """Returns the AskResponse fields from CONTRACT.md.
 
+    Checked answers are cached (answer_cache.py), so repeat questions cost nothing.
     HOST=deepagents in .env routes through the deepagents host (planner, role
     subagents, checker subagent). Any failure there falls back to the simple host.
     """
+    if cached := answer_cache.get(question, role, day, pack):
+        return cached
+    result = None
     if os.getenv("HOST", "simple").lower() == "deepagents":
         import deep_host  # imported lazily: it imports this module
 
         try:
-            return deep_host.ask(question, role, day, pack)
+            result = deep_host.ask(question, role, day, pack)
         except PackNotFound:
             raise
         except Exception as e:
             log.warning("deepagents host failed (%s), using the simple host", e)
-    return ask_simple(question, role, day, pack)
+    if result is None:
+        result = ask_simple(question, role, day, pack)
+    answer_cache.put(question, role, day, pack, result)
+    return result
 
 
 def ask_simple(question: str, role: str, day: date, pack: str) -> dict:

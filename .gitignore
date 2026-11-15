@@ -23,3 +23,6 @@ venv/
 
 # Original room PNGs (the app uses the JPG copies)
 frontend/rooms/*.png
+
+# Cached answers (regenerate with backend/warm_cache.py)
+backend/cache/
