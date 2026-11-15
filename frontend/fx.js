@@ -2,12 +2,11 @@
 //   - floating dust that glows near the lamps, at different depths, so the
 //     room feels deep when the mouse moves (parallax)
 //   - soft light rays falling from each lamp, and the TV's flickering spill
-//   - rain outside the windows now and then, with the odd lightning flash
+//   - quiet rain outside the windows now and then
 //   - a time-travel tunnel when the dial crosses into another decade
 // The painting itself stays a plain <img>; the room layer tilts slightly with the mouse.
 // If WebGL isn't available everything here quietly does nothing.
 import * as THREE from './vendor/three.module.min.js';
-import { sfx } from './audio.js';
 
 const MAX_LAMPS = 4;
 const DUST = 420;
@@ -131,8 +130,8 @@ export function createFx(stage, roomLayer) {
   scene.add(tvGlow);
 
   // ── Rain outside the windows ──────────────────────────────────────────
-  // Each window gets falling streaks clipped to its glass, plus a quad that
-  // flashes for lightning. `rain.value` eases between 0 (dry) and 1 (pouring).
+  // Each window gets falling streaks clipped to its glass.
+  // `rain.value` eases between 0 (dry) and 1 (pouring).
   const rain = { value: 0 };
   const rainSystems = Array.from({ length: MAX_WINDOWS }, () => {
     const drops = 220;
@@ -175,38 +174,14 @@ export function createFx(stage, roomLayer) {
         }`,
     }));
     streaks.frustumCulled = false;
-    // lightning: a soft, feathered brightening of the glass, never a solid box
-    const flash = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.ShaderMaterial({
-      transparent: true,
-      depthWrite: false,
-      blending: THREE.CustomBlending,
-      blendSrc: THREE.OneFactor,
-      blendDst: THREE.OneFactor,
-      blendSrcAlpha: THREE.OneFactor,
-      blendDstAlpha: THREE.OneFactor,
-      uniforms: { opacity: { value: 0 } },
-      vertexShader: 'varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
-      fragmentShader: `
-        uniform float opacity; varying vec2 vUv;
-        void main() {
-          vec2 e = min(vUv, 1.0 - vUv);
-          float soft = smoothstep(0.0, 0.25, e.x) * smoothstep(0.0, 0.25, e.y);
-          float a = opacity * soft * (0.55 + 0.45 * vUv.y);   // brighter toward the sky
-          gl_FragColor = vec4(vec3(0.85, 0.9, 1.0) * a, a);
-        }`,
-    }));
-    flash.position.z = 0.04;
-    scene.add(streaks, flash);
-    return { streaks, flash, rect };
+    scene.add(streaks);
+    return { streaks, rect };
   });
   let raining = false;
   let weatherTimer = 0;
-  let nextBolt = 0;
-  let boltAt = -1;
   let hasWindows = false;
   function setWeather(wet) {
     raining = hasWindows && wet;
-    nextBolt = performance.now() + 6000 + Math.random() * 14000;
   }
 
   // ── Time-travel tunnel (drawn over everything while it runs) ───────────
@@ -248,13 +223,11 @@ export function createFx(stage, roomLayer) {
     hasWindows = windows.length > 0;
     rainSystems.forEach((sys, i) => {
       const w = windows[i];
-      sys.streaks.visible = sys.flash.visible = !!w;
+      sys.streaks.visible = !!w;
       if (!w) return;
       const a = toWorld(w.x, w.y + w.h);
       const b = toWorld(w.x + w.w, w.y);
       sys.rect.value.set(a.x, a.y, b.x, b.y);
-      sys.flash.position.set((a.x + b.x) / 2, (a.y + b.y) / 2, 0.04);
-      sys.flash.scale.set(b.x - a.x, b.y - a.y, 1);
     });
     // Each room is rainy or dry when you tune in; it may change while you stay.
     rain.value = 0;
@@ -336,19 +309,8 @@ export function createFx(stage, roomLayer) {
       roomLayer.style.transform =
         `perspective(1400px) rotateY(${eased.x * 1.6}deg) rotateX(${-eased.y * 1.2}deg) scale(1.05) translate(${-eased.x * 0.6}%, ${-eased.y * 0.5}%)`;
     }
-    // Rain eases in and out; lightning now and then while it pours.
-    const now = performance.now();
-    const target = raining ? 1 : 0;
-    rain.value += (target - rain.value) * 0.01;
-    sfx.rain(rain.value);
-    if (raining && rain.value > 0.6 && now > nextBolt) {
-      boltAt = now;
-      nextBolt = now + 12000 + Math.random() * 20000;
-      setTimeout(() => sfx.thunder(), 500 + Math.random() * 1200);
-    }
-    const sinceBolt = boltAt < 0 ? 1e9 : now - boltAt;
-    const bolt = sinceBolt < 120 ? 0.9 : sinceBolt < 200 ? 0.15 : sinceBolt < 300 ? 0.6 : 0;
-    rainSystems.forEach((sys) => { sys.flash.material.uniforms.opacity.value = bolt * (reducedMotion ? 0.12 : 0.35); });
+    // Rain eases in and out, silently.
+    rain.value += ((raining ? 1 : 0) - rain.value) * 0.01;
 
     if (warpStart >= 0) {
       const k = (performance.now() - warpStart) / WARP_MS;
