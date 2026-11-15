@@ -47,6 +47,15 @@ DEMO = [
 
 if __name__ == "__main__":
     import answer_cache
+    import wiki_station
+
+    # Wikipedia stations (2026) must exist before their questions can be answered:
+    # build them the same way the app does when you tune in.
+    for day in sorted({d for _, d, _ in DEMO if PACKS[d[:4]].startswith("wiki-")}):
+        try:
+            print(f"{'station':<22}        {wiki_station.ensure(date.fromisoformat(day))}", flush=True)
+        except Exception as e:
+            print(f"{'station failed':<22}        {day} ({type(e).__name__}: {str(e)[:80]})", flush=True)
 
     for role, day, q in DEMO:
         pack = PACKS[day[:4]]
