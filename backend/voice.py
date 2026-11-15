@@ -91,5 +91,19 @@ def speak(text: str, role: str, day: date | None = None) -> str | None:
         return None
 
 
+def speak_raw(text: str, voice_name: str) -> bytes | None:
+    """Plain WAV bytes in a named Orpheus voice (no era filter), or None if unavailable."""
+    if _tts_broken_reason:
+        return None
+    try:
+        r = _with_any_key(lambda c: c.audio.speech.create(
+            model=TTS_MODEL, voice=voice_name, input=text, response_format="wav"
+        ))
+        return r.read()
+    except Exception as e:
+        log.warning("TTS unavailable: %s", str(e)[:200])
+        return None
+
+
 def tts_status() -> dict:
     return {"model": TTS_MODEL, "voices": VOICES, "error": _tts_broken_reason}
