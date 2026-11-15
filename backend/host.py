@@ -7,13 +7,14 @@
   5. Retry once     with the checker's notes, then refuse honestly
 """
 import logging
+import os
 import re
 from datetime import date
 
 from pydantic import BaseModel, Field
 
-from llm import get_model
-from packs import Fact
+from llm import get_structured
+from packs import Fact, PackNotFound
 from retrieval import search
 
 log = logging.getLogger("host")
@@ -115,7 +116,7 @@ def _draft(question: str, role: str, day: date, facts: list[Fact], notes: list[s
     )
     if notes:
         system += "\n\nYour last answer was rejected for these problems. Fix them:\n- " + "\n- ".join(notes)
-    model = get_model(temperature=0.3).with_structured_output(Draft)
+    model = get_structured(Draft, "answer", temperature=0.3)
     return model.invoke([("system", system), ("user", question)])
 
 
@@ -133,7 +134,7 @@ def _check(answer: str, role: str, day: date, facts: list[Fact]) -> Verdict:
         "uncertainty and 'I don't know' are fine.\n\n"
         f"FACTS:\n{_facts_block(facts)}"
     )
-    model = get_model(temperature=0).with_structured_output(Verdict)
+    model = get_structured(Verdict, "check", temperature=0)
     return model.invoke([("system", system), ("user", f"ANSWER:\n{answer}")])
 
 
@@ -142,7 +143,25 @@ def _blocked(reason: str) -> dict:
 
 
 def ask(question: str, role: str, day: date, pack: str) -> dict:
-    """Returns the AskResponse fields from CONTRACT.md."""
+    """Returns the AskResponse fields from CONTRACT.md.
+
+    HOST=deepagents in .env routes through the deepagents host (planner, role
+    subagents, checker subagent). Any failure there falls back to the simple host.
+    """
+    if os.getenv("HOST", "simple").lower() == "deepagents":
+        import deep_host  # imported lazily: it imports this module
+
+        try:
+            return deep_host.ask(question, role, day, pack)
+        except PackNotFound:
+            raise
+        except Exception as e:
+            log.warning("deepagents host failed (%s), using the simple host", e)
+    return ask_simple(question, role, day, pack)
+
+
+def ask_simple(question: str, role: str, day: date, pack: str) -> dict:
+    """Rule check, retrieval, draft, checker, one retry."""
     if asks_about_future(question, role, day, pack):
         return _blocked("future")
 
