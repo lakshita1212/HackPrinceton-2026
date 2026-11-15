@@ -20,7 +20,8 @@ export function createFx(stage, roomLayer) {
   }
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   renderer.domElement.className = 'fx';
-  stage.append(renderer.domElement);
+  // Inside the room layer, so lamp light tilts with the painting.
+  roomLayer.append(renderer.domElement);
 
   // World: the painting is the plane z = 0, 3 units wide by 2 tall (3:2).
   const scene = new THREE.Scene();

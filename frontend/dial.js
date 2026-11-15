@@ -83,7 +83,6 @@ export function createDial(root, { stations, onChange }) {
   function select(i) {
     if (i === index) return;
     index = i;
-    sfx.tick();
     onChange(index);
   }
 
