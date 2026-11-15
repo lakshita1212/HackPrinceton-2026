@@ -1,0 +1,136 @@
+STAY TUNED: ROOM IMAGE PROMPTS FOR CHATGPT
+==========================================
+
+HOW TO USE
+1. Open the ChatGPT chat where you made the 1962 living room (the one with the man
+   reading the newspaper and the kid with the toy truck). If you start a new chat,
+   attach that image first and say: "Match the style of this image exactly."
+2. Paste ONE prompt at a time, in order. Wait for each image.
+3. Save each image with the file name shown above its prompt, into:
+   Documents/HackPrinceton-2026/frontend/rooms/
+4. Regenerate an image if: it has text or logos, the TV is hidden or not facing
+   you, the radio isn't clearly visible, or a person is blocking the TV.
+5. Send the images to Claude as you go. Claude marks the TV, radio and lamps
+   and animates the people.
+
+You already have: citizen-1962. That leaves 15.
+
+
+------------------------------------------------------------
+SAVE AS: citizen-1969.png
+------------------------------------------------------------
+Same illustration style as the previous image: a painted mid-century magazine illustration in gouache and colored pencil, warm amber light, faded halftone print texture, eye-level view into the corner of the room, ceiling visible, evening with a lamp glowing. Landscape 3:2. No text, no logos.
+
+The same family living room, now in July 1969. Mustard and avocado walls, an orange sofa, olive shag carpet, a wood-cabinet color television with rabbit-ear antennas showing a plain blank gray screen, facing the viewer in the right third of the image. A teal transistor radio on a side table in the left half, clearly visible. A lava lamp, a framed photo of the Moon on the wall. A teenage girl in 1969 clothes sits cross-legged on the carpet near the TV, leaning forward, chin in her hands. Nobody blocks the TV screen or the radio.
+
+
+------------------------------------------------------------
+SAVE AS: citizen-1989.png
+------------------------------------------------------------
+Same illustration style as the previous images: a painted mid-century magazine illustration in gouache and colored pencil, warm amber light, faded halftone print texture, eye-level view into the corner of the room, ceiling visible, evening with a lamp glowing. Landscape 3:2. No text, no logos.
+
+The same family living room, now in November 1989. Dusty mauve and teal decor, vertical blinds, a boxy black television on a stand with a VCR underneath, plain blank gray screen, facing the viewer in the right third of the image. A black boombox on a side table in the left half, clearly visible. A glass coffee table, a geometric framed print, a brass floor lamp glowing. A mother in 1989 clothes sits on the sofa holding a mug of tea with a little steam rising from it. Nobody blocks the TV screen or the radio.
+
+
+------------------------------------------------------------
+SAVE AS: citizen-2026.png
+------------------------------------------------------------
+Same illustration style as the previous images: a painted mid-century magazine illustration in gouache and colored pencil, warm amber light, faded halftone print texture, eye-level view into the corner of the room, ceiling visible, evening with a lamp glowing. Landscape 3:2. No text, no logos.
+
+The same family living room, now in 2026. Warm neutral modern decor, light oak floor, a gray sofa, a large thin flat-screen TV on a low media console with a plain blank gray screen, facing the viewer in the right third of the image. A small fabric smart speaker on a side table in the left half, clearly visible. Potted plants, a warm floor lamp glowing. A college student sits on the sofa with a laptop on their knees, typing. A cat sleeps curled on the rug. Nobody blocks the TV screen or the speaker.
+
+
+------------------------------------------------------------
+SAVE AS: journalist-1962.png
+------------------------------------------------------------
+Same illustration style as the previous images: a painted mid-century magazine illustration in gouache and colored pencil, warm amber light, faded halftone print texture, eye-level view into the corner of the room, ceiling visible, evening with a lamp glowing. Landscape 3:2. No text, no logos.
+
+A city newspaper newsroom at night in October 1962. Olive-green walls, wooden desks, a teletype machine with paper spilling onto the floor, a cork board pinned with clippings, a wall clock, city lights through a large window. A television with a plain blank gray screen sits on a gray filing cabinet, facing the viewer in the right third of the image. A wooden tube radio sits on a desk in the left half, clearly visible. A green-shaded desk lamp glows. A reporter in rolled-up shirtsleeves sits at a manual typewriter, typing, with a coffee cup beside him. Nobody blocks the TV screen or the radio.
+
+
+------------------------------------------------------------
+SAVE AS: journalist-1969.png
+------------------------------------------------------------
+Same illustration style as the previous images: a painted mid-century magazine illustration in gouache and colored pencil, warm amber light, faded halftone print texture, eye-level view into the corner of the room, ceiling visible, evening with a lamp glowing. Landscape 3:2. No text, no logos.
+
+The same newsroom in July 1969. Tan walls, an orange electric typewriter, a teletype machine, a cork board of clippings, city lights outside. A wood-cabinet color television with a plain blank gray screen sits on a filing cabinet, facing the viewer in the right third of the image. A teal transistor radio sits on a desk in the left half, clearly visible. A desk lamp glows. A woman reporter in 1969 clothes talks on a desk telephone, leaning back in her chair. Nobody blocks the TV screen or the radio.
+
+
+------------------------------------------------------------
+SAVE AS: journalist-1989.png
+------------------------------------------------------------
+Same illustration style as the previous images: a painted mid-century magazine illustration in gouache and colored pencil, warm amber light, faded halftone print texture, eye-level view into the corner of the room, ceiling visible, evening with a lamp glowing. Landscape 3:2. No text, no logos.
+
+The same newsroom in November 1989. Gray-blue walls, beige computer terminals with green-text monitors, a fax machine, stacks of paper, city lights outside. A boxy black television with a plain blank gray screen sits on a filing cabinet, facing the viewer in the right third of the image. A black boombox sits on a desk in the left half, clearly visible. A desk lamp glows. A reporter in a 1989 sweater types at a computer terminal. Nobody blocks the TV screen or the boombox.
+
+
+------------------------------------------------------------
+SAVE AS: journalist-2026.png
+------------------------------------------------------------
+Same illustration style as the previous images: a painted mid-century magazine illustration in gouache and colored pencil, warm amber light, faded halftone print texture, eye-level view into the corner of the room, ceiling visible, evening with a lamp glowing. Landscape 3:2. No text, no logos.
+
+The same newsroom in 2026. Open-plan desks with laptops and a second monitor, city lights outside. A thin flat-screen TV with a plain blank gray screen sits on a filing cabinet, facing the viewer in the right third of the image. A small fabric smart speaker sits on a desk in the left half, clearly visible. A warm desk lamp glows. A young reporter with headphones types on a laptop. Nobody blocks the TV screen or the speaker.
+
+
+------------------------------------------------------------
+SAVE AS: official-1962.png
+------------------------------------------------------------
+Same illustration style as the previous images: a painted mid-century magazine illustration in gouache and colored pencil, warm amber light, faded halftone print texture, eye-level view into the corner of the room, ceiling visible, evening with a lamp glowing. Landscape 3:2. No text, no logos.
+
+A dark walnut-paneled government office in Washington, D.C., at night in October 1962. An American flag on a pole, a large wall map of Florida, Cuba and the Caribbean, a heavy wooden desk with a black rotary phone and stacks of folders. A green banker's lamp glows. A wooden television cabinet with a plain blank gray screen faces the viewer in the right third of the image. A wooden tube radio sits on the desk in the left half, clearly visible. A tired government official in a suit and loosened tie stands studying the wall map, one hand on his hip. He is a generic figure, not any real person. Nobody blocks the TV screen or the radio.
+
+
+------------------------------------------------------------
+SAVE AS: official-1969.png
+------------------------------------------------------------
+Same illustration style as the previous images: a painted mid-century magazine illustration in gouache and colored pencil, warm amber light, faded halftone print texture, eye-level view into the corner of the room, ceiling visible, evening with a lamp glowing. Landscape 3:2. No text, no logos.
+
+The same walnut-paneled Washington office in July 1969. American flag, wall map, heavy desk with a black rotary phone, a green banker's lamp glowing. A wood-cabinet color television with a plain blank gray screen faces the viewer in the right third of the image. A teal transistor radio sits on the desk in the left half, clearly visible. A generic official in a 1969 suit sits at the desk reading a memo. Not any real person. Nobody blocks the TV screen or the radio.
+
+
+------------------------------------------------------------
+SAVE AS: official-1989.png
+------------------------------------------------------------
+Same illustration style as the previous images: a painted mid-century magazine illustration in gouache and colored pencil, warm amber light, faded halftone print texture, eye-level view into the corner of the room, ceiling visible, evening with a lamp glowing. Landscape 3:2. No text, no logos.
+
+The same walnut-paneled Washington office in November 1989. American flag, a wall map of Europe, a beige desktop computer and a push-button phone on the desk, a banker's lamp glowing. A boxy black television with a plain blank gray screen sits on a cabinet, facing the viewer in the right third of the image. A black boombox sits on a credenza in the left half, clearly visible. A generic official in a 1989 suit talks on the push-button phone. Not any real person. Nobody blocks the TV screen or the boombox.
+
+
+------------------------------------------------------------
+SAVE AS: official-2026.png
+------------------------------------------------------------
+Same illustration style as the previous images: a painted mid-century magazine illustration in gouache and colored pencil, warm amber light, faded halftone print texture, eye-level view into the corner of the room, ceiling visible, evening with a lamp glowing. Landscape 3:2. No text, no logos.
+
+The same walnut-paneled Washington office in 2026. American flag, wall map, a laptop and smartphone on the desk, a banker's lamp glowing. A thin flat-screen TV with a plain blank gray screen sits on a cabinet, facing the viewer in the right third of the image. A small fabric smart speaker sits on the desk in the left half, clearly visible. A generic official scrolls on a tablet. Not any real person. Nobody blocks the TV screen or the speaker.
+
+
+------------------------------------------------------------
+SAVE AS: historian-1962.png
+------------------------------------------------------------
+Same illustration style as the previous images: a painted mid-century magazine illustration in gouache and colored pencil, warm amber light, faded halftone print texture, eye-level view into the corner of the room, ceiling visible, evening with a lamp glowing. Landscape 3:2. No text, no logos.
+
+A historian's study in 1962. Floor-to-ceiling wooden bookshelves full of books, cardboard archive boxes, a glowing floor lamp. A television on a wooden cabinet with a plain blank gray screen faces the viewer in the right third of the image. A wooden tube radio sits on the desk in the left half, clearly visible. An older scholar with glasses and a cardigan sits at a manual typewriter, turning a page of an open book beside it. Nobody blocks the TV screen or the radio.
+
+
+------------------------------------------------------------
+SAVE AS: historian-1969.png
+------------------------------------------------------------
+Same illustration style as the previous images: a painted mid-century magazine illustration in gouache and colored pencil, warm amber light, faded halftone print texture, eye-level view into the corner of the room, ceiling visible, evening with a lamp glowing. Landscape 3:2. No text, no logos.
+
+The same historian's study in 1969. Bookshelves, archive boxes, a glowing floor lamp, a teal typewriter on the desk. A wood-cabinet color television with a plain blank gray screen faces the viewer in the right third of the image. A teal transistor radio sits on the desk in the left half, clearly visible. The scholar leans back in an armchair, reading a book. Nobody blocks the TV screen or the radio.
+
+
+------------------------------------------------------------
+SAVE AS: historian-1989.png
+------------------------------------------------------------
+Same illustration style as the previous images: a painted mid-century magazine illustration in gouache and colored pencil, warm amber light, faded halftone print texture, eye-level view into the corner of the room, ceiling visible, evening with a lamp glowing. Landscape 3:2. No text, no logos.
+
+The same historian's study in 1989. Bookshelves, archive boxes, a glowing floor lamp, a beige desktop computer with a green-text monitor on the desk. A boxy black television with a plain blank gray screen sits on a cabinet, facing the viewer in the right third of the image. A black boombox sits on the desk in the left half, clearly visible. A historian in a 1989 blazer types on the computer. Nobody blocks the TV screen or the boombox.
+
+
+------------------------------------------------------------
+SAVE AS: historian-2026.png
+------------------------------------------------------------
+Same illustration style as the previous images: a painted mid-century magazine illustration in gouache and colored pencil, warm amber light, faded halftone print texture, eye-level view into the corner of the room, ceiling visible, evening with a lamp glowing. Landscape 3:2. No text, no logos.
+
+The same historian's study in 2026. Bookshelves, archive boxes, a warm floor lamp glowing, a laptop on the desk. A thin flat-screen TV with a plain blank gray screen sits on a cabinet, facing the viewer in the right third of the image. A small fabric smart speaker sits on the desk in the left half, clearly visible. A historian with a cup of coffee scrolls through scanned documents on the laptop, a little steam rising from the cup. Nobody blocks the TV screen or the speaker.

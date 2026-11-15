@@ -1,0 +1,454 @@
+/* A 1960s radio cabinet: walnut, brass trim, ivory and bakelite controls,
+   with the room framed like a magazine illustration. */
+:root {
+  --walnut: #3b2214;
+  --walnut-dark: #24140b;
+  --walnut-light: #6b3f22;
+  --brass: #c9973d;
+  --brass-light: #f1d48c;
+  --ivory: #f3e7c9;
+  --paper: #efe2c2;
+  --ink: #2b1a10;
+  --ink-soft: #6b5238;
+  --red: #a8321f;
+  --amber: #ffb347;
+  --cream: #f6ead0;
+  --serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  --type: "Special Elite", "Courier New", Courier, monospace;
+  --label: "Oswald", "Arial Narrow", sans-serif;
+  /* kept for the drawn-room fallbacks */
+  --bg: #1b1410;
+  --panel: #2a1f18;
+  --edge: #4a3a2c;
+  --dim: #a8957a;
+  --glow: #ffb347;
+  --blocked: #a8321f;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  color: var(--cream);
+  font-family: var(--type);
+  /* walnut grain */
+  background:
+    repeating-linear-gradient(92deg, rgba(0, 0, 0, .14) 0 2px, transparent 2px 9px, rgba(255, 220, 170, .03) 9px 11px, transparent 11px 23px),
+    radial-gradient(ellipse at 30% 10%, #4a2a17, var(--walnut-dark) 70%);
+  background-color: var(--walnut-dark);
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 20px;
+  height: 100vh;
+  padding: 18px;
+}
+@media (max-width: 900px) {
+  .app { grid-template-columns: 1fr; height: auto; }
+}
+
+/* Shared walnut-panel look with a brass inner trim. */
+.scene, .controls {
+  border-radius: 16px;
+  background:
+    repeating-linear-gradient(88deg, rgba(0, 0, 0, .12) 0 3px, transparent 3px 14px, rgba(255, 210, 160, .04) 14px 16px, transparent 16px 31px),
+    linear-gradient(160deg, var(--walnut-light), var(--walnut) 45%, var(--walnut-dark));
+  box-shadow:
+    inset 0 0 0 2px rgba(241, 212, 140, .55),
+    inset 0 0 0 7px var(--walnut-dark),
+    inset 0 2px 20px rgba(255, 220, 170, .08),
+    0 18px 40px rgba(0, 0, 0, .55);
+}
+
+/* ── Scene: the room for the current role ─────────────────────────────── */
+/* The walnut box is just a frame: it wraps the painting tightly, and the
+   painting is as large as the window allows. */
+.scene {
+  position: relative;
+  align-self: center;
+  justify-self: center;
+  width: fit-content;
+  max-width: 100%;
+  padding: 12px;
+}
+.stage {
+  position: relative;
+  width: min(calc(100vw - 380px - 20px - 36px - 24px), calc((100vh - 36px - 24px) * 1.5));
+  aspect-ratio: 16 / 10;
+  border-radius: 6px;
+  overflow: hidden;
+  /* picture-frame mat: thin brass line around the painting */
+  box-shadow: 0 0 0 3px var(--brass), 0 10px 30px rgba(0, 0, 0, .6);
+}
+@media (max-width: 900px) {
+  .stage { width: calc(100vw - 36px - 24px); }
+}
+#art { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+#photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+#photo[hidden], #art[hidden] { display: none; }
+
+/* Each era is graded like film from that time: warm browns throughout. */
+.stage.era-1962 :is(#art, #photo) { filter: sepia(.38) saturate(.85) contrast(1.06) brightness(.97); }
+.stage.era-1969 :is(#art, #photo) { filter: sepia(.25) saturate(1.25) contrast(1.08); }
+.stage.era-1989 :is(#art, #photo) { filter: sepia(.18) saturate(.95) contrast(1.04) hue-rotate(-6deg); }
+.stage.era-2026 :is(#art, #photo) { filter: sepia(.1) contrast(1.02); }
+
+/* Painted rooms already have their own color and texture: grade them lightly,
+   and let the painted TV screen show through until a clip plays. */
+.stage.has-photo #photo { filter: contrast(1.03) saturate(1.02); }
+.stage.has-photo::after { opacity: .12; }
+.stage.has-photo .screen {
+  background: radial-gradient(ellipse, rgba(225, 228, 215, .28), rgba(30, 32, 28, .3) 90%);
+  color: #1d1d18;
+  box-shadow: 0 0 36px 6px rgba(190, 220, 255, .14);
+}
+
+/* Moving cut-outs on painted rooms. */
+.sprite { position: absolute; pointer-events: none; filter: contrast(1.03) saturate(1.02); }
+/* The man turns a page: the right page lifts and folds over, every 12 seconds. */
+.page-flip { transform-origin: 5% 50%; animation: page-flip 12s ease-in-out infinite; }
+@keyframes page-flip {
+  0%, 78% { transform: perspective(500px) rotateY(0); opacity: 1; filter: brightness(1); }
+  86% { transform: perspective(500px) rotateY(-95deg); opacity: 1; filter: brightness(1.15); }
+  93% { transform: perspective(500px) rotateY(-168deg); opacity: 1; filter: brightness(.9); }
+  96% { transform: perspective(500px) rotateY(-168deg); opacity: 0; }
+  97% { transform: perspective(500px) rotateY(0); opacity: 0; }
+  100% { transform: perspective(500px) rotateY(0); opacity: 1; }
+}
+/* The kid pushes the truck forward and pulls it back. */
+.toy-push { animation: toy-push 5s ease-in-out infinite; }
+@keyframes toy-push {
+  0%, 30%, 100% { transform: translateX(0); }
+  45% { transform: translateX(6%); }
+  55% { transform: translateX(6%); }
+  70% { transform: translateX(-1.5%); }
+  80% { transform: translateX(0); }
+}
+
+/* Soft lamp glow over painted rooms, and the clickable radio. */
+.glow { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen; animation: lamp 7s ease-in-out infinite; }
+.radio-hit {
+  position: absolute;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+}
+.radio-hit:hover, .radio-hit:focus-visible { box-shadow: 0 0 0 3px rgba(255, 179, 71, .8), 0 0 24px rgba(255, 179, 71, .6); outline: none; }
+
+/* Printed-magazine look: halftone dots on yellowed paper, strongest for the mid-century eras. */
+.stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  background:
+    radial-gradient(rgba(70, 35, 10, .5) .8px, transparent 1.3px) 0 0 / 4px 4px,
+    linear-gradient(160deg, #f6e6bf, #e8cf98);
+  opacity: .32;
+}
+.stage.era-1969::after { opacity: .28; }
+.stage.era-1989::after { opacity: .14; }
+.stage.era-2026::after { opacity: 0; }
+.caption { z-index: 3; }
+
+/* Film grain over the whole scene. */
+.grain {
+  z-index: 2;
+  position: absolute;
+  inset: -50%;
+  pointer-events: none;
+  opacity: .16;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation: grain .5s steps(4) infinite;
+}
+.stage.era-2026 .grain { opacity: .07; }
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-3%, 2%); }
+  50% { transform: translate(2%, -3%); }
+  75% { transform: translate(-2%, -1%); }
+}
+
+/* Lamps breathe a little; the TV glow flickers faster. */
+.lamp-glow { animation: lamp 7s ease-in-out infinite; }
+.tv-glow { animation: tvglow 1.8s steps(5) infinite; }
+@keyframes lamp { 0%, 100% { opacity: 1; } 45% { opacity: .93; } 50% { opacity: .82; } 55% { opacity: .95; } }
+@keyframes tvglow { 0%, 100% { opacity: .9; } 40% { opacity: .7; } 70% { opacity: 1; } }
+.stage.tuning { animation: tune .45s steps(6); }
+.hit { cursor: pointer; }
+.hit:hover { filter: brightness(1.2) drop-shadow(0 0 8px #ffb347); }
+
+/* The TV screen sits on top of the drawing, where the room says its screen is. */
+.screen {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  padding: 4%;
+  border-radius: 18% / 12%;
+  overflow: hidden;
+  cursor: pointer;
+  background: radial-gradient(ellipse, #8fa39a, #2d3833 80%);
+  color: #10140f;
+  text-align: center;
+  font-size: clamp(9px, 1vw, 15px);
+  line-height: 1.35;
+}
+.screen { box-shadow: 0 0 40px 8px rgba(159, 208, 255, .18), inset 0 0 30px rgba(0, 0, 0, .55); }
+.screen:focus-visible { outline: 3px solid var(--glow); }
+.screen.era-1989 { border-radius: 8% / 6%; }
+.stage .screen.painted { background: transparent; box-shadow: none; }
+.screen.painted p { display: none; }
+.screen.era-2026 { border-radius: 0; background: radial-gradient(ellipse, #3a4a5a, #0f141a 85%); color: #dfe6ec; }
+.screen p {
+  margin: 0;
+  position: relative;
+  font-size: clamp(7px, .75vw, 13px);
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.screen video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: #000; }
+.screen.static::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(255, 255, 255, .08) 0 2px, transparent 2px 4px);
+  animation: roll 1.4s linear infinite;
+}
+@keyframes roll { to { background-position: 0 40px; } }
+/* "ARCHIVAL" / "NARRATION" as a rubber stamp on the TV. */
+.badge {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  padding: 1px 6px;
+  border: 2px solid var(--red);
+  border-radius: 3px;
+  background: rgba(243, 231, 201, .85);
+  color: var(--red);
+  font-family: var(--label);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transform: rotate(-4deg);
+}
+/* Captions read like a magazine photo caption. */
+.caption {
+  position: absolute;
+  left: 50%;
+  bottom: 4%;
+  transform: translateX(-50%);
+  max-width: 80%;
+  padding: 8px 16px;
+  border-radius: 2px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 15px;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .45);
+  border-top: 3px solid var(--red);
+}
+@keyframes tune {
+  0%, 100% { filter: none; }
+  30% { filter: contrast(1.6) brightness(1.4) blur(1px); }
+  60% { filter: grayscale(1) contrast(2); }
+}
+
+/* Room name and date, set like a magazine headline over the painting. */
+.scene-top {
+  position: absolute;
+  z-index: 4;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 14px 20px 34px;
+  border-radius: 6px 6px 0 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(28, 14, 6, .78), rgba(28, 14, 6, .35) 60%, transparent);
+}
+.room {
+  font-family: var(--serif);
+  font-weight: 800;
+  font-size: clamp(20px, 2.2vw, 30px);
+  letter-spacing: .5px;
+  color: var(--cream);
+  text-shadow: 0 2px 0 rgba(0, 0, 0, .4);
+}
+.day {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(14px, 1.3vw, 18px);
+  color: var(--brass-light);
+}
+
+/* ── Radio panel ──────────────────────────────────────────────────────── */
+.controls { display: flex; flex-direction: column; gap: 14px; min-height: 0; padding: 18px 18px 20px; }
+
+.nameplate {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 22px 7px;
+  border-radius: 6px;
+  background: linear-gradient(180deg, var(--brass-light), var(--brass) 55%, #8a6422);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), 0 3px 8px rgba(0, 0, 0, .5);
+  color: #3a240c;
+}
+.brand { font-family: var(--serif); font-style: italic; font-weight: 800; font-size: 24px; line-height: 1; }
+.tagline { font-family: var(--label); font-size: 9px; letter-spacing: 2px; text-transform: uppercase; margin-top: 3px; }
+
+/* ── Dial ─────────────────────────────────────────────────────────────── */
+.dial { width: 270px; align-self: center; cursor: grab; touch-action: none; outline: none; }
+.dial:active { cursor: grabbing; }
+.dial:focus-visible .dial-bezel { stroke: var(--amber); stroke-width: 4; }
+.dial-band { fill: none; stroke: var(--red); stroke-width: 1.5; opacity: .7; }
+.dial-minor { stroke: #7a5a3a; stroke-width: 1; }
+.dial-tick { stroke: var(--ink); stroke-width: 2.5; }
+.dial-label {
+  fill: var(--ink);
+  font-family: var(--label);
+  font-size: 12px;
+  letter-spacing: .5px;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  cursor: pointer;
+}
+.dial-label.on { fill: var(--red); font-size: 14px; }
+.dial-brand { fill: var(--red); font-family: var(--serif); font-style: italic; font-weight: 800; font-size: 13px; text-anchor: middle; }
+.dial-sub { fill: var(--ink-soft); font-family: var(--label); font-size: 7px; letter-spacing: 1.5px; text-anchor: middle; }
+.dial-knob { transform-origin: 150px 150px; }
+.dial-rib { stroke: rgba(0, 0, 0, .45); stroke-width: 2; }
+.dial-pointer { stroke: var(--red); stroke-width: 3; stroke-linecap: round; }
+
+/* Band-selector keys: ivory piano keys that press in and light up. */
+.roles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  padding: 6px;
+  border-radius: 6px;
+  background: var(--walnut-dark);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, .7);
+}
+.roles button {
+  padding: 12px 2px 10px;
+  border: 0;
+  border-radius: 3px 3px 6px 6px;
+  background: linear-gradient(180deg, #fff8e6, var(--ivory) 60%, #d9c79c);
+  color: var(--ink);
+  font-family: var(--label);
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #a99368, 0 6px 8px rgba(0, 0, 0, .5);
+  transition: transform .08s, box-shadow .08s;
+}
+.roles button:hover { background: linear-gradient(180deg, #fffdf3, #f7ecd2 60%, #e2d1a8); }
+.roles button[aria-selected="true"] {
+  transform: translateY(3px);
+  background: linear-gradient(180deg, #ffd89a, #f2b257 60%, #d98f35);
+  box-shadow: 0 1px 0 #8a5a1e, 0 0 14px rgba(255, 179, 71, .55);
+  color: #3a1c08;
+}
+.roles button:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+
+/* ── Call-in: a typed note on ruled paper ─────────────────────────────── */
+.callin {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 240px;
+  padding: 14px 16px 12px 34px;
+  border-radius: 3px;
+  color: var(--ink);
+  background:
+    linear-gradient(90deg, transparent 24px, rgba(168, 50, 31, .45) 24px 25px, transparent 25px),
+    repeating-linear-gradient(180deg, transparent 0 23px, rgba(90, 120, 150, .22) 23px 24px),
+    linear-gradient(170deg, #f8eed6, var(--paper) 60%, #e3d2a8);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .55), inset 0 0 30px rgba(140, 100, 40, .18);
+  transform: rotate(-.4deg);
+}
+.callin h2 {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 800;
+  font-size: 22px;
+  color: var(--ink);
+}
+.callin-sub { margin: 2px 0 10px; font-family: var(--label); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--red); }
+.transcript { flex: 1; overflow-y: auto; margin: 0; padding: 0 4px 0 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.transcript li { font-size: 14px; line-height: 24px; }
+.transcript .q { color: #1f3a6b; }
+.transcript .q::before { content: "YOU: "; font-family: var(--label); font-size: 11px; letter-spacing: 1px; color: var(--red); }
+.transcript .a::before { content: attr(data-who) ": "; font-family: var(--label); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-soft); }
+.transcript .blocked { color: var(--red); font-style: italic; }
+.transcript .scripted { opacity: .65; }
+/* Sources look like little stamped tickets. */
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; line-height: 1.2; }
+.chip {
+  font-family: var(--label);
+  font-size: 10px;
+  letter-spacing: .5px;
+  padding: 3px 8px;
+  border: 1.5px dashed var(--ink-soft);
+  border-radius: 2px;
+  background: rgba(255, 250, 235, .6);
+  color: var(--ink);
+  text-decoration: none;
+}
+a.chip:hover { border-style: solid; border-color: var(--red); color: var(--red); }
+
+.ask { display: flex; gap: 10px; align-items: center; margin-top: 10px; }
+.ask input {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 2px;
+  border: 0;
+  border-bottom: 2px solid var(--ink-soft);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-family: var(--type);
+  font-size: 14px;
+  outline: none;
+}
+.ask input::placeholder { color: #9a8463; }
+.ask input:focus { border-bottom-color: var(--red); }
+/* A red bakelite push-button. */
+.ask button {
+  padding: 10px 18px;
+  border: 0;
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 30%, #e0603f, var(--red) 55%, #6a1b0f);
+  color: #fff3dc;
+  font-family: var(--label);
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 3px 0 #4a120a, 0 5px 10px rgba(0, 0, 0, .4);
+  transition: transform .08s, box-shadow .08s;
+}
+.ask button:active { transform: translateY(2px); box-shadow: 0 1px 0 #4a120a; }
+.ask button:disabled { opacity: .6; cursor: wait; }
+
+@media (prefers-reduced-motion: reduce) {
+  .stage.tuning, .screen.static::after, .grain, .glow, .lamp-glow, .tv-glow, .sprite { animation: none; }
+}

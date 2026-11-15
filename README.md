@@ -9,7 +9,7 @@ Built at HackPrinceton 2026.
 | Part | Tech | Folder |
 |------|------|--------|
 | Host (the brain) | Python, FastAPI, LangChain deepagents, Groq | [backend/](backend/) |
-| Radio app (the experience) | JS front end on the laptop | [frontend/](frontend/) |
+| Radio app (the experience) | Plain JS, runs on the laptop: dial, painted rooms, call-in | [frontend/](frontend/) |
 | Text the station | Photon 2.0 iMessage | [backend/photon_imessage.py](backend/photon_imessage.py) |
 | Call the station | Laptop mic: Groq Whisper, the host, Groq Orpheus voices | [backend/voice.py](backend/voice.py) |
 | Sources | Curated, cited facts per day and role | [backend/packs/](backend/packs/) |

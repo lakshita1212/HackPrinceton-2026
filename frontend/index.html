@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stay Tuned</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,500&family=Special+Elite&family=Oswald:wght@500&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <section class="scene" id="scene">
+      <div class="scene-top">
+        <span class="room" id="room">Living room</span>
+        <span class="day" id="day">Tuesday, October 16, 1962</span>
+      </div>
+      <div class="stage" id="stage">
+        <svg id="art" viewBox="0 0 1600 1000" aria-hidden="true"></svg>
+        <img id="photo" alt="" hidden>
+        <div id="sprites" aria-hidden="true"></div>
+        <div class="glow" id="glow" aria-hidden="true"></div>
+        <button class="radio-hit" id="radioHit" type="button" aria-label="Radio" hidden></button>
+        <div class="screen static" id="screen" role="button" tabindex="0" aria-label="Television">
+          <p id="onAir"></p>
+          <video id="video" playsinline hidden></video>
+          <span class="badge" id="tvBadge" hidden></span>
+        </div>
+        <div class="grain" aria-hidden="true"></div>
+        <div class="caption" id="caption" aria-live="polite" hidden></div>
+      </div>
+    </section>
+
+    <aside class="controls">
+      <div class="nameplate">
+        <span class="brand">Stay Tuned</span>
+        <span class="tagline">The only history class with no spoilers</span>
+      </div>
+      <svg class="dial" id="dial"></svg>
+      <div class="roles" id="roles" role="tablist" aria-label="Rooms"></div>
+
+      <section class="callin">
+        <h2>Call the Station</h2>
+        <p class="callin-sub">Party line open · they only know what was known that day</p>
+        <ol class="transcript" id="transcript"></ol>
+        <form class="ask" id="askForm">
+          <input id="question" autocomplete="off" placeholder="Ask the citizen a question…" required>
+          <button type="submit">Call</button>
+        </form>
+      </section>
+    </aside>
+  </main>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
