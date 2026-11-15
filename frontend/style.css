@@ -1195,62 +1195,10 @@ a.chip:hover { border-style: solid; border-color: var(--red); color: var(--red);
 @media (prefers-reduced-motion: reduce) { .on-air-card.show { animation: none; } }
 .paper-listen { display: inline-block; margin: 4px 0 0 10px; font-family: var(--label); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: #c8102e; text-decoration: none; }
 .paper-listen:hover { text-decoration: underline; }
-/* Gemini's pinned captions on a texted photo. */
-.on-air-frame { position: relative; width: 100%; max-height: 46vh; aspect-ratio: 4 / 3; background: #222; }
-.on-air-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.pin {
-  position: absolute;
-  transform: translate(10px, -50%);
-  padding: 2px 7px;
-  border-radius: 3px;
-  background: rgba(255, 252, 240, .92);
-  color: #2a2118;
-  font-family: "Caveat", "Segoe Print", "Bradley Hand", cursive;
-  font-size: 15px;
-  line-height: 1.1;
-  white-space: nowrap;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .35);
-  pointer-events: none;
-}
-.pin::before {
-  content: "";
-  position: absolute;
-  left: -10px;
-  top: 50%;
-  width: 10px;
-  height: 10px;
-  margin: -5px 0 0 -5px;
-  border-radius: 50%;
-  background: #c8102e;
-  box-shadow: 0 0 0 2px #fff;
-}
-.pin.left { transform: translate(calc(-100% - 10px), -50%); }
-.pin.left::before { left: auto; right: -10px; margin: -5px -5px 0 0; }
-.on-air-era { color: #c8102e !important; }
-.on-air-era:empty { display: none !important; }
 
-/* The real recording after an answer. */
-.archival { margin-top: 8px; padding: 8px 10px; border-left: 3px solid #c8102e; background: rgba(200, 16, 46, .06); }
-.archival-tag { font-family: var(--label); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: #c8102e; font-weight: 700; }
-.archival-play {
-  margin-left: 8px; padding: 1px 8px; border: 1px solid #c8102e; border-radius: 999px;
-  background: transparent; color: #c8102e; font-family: var(--label); font-size: 10px; letter-spacing: 1px; cursor: pointer;
-}
-.archival blockquote { margin: 4px 0 2px; font-style: italic; line-height: 1.4; }
-.archival small { display: block; font-family: var(--label); font-size: 10px; letter-spacing: .5px; color: var(--ink-soft); }
-/* Any day: a date field under the dial. */
-.any-day { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: -6px; font-family: var(--label); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--brass-light); }
-.any-day input {
-  padding: 4px 8px; border: 1px solid rgba(241, 212, 140, .6); border-radius: 4px;
-  background: #f4ead2; color: #2a1a0b; font-family: var(--label); font-size: 13px; letter-spacing: .5px;
-}
-.any-day input:focus-visible { outline: 2px solid var(--glow); }
-/* Small sets (the 1960s TVs) get a shorter headline; past days say NEWS, not LIVE. */
-.screen.news-card.era-1962 p, .screen.news-card.era-1969 p { -webkit-line-clamp: 4; font-size: clamp(7px, .7vw, 11px); }
-.screen.news-card.era-1962, .screen.news-card.era-1969 { place-items: center; padding: 8%; }
-.screen.news-card.past-news p::before { content: "NEWS"; }
+/* ── Extras (extras.js): the time lock, Gemini's pins, archival recordings ── */
 
-/* ── The time lock (extras.js): what this role could know today ───────── */
+/* 1. The time lock: how much this role could know today. */
 .timelock {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 3px 10px 3px 8px;
@@ -1289,7 +1237,131 @@ a.chip:hover { border-style: solid; border-color: var(--red); color: var(--red);
   80% { opacity: 1; }
   100% { opacity: 0; }
 }
-@media (prefers-reduced-motion: reduce) { .signal-lost.on, .timelock.pulse { animation: none; } }
+
+/* 2. Gemini's pinned captions on a texted photo. */
+.pin-frame { position: relative; margin: 0 auto; }
+/* The frame takes the photo's exact shape (set in extras.js), so pins land where Gemini put them. */
+.on-air-card .pin-frame img { aspect-ratio: auto; object-fit: fill; width: 100%; height: auto; }
+.pin {
+  position: absolute; z-index: 1;
+  transform: translate(-50%, -50%);
+  display: flex; align-items: center; gap: 4px;
+  animation: pin-drop .5s cubic-bezier(.2, 1.4, .4, 1) both;
+}
+.pin.still { animation: none; }
+.pin-dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: #c8102e; border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .5);
+  flex: none;
+}
+.pin-label {
+  padding: 2px 6px; white-space: nowrap;
+  background: #fbf8f1; color: #2a2118;
+  font-family: "Caveat", "Segoe Print", "Bradley Hand", cursive; font-size: 16px; line-height: 1.1;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .4);
+  transform: translateX(6px);
+}
+.pin.left { flex-direction: row-reverse; }
+.pin.left .pin-label { transform: translateX(-6px); }
+@keyframes pin-drop { from { opacity: 0; transform: translate(-50%, -180%) scale(.6); } }
+#onAirEra { color: #8a5a1a; }
+
+/* 3. The real recording behind an answer, in the call thread. */
+.archival {
+  display: flex; gap: 10px; align-items: flex-start;
+  margin-top: 10px; padding: 10px 12px;
+  background: rgba(201, 151, 61, .12);
+  border-left: 3px solid var(--brass);
+  border-radius: 4px;
+}
+.archival-play {
+  flex: none; width: 34px; height: 34px; border-radius: 50%;
+  border: 1px solid var(--brass); background: var(--walnut); color: var(--brass-light);
+  font-size: 13px; cursor: pointer;
+}
+.archival-play:hover { background: var(--walnut-light); }
+.archival.playing .archival-play { box-shadow: 0 0 0 3px rgba(255, 179, 71, .35); }
+.archival-body { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.archival-tag { font-family: var(--label); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--amber); }
+.archival-title { font-family: var(--label); font-size: 11px; color: var(--dim); }
+.archival-quote { font-family: var(--serif); font-style: italic; font-size: 14px; line-height: 1.35; color: var(--cream); }
+.archival-quote .unsaid { opacity: .35; }
+.archival-bar { height: 3px; background: rgba(255, 255, 255, .12); border-radius: 2px; overflow: hidden; margin-top: 4px; }
+.archival-bar span { display: block; width: 0; height: 100%; background: var(--amber); transition: width .2s linear; }
+
+@media (prefers-reduced-motion: reduce) {
+  .signal-lost.on, .timelock.pulse { animation: none; }
+}
+/* Any day: a date field under the dial. */
+.any-day { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: -6px; font-family: var(--label); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--brass-light); }
+.any-day input {
+  padding: 4px 8px; border: 1px solid rgba(241, 212, 140, .6); border-radius: 4px;
+  background: #f4ead2; color: #2a1a0b; font-family: var(--label); font-size: 13px; letter-spacing: .5px;
+}
+.any-day input:focus-visible { outline: 2px solid var(--glow); }
+/* Small sets (the 1960s TVs) get a shorter headline; past days say NEWS, not LIVE. */
+.screen.news-card.era-1962 p, .screen.news-card.era-1969 p { -webkit-line-clamp: 4; font-size: clamp(7px, .7vw, 11px); }
+.screen.news-card.era-1962, .screen.news-card.era-1969 { place-items: center; padding: 8%; }
+.screen.news-card.past-news p::before { content: "NEWS"; }
+
+/* Review fixes on top of extras.js styles */
+.timelock { pointer-events: auto; }                     /* .scene-top ignores the mouse; the tooltip needs it */
+/* The dot sits exactly on Gemini's point; the label hangs off to one side. */
+.pin { transform: translate(-8px, -50%); }
+.pin.left { transform: translate(calc(-100% + 8px), -50%); }
+@keyframes pin-drop { from { opacity: 0; margin-top: -28px; } }
+.on-air-era:empty { display: none !important; }
+/* The call panel is light paper: dark ink for the archival bubble. */
+.archival-tag { color: #a3201a; font-weight: 700; }
+.archival-title { color: var(--ink-soft); }
+.archival-quote { color: var(--ink); }
+.archival-quote .unsaid { opacity: .4; }
+.archival-bar { background: rgba(42, 33, 24, .15); }
+.archival-bar span { background: #a3201a; }
+
+/* ── Room polish (polish.js): steam from the mugs, passing headlights ──── */
+#steam { position: absolute; inset: 0; pointer-events: none; }
+.steam-spot { position: absolute; width: 0; height: 0; }
+.steam-spot i {
+  position: absolute;
+  bottom: 0;
+  width: 10px;
+  height: 26px;
+  margin-left: -5px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(255, 250, 240, .55), rgba(255, 250, 240, 0) 70%);
+  filter: blur(3px);
+  opacity: 0;
+  animation: steam-rise 4.2s ease-out infinite;
+}
+@keyframes steam-rise {
+  0% { opacity: 0; transform: translate(0, 0) scale(.6, .7); }
+  20% { opacity: .7; }
+  60% { opacity: .35; transform: translate(4px, -28px) scale(1, 1.2) rotate(8deg); }
+  100% { opacity: 0; transform: translate(-3px, -52px) scale(1.4, 1.5) rotate(-6deg); }
+}
+.headlights {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: screen;
+  background: linear-gradient(100deg, transparent 35%, rgba(255, 244, 214, .16) 46%, rgba(255, 250, 230, .24) 50%, rgba(255, 244, 214, .16) 54%, transparent 65%);
+  background-size: 250% 100%;
+}
+.headlights.sweep { animation: headlights 3.2s ease-in-out; }
+.headlights.sweep.reverse { animation-direction: reverse; }
+@keyframes headlights {
+  0% { opacity: 0; background-position: 120% 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { opacity: 0; background-position: -20% 0; }
+}
+@media (prefers-reduced-motion: reduce) { .steam-spot i, .headlights.sweep { animation: none; } }
+/* With the 2026 ticker along the bottom, captions sit above it instead of on it. */
+.stage:has(.ticker:not([hidden])) .caption { bottom: calc(clamp(28px, 3.4vw, 40px) + 14px); }
 
 /* ── Text the station (extras.js): connect your phone, scan, send ──────── */
 .text-toggle {
