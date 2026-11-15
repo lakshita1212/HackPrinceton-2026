@@ -54,6 +54,9 @@ Every history class tells you how the story ends, so the people in it start to l
     <td><img src="docs/screenshots/4-moon-landing-on-the-tv.png" alt="The Moon landing on the TV"><br><sub><b>July 20, 1969</b>, live from the Moon</sub></td>
     <td><img src="docs/screenshots/6-texted-photo-on-the-air.png" alt="A texted photo on the air with Gemini's pins"><br><sub><b>Text a photo</b>, and it goes on the air</sub></td>
   </tr>
+  <tr>
+    <td colspan="2"><img src="docs/screenshots/7-phone1962.png" alt="Calling October 22, 1962: a rotary phone with the handset lifted, listening, with a Hold to talk button"><br><sub><b>📞 Call the station</b>: a phone from each era. Hold to talk, ask, let go, and they answer out loud.</sub></td>
+  </tr>
 </table>
 
 ---
