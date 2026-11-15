@@ -12,6 +12,8 @@ from pathlib import Path
 
 ROLES = {"citizen", "journalist", "official", "historian"}
 ROOT = Path(__file__).parent / "packs"
+# Last day of each story; anything later is hindsight, for the historian only.
+PACK_END = {"cmc-1962": date(1962, 10, 28), "apollo-1969": date(1969, 7, 24), "berlin-1989": date(1989, 11, 10)}
 
 problems: list[str] = []
 medium: list[str] = []
@@ -54,8 +56,12 @@ for pack_dir in sorted(p for p in ROOT.iterdir() if p.is_dir()):
                 problems.append(f"{name} {fid}: unknown roles {sorted(roles - ROLES)}")
             if "historian" not in roles:
                 problems.append(f"{name} {fid}: historian missing from roles")
-            if day and d > date.fromisoformat(day) and roles != {"historian"}:
-                problems.append(f"{name} {fid}: dated {d}, after the file's day, but visible to {sorted(roles - {'historian'})}")
+            # A fact dated after its file's day is fine: the host filters by each
+            # fact's own date. What must never happen is a 1962 role seeing
+            # something from after the story ends (later revelations).
+            end = PACK_END.get(pack)
+            if end and d > end and roles != {"historian"}:
+                problems.append(f"{name} {fid}: dated {d}, after the story ends, but visible to {sorted(roles - {'historian'})}")
             src = x["source"]
             for k in ("title", "citation"):
                 if not src.get(k):

@@ -49,7 +49,7 @@
     },
     {
       "id": "cmc-1024-04",
-      "date": "1962-10-24",
+      "date": "1962-10-25",
       "roles": ["citizen", "journalist", "official", "historian"],
       "text": "A few hours after the blockade began, Defense Secretary McNamara reported that some Soviet ships, 12 by one count, had changed course to avoid the quarantine line while others kept steaming toward Cuba. Pentagon officials suggested the ships that turned were probably carrying banned weapons.",
       "quote": null,
@@ -60,7 +60,7 @@
         "kind": "archival"
       },
       "confidence": "medium",
-      "note": "This weekly news digest dates McNamara's report to October 24. Some accounts place the first public Pentagon statement about ships turning back on the morning of October 25, so check the date against a daily newspaper."
+      "note": "This weekly news digest dates McNamara's report to October 24. Some accounts place the first public Pentagon statement about ships turning back on the morning of October 25, so check the date against a daily newspaper. Dated October 25 to be safe: the public role learns it a day late rather than a day early. Officials already know on October 24 from cmc-1024-02."
     },
     {
       "id": "cmc-1024-05",
