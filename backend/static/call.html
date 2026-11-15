@@ -38,6 +38,10 @@
   .chip { font-size: .8rem; border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px; }
   .chip a { color: inherit; }
   #err { color: var(--accent); min-height: 1.5em; }
+  .archival { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--line); font-size: .9rem; }
+  .archival .tag { font-weight: 600; color: var(--accent); text-transform: uppercase; font-size: .75rem; letter-spacing: .05em; }
+  .archival .t { color: var(--muted); }
+  .archival blockquote { margin: 6px 0 0; font-style: italic; }
 </style>
 </head>
 <body>
@@ -139,14 +143,38 @@ function show(d) {
     else c.textContent = label;
     c.title = s.citation; el.querySelector(".chips").append(c);
   }
+  if (d.archival) {
+    const ar = document.createElement("div");
+    ar.className = "archival";
+    ar.innerHTML = `<span class="tag">Archival recording</span> <span class="t"></span><blockquote></blockquote>`;
+    ar.querySelector(".t").textContent = d.archival.title;
+    ar.querySelector("blockquote").textContent = "“" + d.archival.quote + "”";
+    ar.title = d.archival.source;
+    el.append(ar);
+  }
   $("log").prepend(el);
 }
 function say(d) {
-  if (d.audio) { new Audio("data:audio/wav;base64," + d.audio).play(); return; }
+  const then = () => playArchival(d.archival);
+  if (d.audio) {
+    const a = new Audio("data:audio/wav;base64," + d.audio);
+    a.onended = then;
+    a.play();
+    return;
+  }
   const u = new SpeechSynthesisUtterance(d.answer);
   const tone = { citizen: [1.05, 1], journalist: [0.95, 1.1], official: [0.8, 0.95], historian: [1, 0.95] }[d.role];
   [u.pitch, u.rate] = tone;
+  u.onend = then;
   speechSynthesis.speak(u);
+}
+
+// After the AI voice, a few seconds of the real recording from that day.
+function playArchival(clip) {
+  if (!clip) return;
+  const a = new Audio(clip.src);
+  a.addEventListener("loadedmetadata", () => { a.currentTime = clip.start; a.play(); }, { once: true });
+  a.addEventListener("timeupdate", () => { if (a.currentTime >= clip.end) a.pause(); });
 }
 
 const btn = $("talk");

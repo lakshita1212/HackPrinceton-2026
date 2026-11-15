@@ -10,10 +10,13 @@ from typing import Annotated, Literal, Optional
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.concurrency import run_in_threadpool
 from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field, StringConstraints
 
+import archival
 import host
+import memories
 import photon_imessage
 import retrieval
 import station
@@ -46,17 +49,38 @@ class Source(BaseModel):
     kind: Literal["archival", "narration"]
 
 
+class Archival(BaseModel):
+    """A few seconds of a real recording to play after the answer (see archival.py)."""
+    id: str
+    src: str  # path under the front end, e.g. media/kennedy-address-1962-10-22.mp3
+    start: float  # seconds
+    end: float
+    quote: str
+    title: str
+    source: str
+    label: Literal["archival"]
+
+
 class AskResponse(BaseModel):
     answer: str
     sources: list[Source]
     blocked: bool
     blocked_reason: Optional[Literal["future", "role", "unsupported", "off_topic"]] = None
+    archival: Optional[Archival] = None
 
 
 app = FastAPI(title="Stay Tuned host")
 app.add_middleware(
     CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"]
 )
+# The front end's public-domain media, so /call can play archival clips too.
+MEDIA = Path(__file__).parent.parent / "frontend" / "media"
+if MEDIA.is_dir():
+    app.mount("/media", StaticFiles(directory=MEDIA), name="media")
+
+# Photos people texted to the station (memories.py), for the 2026 personal station.
+memories.DIR.mkdir(exist_ok=True)
+app.mount("/memories", StaticFiles(directory=memories.DIR), name="memories")
 
 
 @app.get("/health")
@@ -97,7 +121,8 @@ def get_transcript(since: int = 0):
 @app.post("/ask", response_model=AskResponse)
 def ask(req: AskRequest) -> AskResponse:
     try:
-        return AskResponse(**host.ask(req.question, req.role, req.date, req.pack))
+        result = host.ask(req.question, req.role, req.date, req.pack)
+        return AskResponse(**result, archival=archival.clip_for(result, req.date, req.pack))
     except PackNotFound:
         raise HTTPException(503, f"Story pack {req.pack!r} has no source files yet")
     except Exception:
@@ -139,7 +164,13 @@ async def call_in(
         log.exception("host failed")
         raise HTTPException(503, "Host unavailable")
     station.log_exchange("voice", "laptop mic", question, st, result)
-    return {"question": question, **result, "audio": await run_in_threadpool(voice.speak, result["answer"], st["role"]), **_station_json(st)}
+    return {
+        "question": question,
+        **result,
+        "audio": await run_in_threadpool(voice.speak, result["answer"], st["role"], st["date"]),
+        "archival": archival.clip_for(result, st["date"], st["pack"]),
+        **_station_json(st),
+    }
 
 
 def _station_json(st: dict) -> dict:
@@ -173,6 +204,16 @@ async def any_day_station(req: StationRequest):
 def any_day_status(day: Date):
     """Whether the station for `day` exists, and whether the agent is still improving it."""
     return wiki_station.status(day)
+
+
+@app.get("/memories.json")
+def list_memories(since: Optional[str] = None):
+    """Photos texted to the station, newest first, for the 2026 personal station.
+
+    Each item: {id, image, caption, year, from, received_at, width, height}.
+    `image` is a path on this host (e.g. memories/ab12.jpg). Poll with ?since=<received_at>.
+    """
+    return {"items": memories.all_memories(since)}
 
 
 @app.get("/voice/status")

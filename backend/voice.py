@@ -7,9 +7,12 @@ response has no audio and the browser reads the answer aloud itself.
 import base64
 import logging
 import os
+from datetime import date
 
 from dotenv import load_dotenv
 from groq import Groq
+
+import era_sound
 
 load_dotenv()
 log = logging.getLogger("voice")
@@ -60,8 +63,11 @@ def transcribe(audio: bytes, filename: str) -> str:
     return r.text.strip()
 
 
-def speak(text: str, role: str) -> str | None:
-    """Return base64 WAV audio, or None so the browser speaks instead."""
+def speak(text: str, role: str, day: date | None = None) -> str | None:
+    """Return base64 WAV audio, or None so the browser speaks instead.
+
+    With `day`, the voice comes down a phone line of that era (era_sound.py).
+    """
     global _tts_broken_reason
     if _tts_broken_reason:
         return None
@@ -69,7 +75,13 @@ def speak(text: str, role: str) -> str | None:
         r = _with_any_key(lambda c: c.audio.speech.create(
             model=TTS_MODEL, voice=VOICES[role], input=text, response_format="wav"
         ))
-        return base64.b64encode(r.read()).decode()
+        audio = r.read()
+        if day:
+            try:
+                audio = era_sound.apply(audio, era_sound.era_for(day, role))
+            except Exception as e:  # never lose the answer over a sound effect
+                log.warning("era filter skipped: %s", e)
+        return base64.b64encode(audio).decode()
     except Exception as e:
         msg = str(e)
         # Terms not accepted or unknown model/voice won't fix themselves mid-demo.

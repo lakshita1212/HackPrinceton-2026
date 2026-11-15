@@ -136,6 +136,56 @@ Returns the `/ask` response fields plus:
 Each call also appears in `/transcript` with `channel: "voice"`.
 A working example page is served at `http://localhost:8000/call` (`backend/static/call.html`).
 
+## `archival`: the real recording after an answer
+
+`/ask` and `/voice` responses can include an `archival` object (or `null`).
+When the answer relies on something with a real public-domain recording, it
+names a few seconds of it to play **after** the answer, so the caller hears
+the AI-voiced person and then the actual voice from that day:
+
+```json
+"archival": {
+  "id": "jfk-quarantine",
+  "src": "media/kennedy-address-1962-10-22.mp3",
+  "start": 544.4,
+  "end": 564.4,
+  "quote": "First, to halt this offensive buildup, a strict quarantine on all offensive military equipment ...",
+  "title": "President Kennedy, radio and television address, October 22, 1962",
+  "source": "archive.org jfks19621022 (public domain)",
+  "label": "archival"
+}
+```
+
+- `src` is the same file as in `frontend/media/` (the host also serves it at `/media/...`).
+- Play from `start` to `end` seconds, after the spoken answer ends. Show it
+  labeled **"Archival recording"** with the quote, so it's clear what's real.
+- It's never offered before the day it aired. Clips so far: four lines from
+  JFK's Oct 22 address, "The Eagle has landed" and "One small step" (list in `backend/archival.py`).
+- `/voice` audio now also comes down a period phone line (narrow band, hiss,
+  crackle) for 1960s and 1980s stations; the historian, in the present, is clean.
+  `localhost:8000/call` shows both working.
+
+## `GET /memories.json`: photos texted to the station (2026 personal station)
+
+Anyone who texts a **photo** to the station over iMessage puts a memory on the
+air. The caption can come with the photo or as the next text; a year in the
+caption ("Grandma's kitchen, 1969") becomes the memory's `year`. Texting
+`DELETE` takes down that person's latest memory.
+
+```json
+{ "items": [
+  { "id": "a1b2c3d4e5f6", "image": "memories/a1b2c3d4e5f6.jpg",
+    "caption": "Our team at HackPrinceton, 2026", "year": 2026,
+    "from": "•••1234", "received_at": "2026-11-15T01:40:12", "width": 1600, "height": 1067 }
+] }
+```
+
+- Newest first. Poll every few seconds with `?since=<received_at of the newest you have>`
+  so a photo appears on the dial moments after it's texted.
+- `image` is served by the host: `http://localhost:8000/memories/<id>.jpg`.
+- Show the caption pinned to the photo, and `from` (last 4 digits only, never the full number).
+- Photos are people's own: they're not committed to git, and DELETE removes them.
+
 ## `POST /stations`: tune to any day
 
 ```json
