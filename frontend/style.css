@@ -1477,3 +1477,33 @@ body.demo-running, body.demo-running * { cursor: none !important; }
 .demo-end-title { font-family: var(--serif); font-style: italic; font-weight: 800; font-size: clamp(48px, 7vw, 104px); color: var(--brass-light); text-shadow: 0 0 30px rgba(255, 179, 71, .45); }
 .demo-end-sub { font-family: var(--label); font-size: clamp(14px, 1.4vw, 20px); letter-spacing: 4px; text-transform: uppercase; color: #f6ead0; }
 @keyframes demo-end-in { from { opacity: 0; } }
+
+/* ── 2026 TV: the AI-narrated news bulletin (extras.js) ─────────────────── */
+.bulletin {
+  position: absolute; inset: 0; z-index: 3;
+  display: flex; flex-direction: column;
+  padding: 4% 5%;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(80, 120, 200, .35), transparent 60%),
+    linear-gradient(160deg, #0d1b33, #070d1a 70%);
+  color: #f2f5fb;
+  font-family: var(--label);
+  overflow: hidden;
+}
+.bulletin-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.bulletin-brand { font-family: var(--serif); font-size: clamp(14px, 2vw, 26px); letter-spacing: .5px; }
+.bulletin-live {
+  padding: 3px 10px; background: #c8102e; color: #fff;
+  font-size: clamp(9px, 1vw, 13px); letter-spacing: 1.5px; text-transform: uppercase;
+}
+.bulletin-card { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+.bulletin.flip .bulletin-card { animation: bulletin-in .5s ease; }
+@keyframes bulletin-in { from { opacity: 0; transform: translateY(10px); } }
+.bulletin-date { font-size: clamp(10px, 1.2vw, 15px); letter-spacing: 2px; text-transform: uppercase; color: #8fb3ff; }
+.bulletin-text { margin: 0; font-family: var(--serif); font-size: clamp(16px, 2.4vw, 32px); line-height: 1.25; }
+.bulletin-source { font-size: clamp(9px, 1vw, 12px); color: #9aa7bf; }
+.bulletin-bar { display: flex; align-items: center; gap: 12px; }
+.bulletin-count { min-width: 4em; font-size: clamp(9px, 1vw, 12px); color: #9aa7bf; letter-spacing: 1px; }
+.bulletin-progress { flex: 1; height: 3px; background: rgba(255, 255, 255, .15); }
+.bulletin-progress span { display: block; width: 0; height: 100%; background: #c8102e; transition: width .25s linear; }
+@media (prefers-reduced-motion: reduce) { .bulletin.flip .bulletin-card { animation: none; } }

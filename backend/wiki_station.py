@@ -22,10 +22,7 @@ import threading
 from datetime import date, datetime
 from pathlib import Path
 
-from deepagents import create_deep_agent
-from langchain.chat_models import init_chat_model
 
-import deep_host  # noqa: F401  (registers the slim deepagents profile for Groq)
 import wiki_source
 from wiki_source import RawEvent, clean_hindsight
 
@@ -48,6 +45,8 @@ def pack_file(day: date) -> Path:
 # --- the research team -----------------------------------------------------------
 
 def _research_model():
+    from langchain.chat_models import init_chat_model
+
     """gpt-oss-20b, preferring the teammate key (GROQ_API_KEY_2) to save the demo key's quota."""
     key = os.getenv("GROQ_API_KEY_2") or os.getenv("GROQ_API_KEY")
     return init_chat_model(
@@ -57,6 +56,11 @@ def _research_model():
 
 
 def build_with_agent(day: date) -> list[dict]:
+    # Loaded only when the agent runs (WIKI_AGENT on), to keep memory low on small servers.
+    from deepagents import create_deep_agent
+
+    import deep_host  # noqa: F401  (registers the slim deepagents profile for Groq)
+
     raw: dict[str, RawEvent] = {}
     facts: dict[str, dict] = {}
 
