@@ -1,0 +1,117 @@
+{
+ "pack": "wiki-1989-11",
+ "day": "1989-11-09",
+ "built_by": "rules",
+ "built_at": "2026-11-14T23:54:49",
+ "note": "Auto-built from Wikipedia; not reviewed by a historian.",
+ "facts": [
+  {
+   "id": "wiki-19891106-01",
+   "date": "1989-11-06",
+   "roles": [
+    "citizen",
+    "journalist",
+    "historian"
+   ],
+   "text": "The Asia-Pacific Economic Cooperation (APEC) is established.",
+   "quote": null,
+   "source": {
+    "title": "Wikipedia: 1989, Nov 6",
+    "citation": "Wikipedia contributors, \"1989\", events of November 6, 1989. CC BY-SA 4.0. Retrieved November 14, 2026.",
+    "url": "https://en.wikipedia.org/wiki/1989#November",
+    "kind": "narration"
+   },
+   "built_by": "rules"
+  },
+  {
+   "id": "wiki-19891107-01",
+   "date": "1989-11-07",
+   "roles": [
+    "citizen",
+    "journalist",
+    "historian"
+   ],
+   "text": "The Communist government of East Germany under prime minister Willi Stoph resigns, although SED leader Egon Krenz remains as head of state.",
+   "quote": null,
+   "source": {
+    "title": "Wikipedia: 1989, Nov 7",
+    "citation": "Wikipedia contributors, \"1989\", events of November 7, 1989. CC BY-SA 4.0. Retrieved November 14, 2026.",
+    "url": "https://en.wikipedia.org/wiki/1989#November",
+    "kind": "narration"
+   },
+   "built_by": "rules"
+  },
+  {
+   "id": "wiki-19891107-02",
+   "date": "1989-11-07",
+   "roles": [
+    "citizen",
+    "journalist",
+    "historian"
+   ],
+   "text": "Lieutenant Governor Douglas Wilder wins the Virginia gubernatorial race, becoming the first African-American elected Governor in the United States.",
+   "quote": null,
+   "source": {
+    "title": "Wikipedia: 1989, Nov 7",
+    "citation": "Wikipedia contributors, \"1989\", events of November 7, 1989. CC BY-SA 4.0. Retrieved November 14, 2026.",
+    "url": "https://en.wikipedia.org/wiki/1989#November",
+    "kind": "narration"
+   },
+   "built_by": "rules"
+  },
+  {
+   "id": "wiki-19891107-03",
+   "date": "1989-11-07",
+   "roles": [
+    "citizen",
+    "journalist",
+    "historian"
+   ],
+   "text": "David Dinkins becomes the first African-American mayor of New York City.",
+   "quote": null,
+   "source": {
+    "title": "Wikipedia: 1989, Nov 7",
+    "citation": "Wikipedia contributors, \"1989\", events of November 7, 1989. CC BY-SA 4.0. Retrieved November 14, 2026.",
+    "url": "https://en.wikipedia.org/wiki/1989#November",
+    "kind": "narration"
+   },
+   "built_by": "rules"
+  },
+  {
+   "id": "wiki-19891109-01",
+   "date": "1989-11-09",
+   "roles": [
+    "citizen",
+    "journalist",
+    "historian"
+   ],
+   "text": "East German official Günter Schabowski accidentally states in a live broadcast press conference that new rules for traveling from East Germany to West Germany will be put in effect \"immediately\". Late this evening, East Germany opens checkpoints in the Berlin Wall, allowing its citizens to travel freely to West Germany for the first time in decades.",
+   "quote": null,
+   "source": {
+    "title": "Wikipedia: 1989, Nov 9",
+    "citation": "Wikipedia contributors, \"1989\", events of November 9, 1989. CC BY-SA 4.0. Retrieved November 14, 2026.",
+    "url": "https://en.wikipedia.org/wiki/1989#November",
+    "kind": "narration"
+   },
+   "built_by": "rules"
+  },
+  {
+   "id": "wiki-19891109-02",
+   "date": "1989-11-09",
+   "roles": [
+    "citizen",
+    "journalist",
+    "historian"
+   ],
+   "text": "Yıldırım Akbulut of Motherland Party (Turkey) (ANAP) forms the new government of Turkey (47th government).",
+   "quote": null,
+   "source": {
+    "title": "Wikipedia: 1989, Nov 9",
+    "citation": "Wikipedia contributors, \"1989\", events of November 9, 1989. CC BY-SA 4.0. Retrieved November 14, 2026.",
+    "url": "https://en.wikipedia.org/wiki/1989#November",
+    "kind": "narration"
+   },
+   "built_by": "rules"
+  }
+ ]
+}

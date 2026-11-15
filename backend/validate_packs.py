@@ -41,7 +41,7 @@ for pack_dir in sorted(p for p in ROOT.iterdir() if p.is_dir()):
 
         for x in facts:
             fid = x.get("id", "?")
-            ids[fid] += 1
+            ids[(pack, fid)] += 1  # ids only need to be unique within a pack
             missing = [k for k in ("id", "date", "roles", "text", "source") if not x.get(k)]
             if missing:
                 problems.append(f"{name} {fid}: missing {missing}")
@@ -73,7 +73,7 @@ for pack_dir in sorted(p for p in ROOT.iterdir() if p.is_dir()):
             if x.get("confidence") == "medium" and roles != {"historian"}:
                 medium.append(f"{fid} ({sorted(roles - {'historian'})}): {x.get('note')}")
 
-problems += [f"duplicate id {i} ({n} times)" for i, n in ids.items() if n > 1]
+problems += [f"duplicate id {i} ({n} times in {p})" for (p, i), n in ids.items() if n > 1]
 
 print(f"\n{sum(ids.values())} facts total")
 print("\nProblems:\n  " + ("\n  ".join(problems) if problems else "none"))

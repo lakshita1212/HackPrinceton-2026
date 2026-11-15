@@ -2,8 +2,8 @@
  "pack": "wiki-1969-07",
  "day": "1969-07-20",
  "built_by": "agent",
- "built_at": "2026-11-14T23:39:47",
- "note": "Auto-built from Wikipedia; not reviewed by a historian.",
+ "built_at": "2026-11-14T23:52:15",
+ "note": "Auto-built from Wikipedia; not reviewed by a historian. Reviewed by hand: removed Safire's 'In Event of Moon Disaster' memo, which was secret until 1999.",
  "facts": [
   {
    "id": "wiki-19690717-01",
@@ -13,7 +13,7 @@
     "journalist",
     "historian"
    ],
-   "text": "The New York Times published a famous retraction titled \"A Correction\" on July 17, 1969, admitting that its earlier 1920 article had incorrectly stated that rocket pioneer Robert H. Goddard did not understand the need for a better-than-vacuum reaction medium. The Times apologized for the error after the Apollo 11 launch proved that rockets can function in a vacuum.",
+   "text": "The New York Times published a famous retraction titled \"A Correction\" on July 17, 1969, admitting an earlier error about rocket science and the vacuum environment. The Times apologized for the mistake after the Apollo 11 launch.",
    "quote": null,
    "source": {
     "title": "Wikipedia: July 1969, Jul 17",
@@ -31,7 +31,7 @@
     "journalist",
     "historian"
    ],
-   "text": "Ahmad Rageh Namer and his two adult sons, Hussein and Abdo, were found not guilty of conspiracy to assassinate President‑Elect Richard Nixon in November 1968, but were convicted of possessing switchblade knives.",
+   "text": "Ahmad Rageh Namer and his two adult sons, Hussein and Abdo, were found not guilty of conspiracy to assassinate President‑Elect Richard Nixon on July 17, 1969, but were convicted of possessing switchblade knives.",
    "quote": null,
    "source": {
     "title": "Wikipedia: July 1969, Jul 17",
@@ -49,30 +49,12 @@
     "journalist",
     "historian"
    ],
-   "text": "The Soviet Union's uncrewed lunar probe Luna 15 entered lunar orbit on July 17, 1969, two days before the crewed American Apollo 11 mission.",
+   "text": "The Soviet Union's uncrewed lunar probe Luna 15 entered lunar orbit on July 17, 1969, two days before the crewed American Apollo 11 mission.",
    "quote": null,
    "source": {
     "title": "Wikipedia: July 1969, Jul 17",
     "citation": "Wikipedia contributors, \"July 1969\", events of July 17, 1969. CC BY-SA 4.0. Retrieved November 14, 2026.",
     "url": "https://en.wikipedia.org/wiki/July_1969#July_17,_1969_(Thursday)",
-    "kind": "narration"
-   },
-   "built_by": "agent"
-  },
-  {
-   "id": "wiki-19690718-01",
-   "date": "1969-07-18",
-   "roles": [
-    "citizen",
-    "journalist",
-    "historian"
-   ],
-   "text": "U.S. President Nixon's speechwriter William Safire submitted a memo titled \"In Event of Moon Disaster\" to Chief of Staff H. R. Haldeman, outlining prepared remarks for the President if astronauts Armstrong and Aldrin could not return from the Moon.",
-   "quote": null,
-   "source": {
-    "title": "Wikipedia: July 1969, Jul 18",
-    "citation": "Wikipedia contributors, \"July 1969\", events of July 18, 1969. CC BY-SA 4.0. Retrieved November 14, 2026.",
-    "url": "https://en.wikipedia.org/wiki/July_1969#July_18,_1969_(Friday)",
     "kind": "narration"
    },
    "built_by": "agent"
@@ -85,7 +67,7 @@
     "journalist",
     "historian"
    ],
-   "text": "Nineteen teenagers drowned in France when the gravel riverbed of the Loire River near Juigné-sur-Loire gave way while they were wading, killing 13- and 14-year-olds from a recreation center in Angers.",
+   "text": "Nineteen teenagers drowned in France while wading in the Loire River near Juigné-sur-Loire when the gravel riverbed gave way and swept them downstream.",
    "quote": null,
    "source": {
     "title": "Wikipedia: July 1969, Jul 18",
@@ -103,7 +85,7 @@
     "journalist",
     "historian"
    ],
-   "text": "El Salvador and Honduras agreed to a ceasefire to halt the \"Football War\" after 100 hours of fighting, brokered by the Organization of American States, with hostilities ending at 10:00 local time (0700 UTC July 19).",
+   "text": "El Salvador and Honduras agreed to a ceasefire ending the Football War after 100 hours of fighting, brokered by the Organization of American States.",
    "quote": null,
    "source": {
     "title": "Wikipedia: July 1969, Jul 18",
@@ -121,7 +103,7 @@
     "journalist",
     "historian"
    ],
-   "text": "Police from Edgartown, Massachusetts came to the scene of an automobile accident on Chappaquiddick Island and found the body of 27-year old secretary Mary Jo Kopechne inside an Oldsmobile 88 automobile that had fallen into a deep pond. U.S. Senator Edward \"Teddy\" Kennedy reported that he had accidentally driven off of a bridge ten hours earlier and that he had escaped the car, leaving Miss Kopechne inside, left the scene, and gone back to his bedroom to sleep.",
+   "text": "Police from Edgartown, Massachusetts found the body of 27‑year‑old secretary Mary Jo Kopechne inside an Oldsmobile 88 that had fallen into a deep pond on Chappaquiddick Island.",
    "quote": null,
    "source": {
     "title": "Wikipedia: July 1969, Jul 19",
@@ -139,7 +121,7 @@
     "journalist",
     "historian"
    ],
-   "text": "Juan de Borbon, Count of Barcelona, renounced all claims to the Spanish throne and disbanded his 80-member privy council and 20-member political secretariat.",
+   "text": "Juan de Borbon, Count of Barcelona, renounced all claims to the Spanish throne and disbanded his 80‑member privy council and 20‑member political secretariat.",
    "quote": null,
    "source": {
     "title": "Wikipedia: July 1969, Jul 19",
@@ -229,7 +211,7 @@
     "journalist",
     "historian"
    ],
-   "text": "At the time of the landing, the Moon and the two astronauts were 393,309 kilometres from the Earth, and Michael Collins alone in Columbia orbited the Moon for twenty-one and a half hours, maintaining an orbit ranging from 100 to 122 kilometres.",
+   "text": "At the time of the landing, the Moon and the two astronauts were 393,309 kilometres from the Earth, and Michael Collins alone in Columbia maintained an orbit for twenty-one and a half hours.",
    "quote": null,
    "source": {
     "title": "Wikipedia: July 1969, Jul 20",
