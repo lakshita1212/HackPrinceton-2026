@@ -1,0 +1,321 @@
+{
+  "pack": "cmc-1962",
+  "day": "1962-10-22",
+  "facts": [
+    {
+      "id": "cmc-1022-01",
+      "date": "1962-10-22",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "After two days of official silence about a widely rumored crisis, White House Press Secretary Pierre Salinger announced at midday that the President had asked for radio and television time to speak to the nation at 7 p.m. No subject was given in advance.",
+      "quote": null,
+      "source": {
+        "title": "Seattle Daily Times, Oct 22, 1962, front page",
+        "citation": "'U.S. to Blockade Cuba,' Seattle Daily Times, October 22, 1962, front page.",
+        "url": null,
+        "kind": "archival"
+      },
+      "confidence": "medium",
+      "note": "I saw this article only as a transcription posted online, not as an image of the original page. It is widely documented that the 7 p.m. address was announced in advance without a stated subject."
+    },
+    {
+      "id": "cmc-1022-02",
+      "date": "1962-10-22",
+      "roles": ["official", "historian"],
+      "text": "At a 3 p.m. National Security Council meeting, the President explained that he had rejected an air strike because it could not be guaranteed to destroy every missile and could lead to an invasion. He said the blockade would stop only offensive military equipment, not food or medicine. Decisions on calling up reserves and on closing the stock market were put off.",
+      "quote": null,
+      "source": {
+        "title": "Minutes of the 507th NSC meeting, Oct 22, 1962",
+        "citation": "Minutes of the 507th Meeting of the National Security Council, Washington, October 22, 1962, 3 p.m. John F. Kennedy Presidential Library; also in Foreign Relations of the United States, 1961-1963, Volume XI.",
+        "url": "https://microsites.jfklibrary.org/cmc/oct22/doc1.html",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1022-03",
+      "date": "1962-10-22",
+      "roles": ["official", "historian"],
+      "text": "The President signed National Security Action Memorandum 196. It formally made his crisis advisers the Executive Committee of the National Security Council, the ExComm, which would meet daily during the crisis.",
+      "quote": null,
+      "source": {
+        "title": "NSAM 196, Oct 22, 1962",
+        "citation": "National Security Action Memorandum 196, October 22, 1962. John F. Kennedy Presidential Library, National Security Files.",
+        "url": "https://microsites.jfklibrary.org/cmc/oct22/doc2.html",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1022-04",
+      "date": "1962-10-22",
+      "roles": ["official", "historian"],
+      "text": "Former Secretary of State Dean Acheson, sent as the President's special envoy, met French President Charles de Gaulle in Paris at 5 p.m. local time. He gave de Gaulle the President's letter and part of the speech; de Gaulle was friendly and deeply interested, and said he would reply to the letter.",
+      "quote": null,
+      "source": {
+        "title": "FRUS 1961-63 vol. XI, doc. 46 (Paris cable)",
+        "citation": "Telegram 1901 From the Embassy in France to the Department of State, Paris, October 22, 1962, 9 p.m. Foreign Relations of the United States, 1961-1963, Volume XI, Document 46.",
+        "url": "https://history.state.gov/historicaldocuments/frus1961-63v11/d46",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1022-05",
+      "date": "1962-10-22",
+      "roles": ["official", "historian"],
+      "text": "Before the speech, the President's letters on Cuba went to allied heads of government. U.S. diplomats also briefed West German Chancellor Konrad Adenauer in Bonn and Canadian Prime Minister John Diefenbaker in Ottawa.",
+      "quote": null,
+      "source": {
+        "title": "FRUS vols. X-XII microfiche supplement, Oct 22 docs",
+        "citation": "Foreign Relations of the United States, 1961-1963, Volumes X/XI/XII Microfiche Supplement, October 1962 documents 359-362: circular telegram 706 transmitting the President's letter; telegram 1199 from Bonn on briefing Adenauer; memorandum of conversation between Prime Minister Diefenbaker and Livingston Merchant; telegram transmitting the President's letter to Prime Minister Macmillan.",
+        "url": "https://history.state.gov/historicaldocuments/frus1961-63v10-12mSupp/ch34?start=31",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1022-06",
+      "date": "1962-10-22",
+      "roles": ["official", "historian"],
+      "text": "When the President briefed congressional leaders shortly before the speech, Senator Richard Russell pushed for stronger and quicker military action. Senator J. William Fulbright called the blockade the worst option because stopping a Soviet ship could start a war with Russia. The President defended the blockade and said preparations for an air strike or invasion were under way.",
+      "quote": null,
+      "source": {
+        "title": "FRUS 1961-63 vol. XI, doc. 43 (McCone memo)",
+        "citation": "Memorandum for the File by Director of Central Intelligence John McCone, October 24, 1962, 'Leadership meeting on October 22nd at 5:00 p.m.' Foreign Relations of the United States, 1961-1963, Volume XI, Document 43.",
+        "url": "https://history.state.gov/historicaldocuments/frus1961-63v11/d43",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": "McCone's memo gives 5:00 p.m. as the time; the Miller Center lists the recording of the meeting as starting at 5:30 p.m."
+    },
+    {
+      "id": "cmc-1022-07",
+      "date": "1962-10-22",
+      "roles": ["official", "historian"],
+      "text": "At 6 p.m., U.S. officials in Washington and Moscow delivered the President's letter to Khrushchev. In Washington, Secretary of State Rusk gave Soviet Ambassador Anatoly Dobrynin the letter along with the text of the speech, about an hour before it aired.",
+      "quote": null,
+      "source": {
+        "title": "FRUS vol. XI summary: Oct 22 letter to Khrushchev",
+        "citation": "U.S. Department of State, Office of the Historian, 'Summary of Print Volume XI,' Foreign Relations of the United States, 1961-1963, Volumes X/XI/XII Microfiche Supplement.",
+        "url": "https://history.state.gov/historicaldocuments/frus1961-63v10-12mSupp/summary-xi",
+        "kind": "narration"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1022-08",
+      "date": "1962-10-22",
+      "roles": ["official", "historian"],
+      "text": "That evening the State Department called in foreign ambassadors, except those from Communist countries, in groups. Senior State officials gave them the text of the President's address and explained it.",
+      "quote": null,
+      "source": {
+        "title": "Dobrynin cable to Soviet Foreign Ministry, Oct 22",
+        "citation": "Telegram from Soviet Ambassador to the USA Dobrynin to the USSR Ministry of Foreign Affairs, October 22, 1962. AVP RF, copy courtesy of the National Security Archive; translated by Vladislav M. Zubok. Wilson Center Digital Archive.",
+        "url": "https://digitalarchive.umd.edu/node/88320",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": "The source is Dobrynin's report to Moscow, so this is the Soviet ambassador's account of what the State Department did."
+    },
+    {
+      "id": "cmc-1022-09",
+      "date": "1962-10-22",
+      "roles": ["official", "historian"],
+      "text": "The President's private letter told Khrushchev that the United States was determined to remove the threat. It warned him not to treat the limited first step of a blockade as a sign of weakness.",
+      "quote": "The fact of this minimum response should not be taken as a basis, however, for any misjudgment on your part.",
+      "source": {
+        "title": "JFK letter to Khrushchev, Oct 22, 1962",
+        "citation": "Letter from President Kennedy to Chairman Khrushchev, October 22, 1962. John F. Kennedy Presidential Library; also in Foreign Relations of the United States, 1961-1963, Volume VI.",
+        "url": "https://microsites.jfklibrary.org/cmc/oct22/doc4.html",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1022-10",
+      "date": "1962-10-22",
+      "roles": ["official", "historian"],
+      "text": "Under a Joint Chiefs of Staff order sent the day before, U.S. military forces worldwide moved to the alert level DEFCON 3 at the time of the President's public announcement.",
+      "quote": null,
+      "source": {
+        "title": "JCS telegram 6830, Oct 21, 1962 (FRUS supplement)",
+        "citation": "Telegram 6830 from the Joint Chiefs of Staff to Certain Military Commands, October 21, 1962. Foreign Relations of the United States, 1961-1963, Volumes X/XI/XII Microfiche Supplement, Document 348.",
+        "url": "https://history.state.gov/historicaldocuments/frus1961-63v10-12mSupp/d348",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": "The order set DEFCON 3 to take effect at the announcement. The Strategic Air Command went higher, to DEFCON 2, on October 24."
+    },
+    {
+      "id": "cmc-1022-11",
+      "date": "1962-10-22",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "At 7 p.m., President Kennedy went on national television and radio and told Americans that the Soviet Union was building offensive missile sites in Cuba.",
+      "quote": "Within the past week, unmistakable evidence has established the fact that a series of offensive missile sites is now in preparation on that imprisoned island.",
+      "source": {
+        "title": "JFK address to the nation, Oct 22, 1962",
+        "citation": "John F. Kennedy, 'Radio and Television Report to the American People on the Soviet Arms Buildup in Cuba,' October 22, 1962, delivered from the President's office at 7 p.m. John F. Kennedy Presidential Library; Public Papers of the Presidents: John F. Kennedy, 1962.",
+        "url": "https://microsites.jfklibrary.org/cmc/oct22/doc5.html",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1022-12",
+      "date": "1962-10-22",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "The President said some of the sites were for medium-range nuclear missiles that could hit Washington, D.C., the Panama Canal, Cape Canaveral or Mexico City. Other unfinished sites seemed meant for intermediate-range missiles that could reach most major cities in the Western Hemisphere.",
+      "quote": null,
+      "source": {
+        "title": "JFK address to the nation, Oct 22, 1962",
+        "citation": "John F. Kennedy, 'Radio and Television Report to the American People on the Soviet Arms Buildup in Cuba,' October 22, 1962. John F. Kennedy Presidential Library; Public Papers of the Presidents: John F. Kennedy, 1962.",
+        "url": "https://microsites.jfklibrary.org/cmc/oct22/doc5.html",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1022-13",
+      "date": "1962-10-22",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "The President announced a naval 'quarantine' of Cuba. Ships of any nation carrying offensive weapons to Cuba would be turned back, but the U.S. was not, for now, cutting off the basic necessities of life the way the Soviets had blockaded Berlin in 1948.",
+      "quote": "To halt this offensive buildup, a strict quarantine on all offensive military equipment under shipment to Cuba is being initiated.",
+      "source": {
+        "title": "JFK address to the nation, Oct 22, 1962",
+        "citation": "John F. Kennedy, 'Radio and Television Report to the American People on the Soviet Arms Buildup in Cuba,' October 22, 1962. John F. Kennedy Presidential Library; Public Papers of the Presidents: John F. Kennedy, 1962.",
+        "url": "https://microsites.jfklibrary.org/cmc/oct22/doc5.html",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1022-14",
+      "date": "1962-10-22",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "The President warned that a nuclear missile fired from Cuba at any country in the Western Hemisphere would be treated as a Soviet attack on the United States, and the U.S. would hit back at the Soviet Union in full.",
+      "quote": "It shall be the policy of this Nation to regard any nuclear missile launched from Cuba against any nation in the Western Hemisphere as an attack by the Soviet Union on the United States, requiring a full retaliatory response upon the Soviet Union.",
+      "source": {
+        "title": "JFK address to the nation, Oct 22, 1962",
+        "citation": "John F. Kennedy, 'Radio and Television Report to the American People on the Soviet Arms Buildup in Cuba,' October 22, 1962. John F. Kennedy Presidential Library; Public Papers of the Presidents: John F. Kennedy, 1962.",
+        "url": "https://microsites.jfklibrary.org/cmc/oct22/doc5.html",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1022-15",
+      "date": "1962-10-22",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "The President said he had reinforced the U.S. Navy base at Guantanamo Bay in Cuba and sent home the families of the personnel stationed there that same day. He had also put more military units on standby alert.",
+      "quote": "I have reinforced our base at Guantanamo, evacuated today the dependents of our personnel there, and ordered additional military units to be on a standby alert.",
+      "source": {
+        "title": "JFK address to the nation, Oct 22, 1962",
+        "citation": "John F. Kennedy, 'Radio and Television Report to the American People on the Soviet Arms Buildup in Cuba,' October 22, 1962. John F. Kennedy Presidential Library; Public Papers of the Presidents: John F. Kennedy, 1962.",
+        "url": "https://microsites.jfklibrary.org/cmc/oct22/doc5.html",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1022-16",
+      "date": "1962-10-22",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "The President said the United States was calling for an immediate meeting of the Organization of American States and an emergency meeting of the United Nations Security Council.",
+      "quote": null,
+      "source": {
+        "title": "JFK address to the nation, Oct 22, 1962",
+        "citation": "John F. Kennedy, 'Radio and Television Report to the American People on the Soviet Arms Buildup in Cuba,' October 22, 1962. John F. Kennedy Presidential Library; Public Papers of the Presidents: John F. Kennedy, 1962.",
+        "url": "https://microsites.jfklibrary.org/cmc/oct22/doc5.html",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1022-17",
+      "date": "1962-10-22",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "The President revealed that Soviet Foreign Minister Andrei Gromyko had assured him in the Oval Office on October 18 that Soviet aid to Cuba was purely defensive. He called that statement false.",
+      "quote": null,
+      "source": {
+        "title": "JFK address to the nation, Oct 22, 1962",
+        "citation": "John F. Kennedy, 'Radio and Television Report to the American People on the Soviet Arms Buildup in Cuba,' October 22, 1962. John F. Kennedy Presidential Library; Public Papers of the Presidents: John F. Kennedy, 1962.",
+        "url": "https://microsites.jfklibrary.org/cmc/oct22/doc5.html",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1022-18",
+      "date": "1962-10-22",
+      "roles": ["citizen", "journalist", "official", "historian"],
+      "text": "The President ended by warning Americans that the effort ahead would be difficult and dangerous, and that many months of sacrifice and self-discipline lay ahead.",
+      "quote": "let no one doubt that this is a difficult and dangerous effort on which we have set out.",
+      "source": {
+        "title": "JFK address to the nation, Oct 22, 1962",
+        "citation": "John F. Kennedy, 'Radio and Television Report to the American People on the Soviet Arms Buildup in Cuba,' October 22, 1962. John F. Kennedy Presidential Library; Public Papers of the Presidents: John F. Kennedy, 1962.",
+        "url": "https://microsites.jfklibrary.org/cmc/oct22/doc5.html",
+        "kind": "archival"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1022-19",
+      "date": "1962-10-22",
+      "roles": ["journalist", "official", "historian"],
+      "text": "Press photographers caught Soviet Ambassador Anatoly Dobrynin leaving the State Department that evening, after Secretary Rusk had handed him the U.S. message for Moscow.",
+      "quote": null,
+      "source": {
+        "title": "Thirteen Days (1969), photo section (UPI)",
+        "citation": "Robert F. Kennedy, Thirteen Days: A Memoir of the Cuban Missile Crisis (New York: W. W. Norton, 1969), photo section, United Press International photo captioned as Dobrynin leaving the State Department on October 22.",
+        "url": null,
+        "kind": "narration"
+      },
+      "confidence": "high",
+      "note": null
+    },
+    {
+      "id": "cmc-1022-20",
+      "date": "2006-06-01",
+      "roles": ["historian"],
+      "text": "Soviet records show that Khrushchev called the Kremlin's top leadership together late on the night of October 22, Moscow time, before Kennedy's speech, expecting bad news about Cuba. They briefly considered letting Soviet forces in Cuba use short-range nuclear weapons against a U.S. airborne assault, then backed away from the idea.",
+      "quote": null,
+      "source": {
+        "title": "Fursenko, 'Night Session of the Presidium,' 2006",
+        "citation": "Aleksandr Fursenko, 'Night Session of the Presidium of the Central Committee, 22-23 October 1962,' Naval War College Review 59, no. 3 (Summer 2006). The Presidium notes are also translated by Mark Kramer in the Wilson Center Digital Archive (CPSU CC Presidium Protocol 60, RGANI, F. 3, Op. 16, D. 947).",
+        "url": "https://digital-commons.usnwc.edu/nwc-review/vol59/iss3/9",
+        "kind": "narration"
+      },
+      "confidence": "medium",
+      "note": "The date is when this English-language article appeared (Summer 2006 issue; the exact day is unknown). The underlying Presidium notes may have been published or described earlier in Russian and in other scholarship."
+    },
+    {
+      "id": "cmc-1022-21",
+      "date": "1995-01-01",
+      "roles": ["historian"],
+      "text": "In his memoir, Ambassador Dobrynin said his own government had never told him the missiles were in Cuba. He learned of them only when Rusk confronted him on October 22.",
+      "quote": null,
+      "source": {
+        "title": "Dobrynin, In Confidence (1995)",
+        "citation": "Anatoly Dobrynin, In Confidence: Moscow's Ambassador to America's Six Cold War Presidents (New York: Times Books, 1995).",
+        "url": null,
+        "kind": "narration"
+      },
+      "confidence": "medium",
+      "note": "The memoir came out in 1995, but I could not confirm the publication day, so the first of the year is used. I did not re-check the content against the book in this session; it reflects the memoir's well-known account."
+    }
+  ]
+}

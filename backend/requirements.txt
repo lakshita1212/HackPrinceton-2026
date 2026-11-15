@@ -6,3 +6,4 @@ deepagents
 langchain-groq
 langchain-google-genai
 fastembed>=0.9
+httpx>=0.27
