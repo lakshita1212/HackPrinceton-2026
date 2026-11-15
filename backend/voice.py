@@ -25,24 +25,38 @@ VOICES = {
     "historian": os.getenv("VOICE_HISTORIAN", "diana"),
 }
 
-_client: Groq | None = None
+_clients: list[Groq] | None = None
 _tts_broken_reason: str | None = None
 
 
-def _groq() -> Groq:
-    global _client
-    if _client is None:
-        _client = Groq()
-    return _client
+def _groqs() -> list[Groq]:
+    """A client per Groq key: yours, then GROQ_API_KEY_2 if a teammate's key is set."""
+    global _clients
+    if _clients is None:
+        keys = [k for k in (os.getenv("GROQ_API_KEY"), os.getenv("GROQ_API_KEY_2")) if k]
+        _clients = [Groq(api_key=k, max_retries=1) for k in keys]
+    return _clients
+
+
+def _with_any_key(call):
+    """Run call(client) on each key in turn until one isn't rate-limited."""
+    last = None
+    for client in _groqs():
+        try:
+            return call(client)
+        except Exception as e:  # rate limit or outage on this account: try the next
+            last = e
+            log.warning("Groq audio call failed on one key: %s", str(e)[:200])
+    raise last
 
 
 def transcribe(audio: bytes, filename: str) -> str:
-    r = _groq().audio.transcriptions.create(
+    r = _with_any_key(lambda c: c.audio.transcriptions.create(
         file=(filename, audio),
         model=STT_MODEL,
         language="en",
-        prompt="A caller asks a question about October 1962 and the Cuban Missile Crisis.",
-    )
+        prompt="A caller asks a question about history.",
+    ))
     return r.text.strip()
 
 
@@ -52,9 +66,9 @@ def speak(text: str, role: str) -> str | None:
     if _tts_broken_reason:
         return None
     try:
-        r = _groq().audio.speech.create(
+        r = _with_any_key(lambda c: c.audio.speech.create(
             model=TTS_MODEL, voice=VOICES[role], input=text, response_format="wav"
-        )
+        ))
         return base64.b64encode(r.read()).decode()
     except Exception as e:
         msg = str(e)

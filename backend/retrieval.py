@@ -47,8 +47,6 @@ def search(pack: str, role: str, day: date, question: str, k: int = 6) -> list[F
         age = np.array([(day - f.date).days for f in candidates])
         scores = scores + np.where(age == 0, 0.08, np.where(age <= 3, 0.04, 0.0))
     top = [candidates[i] for i in np.argsort(-scores)[:k]]
-    if role == "historian":
-        return top
     # Vague questions ("Is it over?") match poorly by meaning, so always include
     # the day's headlines: packs list each day's main events first.
     headlines = [f for f in candidates if f.date == day][:2]

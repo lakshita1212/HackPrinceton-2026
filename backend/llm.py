@@ -1,13 +1,16 @@
 """One place to pick language models. Switch them in .env, not in code.
 
 Groq's free tier allows 8,000 tokens per minute and 1,000 requests per day
-*per model*. So each job gets its own model, and each job falls back to
-another model the moment it hits a rate limit instead of waiting:
+*per model*. So each job starts on its own model, switches to the next model
+the moment one is rate-limited, and only the last model waits out a limit:
 
-  job      default (Groq)        .env override      falls back to
-  answer   openai/gpt-oss-120b   LLM_MODEL          openai/gpt-oss-20b
-  check    openai/gpt-oss-20b    LLM_CHECK_MODEL    qwen/qwen3.8-27b
-  agent    qwen/qwen3.8-27b      LLM_AGENT_MODEL    (none: it fails over to the simple host)
+  job      tries, in order                                    .env override
+  answer   gpt-oss-120b -> gpt-oss-20b -> qwen3.8-27b (waits)   LLM_MODEL
+  check    gpt-oss-20b -> qwen3.8-27b -> gpt-oss-120b (waits)   LLM_CHECK_MODEL
+  agent    qwen3.8-27b -> gpt-oss-20b (waits)                   LLM_AGENT_MODEL (deepagents host)
+
+With GROQ_API_KEY_2 set (a teammate's free key), the same models are tried
+again on that account before anything waits.
 
 LLM_PROVIDER=gemini sends every job to Gemini instead (separate free quota; it was
 timing out when tested on Nov 14, so treat it as untested).
@@ -24,6 +27,9 @@ GROQ_JOBS = {
     "check": ("LLM_CHECK_MODEL", "openai/gpt-oss-20b", "qwen/qwen3.8-27b"),
     "agent": ("LLM_AGENT_MODEL", "qwen/qwen3.8-27b", "openai/gpt-oss-20b"),
 }
+# If both models for a job are rate-limited, try the third Groq model, and let
+# that last one wait out the limit (Groq says when to retry) instead of failing.
+LAST_RESORT = {"answer": "qwen/qwen3.8-27b", "check": "openai/gpt-oss-120b", "agent": None}
 GEMINI_MODEL = "gemini-3.8-flash"
 
 
@@ -52,19 +58,43 @@ def fallback_id(job: str = "answer") -> str | None:
     return f"groq:{fallback}" if (os.getenv(env) or default) != fallback else None
 
 
+def _groq_keys() -> list[str]:
+    """Your key first, then a teammate's (GROQ_API_KEY_2): a separate account has separate limits."""
+    return [k for k in (os.getenv("GROQ_API_KEY"), os.getenv("GROQ_API_KEY_2")) if k]
+
+
+def _chain(job: str) -> list[tuple[str, int, dict]]:
+    """(model id, retries, extra kwargs) in the order to try. Every step fails fast except the last, which waits."""
+    ids = [model_id(job)]
+    if fb := fallback_id(job):
+        ids.append(fb)
+    if _provider() == "groq" and LAST_RESORT.get(job):
+        last = f"groq:{LAST_RESORT[job]}"
+        if last not in ids:
+            ids.append(last)
+    if _provider() == "groq":
+        # gpt-oss models "think" before answering, and those hidden tokens count
+        # against the daily limit. Our tasks are short, so keep the thinking short.
+        steps = [
+            (m, {"api_key": k, **({"reasoning_effort": "low"} if "gpt-oss" in m else {})})
+            for k in _groq_keys()
+            for m in ids
+        ]
+    else:
+        steps = [(m, {}) for m in ids]
+    return [(m, 0 if i < len(steps) - 1 else 4, extra) for i, (m, extra) in enumerate(steps)]
+
+
 def get_model(job: str = "answer", **kwargs):
-    """A chat model for `job`. Fails fast on rate limits and switches to the fallback model."""
-    primary = init_chat_model(model_id(job), max_retries=0, **kwargs)
-    fb = fallback_id(job)
-    if not fb:
-        return primary
-    return primary.with_fallbacks([init_chat_model(fb, max_retries=2, **kwargs)])
+    """A chat model for `job` that switches models (and keys) the moment one is rate-limited."""
+    models = [init_chat_model(m, max_retries=r, **extra, **kwargs) for m, r, extra in _chain(job)]
+    return models[0].with_fallbacks(models[1:]) if len(models) > 1 else models[0]
 
 
 def get_structured(schema, job: str = "answer", **kwargs):
-    """Like get_model(...).with_structured_output(schema), with the same fallback."""
-    primary = init_chat_model(model_id(job), max_retries=0, **kwargs).with_structured_output(schema)
-    fb = fallback_id(job)
-    if not fb:
-        return primary
-    return primary.with_fallbacks([init_chat_model(fb, max_retries=2, **kwargs).with_structured_output(schema)])
+    """Like get_model(...).with_structured_output(schema), with the same fallback chain."""
+    models = [
+        init_chat_model(m, max_retries=r, **extra, **kwargs).with_structured_output(schema)
+        for m, r, extra in _chain(job)
+    ]
+    return models[0].with_fallbacks(models[1:]) if len(models) > 1 else models[0]
