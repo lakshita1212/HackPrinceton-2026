@@ -14,23 +14,23 @@ export async function updateTimeLock({ pack, date }, roleId, roleName) {
   const el = $('timelock');
   if (!el) return;
   const mine = ++lockRequest;
-  const k = pack ? await fetchKnowledge({ pack, date }) : null;
+  // The point is what's held back, so the historian (who knows everything) and
+  // Wikipedia stations (no secrets, nothing ahead of the day) get no pill.
+  const k = pack && roleId !== 'historian' && !pack.startsWith('wiki-') ? await fetchKnowledge({ pack, date }) : null;
   if (mine !== lockRequest) return; // the dial moved on while we waited
   if (!k) { el.hidden = true; return; }
   const known = k.roles[roleId] ?? 0;
-  const pct = Math.round((known / Math.max(1, k.total)) * 100);
+  const future = k.later;
+  const secret = Math.max(0, k.total - future - known);  // already happened, not for this role
   el.hidden = false;
   el.innerHTML = `
     <span class="lock-icon" aria-hidden="true">🔒</span>
-    <span class="lock-text"><b></b> knows <b class="lock-n"></b> of <span class="lock-total"></span> facts</span>
-    <span class="lock-bar" aria-hidden="true"><span style="width:${pct}%"></span></span>`;
+    <span class="lock-text"><b></b> knows <b class="lock-n"></b> facts · <span class="lock-future"></span> haven't happened yet<span class="lock-secret"></span></span>`;
   el.querySelector('b').textContent = `The ${roleName.toLowerCase()}`;
   el.querySelector('.lock-n').textContent = known;
-  el.querySelector('.lock-total').textContent = k.total;
-  const others = Object.entries(k.roles)
-    .map(([r, n]) => `${r[0].toUpperCase()}${r.slice(1)}: ${n}`)
-    .join(' · ');
-  el.title = `What each role could know on this day. ${others}. ${k.later} facts haven't happened yet.`;
+  el.querySelector('.lock-future').textContent = future;
+  el.querySelector('.lock-secret').textContent = secret ? ` · ${secret} are secret` : '';
+  el.title = `Of ${k.total} facts in this story: ${known} known to the ${roleName.toLowerCase()} today, ${future} still in the future, ${secret} known only to others.`;
   el.classList.remove('pulse');
   void el.offsetWidth;
   el.classList.add('pulse');
