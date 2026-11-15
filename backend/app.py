@@ -4,9 +4,12 @@ Run: uvicorn app:app --reload --port 8000   (from backend/)
 """
 import logging
 from datetime import date as Date
+from pathlib import Path
 from typing import Literal, Optional
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, File, Form, HTTPException, UploadFile
+from fastapi.concurrency import run_in_threadpool
+from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
@@ -14,6 +17,7 @@ import host
 import photon_imessage
 import retrieval
 import station
+import voice
 from packs import PackNotFound
 
 logging.basicConfig(level=logging.INFO)
@@ -96,3 +100,55 @@ def ask(req: AskRequest) -> AskResponse:
     except Exception:
         log.exception("host failed")
         raise HTTPException(503, "Host unavailable")
+
+
+@app.post("/voice")
+async def call_in(
+    audio: UploadFile = File(...),
+    role: Optional[Role] = Form(None),
+    date: Optional[Date] = Form(None),
+    pack: Optional[Pack] = Form(None),
+):
+    """Browser-microphone call-in: audio in, spoken cited answer out.
+
+    Role, date and pack default to whatever the radio is tuned to.
+    Returns the AskResponse fields plus `question` (what we heard) and
+    `audio` (base64 WAV, or null when the browser should speak it).
+    """
+    st = station.get()
+    st.update({k: v for k, v in {"role": role, "date": date, "pack": pack}.items() if v})
+    data = await audio.read()
+    if len(data) < 1000:
+        raise HTTPException(400, "Recording too short")
+    try:
+        question = await run_in_threadpool(voice.transcribe, data, audio.filename or "call.webm")
+    except Exception:
+        log.exception("speech to text failed")
+        raise HTTPException(503, "Couldn't hear that, try again")
+    if not question or len(question) < 3:
+        return {"question": question, "answer": "Sorry, the line crackled. Could you say that again?",
+                "sources": [], "blocked": True, "blocked_reason": "unsupported", "audio": None, **_station_json(st)}
+    try:
+        result = await run_in_threadpool(host.ask, question, st["role"], st["date"], st["pack"])
+    except PackNotFound:
+        result = {"answer": "That station isn't on the air yet.", "sources": [], "blocked": True, "blocked_reason": "unsupported"}
+    except Exception:
+        log.exception("host failed")
+        raise HTTPException(503, "Host unavailable")
+    station.log_exchange("voice", "laptop mic", question, st, result)
+    return {"question": question, **result, "audio": await run_in_threadpool(voice.speak, result["answer"], st["role"]), **_station_json(st)}
+
+
+def _station_json(st: dict) -> dict:
+    return {"role": st["role"], "date": st["date"].isoformat(), "pack": st["pack"]}
+
+
+@app.get("/voice/status")
+def voice_status():
+    return voice.tts_status()
+
+
+@app.get("/call")
+def call_page():
+    """Test page for the microphone call-in. Open http://localhost:8000/call"""
+    return FileResponse(Path(__file__).parent / "static" / "call.html")
