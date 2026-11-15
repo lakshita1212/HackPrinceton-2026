@@ -6,7 +6,7 @@
 
 **A radio you tune through time.** Turn the dial to a day in history, step into the rooms of the people living through it, and call the station. They only know what was known *that day*.
 
-[**▶ Try it live**](https://stay-tuned-u02u.onrender.com) &nbsp;·&nbsp; [**🎬 Watch the demo**](#) &nbsp;·&nbsp; [**How it stays honest**](#-how-it-never-spoils-the-ending) &nbsp;·&nbsp; [**Tech stack**](#-tech-stack)
+ [**🎬 Watch the demo**](#) &nbsp;·&nbsp; [**How it stays honest**](#-how-it-never-spoils-the-ending) &nbsp;·&nbsp; [**Tech stack**](#-tech-stack)
 
 ![The Stay Tuned radio](docs/screenshots/1-intro-radio.png)
 

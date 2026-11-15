@@ -11,9 +11,10 @@ import { PAPERS } from './papers.js';
 import { cultureFor } from './culture.js';
 import { ambience } from './ambience.js';
 import * as polish from './polish.js';
-import { updateTimeLock, signalLost, renderPins, eraLine, onAirMs, archivalBubble, initTextCard, playBulletin, stopBulletin } from './extras.js';
+import { updateTimeLock, signalLost, renderPins, eraLine, onAirMs, archivalBubble, initTextCard, playBulletin, stopBulletin, callScreen, initCallScreen, stopArchival } from './extras.js';
 
 initTextCard();
+initCallScreen();
 
 const $ = (id) => document.getElementById(id);
 const state = { station: 0, role: 0 };
@@ -743,7 +744,7 @@ function showAnswer(li, reply) {
     // The real recording behind the answer, if there is one; voice calls play it next.
     li.playArchival = archivalBubble(msgOf(li), reply.archival, {
       onStart: () => { ambience.duck(true); updateTvSound(); },
-      onEnd: () => { ambience.duck(false); updateTvSound(); },
+      onEnd: () => { ambience.duck(false); updateTvSound(); if (callScreen.isOpen()) callScreen.ready(); },
     });
   }
   li.scrollIntoView({ block: 'end' });  // sources and the recording make the line taller
@@ -807,35 +808,57 @@ let recorder = null;
 let micStream = null;
 let answerAudio = null;
 
-async function startTalking() {
+let holdingMic = false;  // is "Hold to talk" (or the space bar) still held down?
+let callCancelled = false;  // hung up while recording: don't send it
+
+// 📞 Call: open the phone screen for whoever is on the dial. It asks for the
+// microphone now, so Chrome's permission prompt never interrupts a question.
+async function openCall() {
   sfx.unlock();
-  if (recorder?.state === 'recording' || $('mic').disabled) return;
+  if ($('mic').disabled) return;
+  const s = station();
+  callScreen.open({ who: `${role().name} · ${s.day}`, era: s.era });
   try {
-    micStream ??= await navigator.mediaDevices.getUserMedia({ audio: true });
+    micStream ??= await navigator.mediaDevices.getUserMedia({
+      audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true },
+    });
   } catch {
-    showCaption('The microphone is blocked. Allow it in the browser, or type your question.', 4000);
-    return;
+    callScreen.status('The microphone is blocked. Allow it in the browser (the lock icon by the address), or type instead.', 'ended');
   }
+}
+
+async function startTalking() {
+  if (!callScreen.isOpen() || recorder?.state === 'recording' || !micStream) return;
+  holdingMic = true;
+  callCancelled = false;
   speechSynthesis.cancel();
   answerAudio?.pause();
+  stopArchival();
+  // Quiet the room while they talk, so the mic hears them and not the TV.
+  pauseAmbient();
+  ambience.duck(true);
   const chunks = [];
   recorder = new MediaRecorder(micStream);
   recorder.ondataavailable = (e) => { if (e.data.size) chunks.push(e.data); };
-  recorder.onstop = () => sendCall(new Blob(chunks, { type: recorder.mimeType }));
+  recorder.onstop = () => { if (!callCancelled) sendCall(new Blob(chunks, { type: recorder.mimeType })); };
   recorder.start();
-  $('mic').classList.add('live');
-  $('question').placeholder = 'Listening… let go to hang up';
+  callScreen.listening();
 }
 
 function stopTalking() {
-  if (recorder?.state === 'recording') recorder.stop();
-  $('mic').classList.remove('live');
-  setPlaceholder();
+  if (!holdingMic) return;
+  holdingMic = false;
+  if (recorder?.state === 'recording') {
+    recorder.stop();
+    callScreen.sending();
+  }
+  ambience.duck(false);
+  resumeAmbient();
 }
 
 async function sendCall(blob) {
   if (blob.size < 1000) {
-    showCaption('Hold the button down while you talk.', 2500);
+    callScreen.ready('That was too short. Hold to talk while you speak.');
     return;
   }
   const s = station();
@@ -848,12 +871,45 @@ async function sendCall(blob) {
     q.remove();
     a.className = 'a blocked with-avatar';
     textOf(a).textContent = reply.error;
+    callScreen.ready(reply.error);
     return;
   }
   q.textContent = reply.question || '(the line crackled)';
   showAnswer(a, reply);
-  speakAnswer(reply, a.playArchival);
+  if (!callScreen.isOpen()) return;  // hung up while it was answering
+  // The call screen: big, readable lines, then the real recording if there is one.
+  callScreen.exchange({
+    question: reply.question || '(the line crackled)',
+    answer: reply.answer,
+    sources: reply.sources || [],
+    blocked: !!reply.blocked,
+    archival: reply.archival,
+  });
+  callScreen.status('On the line…', 'connected');
+  const afterAnswer = () => {
+    if (!callScreen.isOpen()) return;
+    if (a.playArchival && reply.archival) {
+      callScreen.status('📼 Now, the real recording', 'archival');
+      a.playArchival();  // its onEnd puts the call back to "hold to talk"
+    } else {
+      callScreen.ready();
+    }
+  };
+  speakAnswer(reply, afterAnswer);
 }
+
+// Hanging up stops the voice and any recording that's playing.
+callScreen.onTalkStart = startTalking;
+callScreen.onTalkStop = stopTalking;
+callScreen.onHangup = () => {
+  if (recorder?.state === 'recording') { callCancelled = true; recorder.stop(); }
+  holdingMic = false;
+  answerAudio?.pause();
+  speechSynthesis.cancel();
+  stopArchival();
+  ambience.duck(false);
+  updateTvSound();
+};
 
 // Play the host's voice for the role, or let the browser read it out.
 // Speak the answer, then (on a call) play the real recording behind it.
@@ -875,16 +931,9 @@ function speakAnswer(reply, then) {
   }
 }
 
-$('mic').addEventListener('pointerdown', (e) => { e.preventDefault(); startTalking(); });
-$('mic').addEventListener('pointerup', stopTalking);
-$('mic').addEventListener('pointerleave', stopTalking);
-const typing = (el) => el.matches('input, textarea, select, button');
-window.addEventListener('keydown', (e) => {
-  if (e.code === 'Space' && !e.repeat && !typing(e.target)) { e.preventDefault(); startTalking(); }
-});
-window.addEventListener('keyup', (e) => {
-  if (e.code === 'Space' && !typing(e.target)) stopTalking();
-});
+// 📞 Call opens the phone screen; talking happens there (extras.js).
+$('mic').addEventListener('click', openCall);
+// The space bar talks while a call is open (handled by the call screen in extras.js).
 
 renderScene();
 booted = true;
