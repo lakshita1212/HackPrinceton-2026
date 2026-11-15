@@ -1,6 +1,6 @@
 // Dial positions and rooms. `date`, `pack` and the role ids are sent to the host as-is
-// (see CONTRACT.md). `era` picks how the rooms are drawn. 2026 is the personal station
-// and has no pack, so it never calls the host.
+// (see CONTRACT.md). `era` picks how the rooms are drawn. 2026 is live: its pack is
+// built from this week's news when you tune in (see news.js).
 //
 // `onAir` is placeholder text for what the TV/radio shows that day. It only says what
 // the public could know on that date; the host's source packets are the real content.
@@ -19,8 +19,10 @@ export const STATIONS = [
     onAir: 'Live from the Moon: Apollo 11 has landed.' },
   { date: '1989-11-09', label: '1989', day: 'Thursday, November 9, 1989', era: '1989', pack: 'berlin-1989',
     onAir: 'Crowds gather at the Berlin Wall as the border crossings open.' },
-  { date: '2026-11-15', label: '2026', day: 'Today', era: '2026', pack: null,
-    onAir: 'Your own station.' },
+  // 2026 is live: on tuning in, the app has the host build a station for the
+  // latest past day from Wikipedia (news.js) and fills in `date`, `day` and `pack`.
+  { date: '2026-11-14', label: '2026', day: 'This week', era: '2026', pack: null, live: true,
+    onAir: "This week's news." },
 ];
 
 export const ROLES = [

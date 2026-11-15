@@ -6,6 +6,7 @@ import { ask, tuneStation, fetchTranscript, callByVoice } from './host.js';
 import { sfx } from './audio.js';
 import { createFx } from './fx.js';
 import { playIntro } from './intro.js';
+import { liveStation, headlines } from './news.js';
 
 const $ = (id) => document.getElementById(id);
 const state = { station: 0, role: 0 };
@@ -94,7 +95,51 @@ function renderScene() {
   // Waits until the dial settles instead of sending every tick.
   clearTimeout(tuneTimer);
   tuneTimer = setTimeout(() => tuneStation({ role: r.id, date: s.date, pack: s.pack }), 400);
-  $('mic').disabled = !s.pack;
+  $('mic').disabled = !s.pack && !s.live;
+  showLive(s);
+}
+
+// ── 2026: this week's news ─────────────────────────────────────────────────
+// The host builds the station from Wikipedia the first time you tune in; the
+// ticker shows the same days' headlines and the call panel says where they're from.
+async function readyLive(s) {
+  if (!s.live || s.pack) return s;
+  const st = await liveStation();
+  if (st) {
+    s.pack = st.pack;
+    s.date = st.date;
+    s.day = `News through ${longDate(st.date)}`;
+  }
+  return s;
+}
+
+const longDate = (d) => new Date(`${d}T12:00:00`).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+
+async function showLive(s) {
+  $('ticker').hidden = !s.live;
+  $('liveNote').hidden = !s.live;
+  if (!s.live) return;
+  await readyLive(s);
+  if (station() !== s) return; // tuned away meanwhile
+  $('day').textContent = s.day;
+  if (s.pack) tuneStation({ role: role().id, date: s.date, pack: s.pack });
+  const items = await headlines(s.date);
+  if (station() !== s) return;
+  const fmt = (d) => new Date(`${d}T12:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }).toUpperCase();
+  const text = items.length
+    ? items.map((h) => `${fmt(h.date)} · ${h.text}`).join('     ◆     ')
+    : 'No headlines reached the station. Call in and ask what is in the news.';
+  const el = $('tickerText');
+  el.textContent = text;
+  // The painted TVs show a made-up broadcast; put this week's top story on them instead.
+  if (items.length) {
+    s.onAir = items[0].text;
+    $('onAir').textContent = s.onAir;
+    $('screen').classList.remove('painted', 'static');
+    $('screen').classList.add('news-card');
+  }
+  // Crawl at a steady reading speed, however long the news is.
+  el.style.animationDuration = `${Math.max(25, text.length / 9)}s`;
 }
 
 // ── TV and radio ─────────────────────────────────────────────────────────
@@ -427,6 +472,7 @@ $('askForm').addEventListener('submit', async (e) => {
   const button = $('askForm').querySelector('button[type="submit"]');
   button.disabled = true;
   const pending = addLine('a', '…', `${r.name}, ${s.label}`, { role: r.id, date: s.date });
+  await readyLive(s);
   const reply = await ask({ question, role: r.id, date: s.date, pack: s.pack });
   button.disabled = false;
   showAnswer(pending, reply);
@@ -496,6 +542,7 @@ async function sendCall(blob) {
   const r = role();
   const q = addLine('q', '…');
   const a = addLine('a', '…', `${r.name}, ${s.label}`, { role: r.id, date: s.date });
+  await readyLive(s);
   const reply = await callByVoice(blob, { role: r.id, date: s.date, pack: s.pack });
   if (reply.error) {
     q.remove();
