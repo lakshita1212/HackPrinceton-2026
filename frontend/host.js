@@ -80,3 +80,19 @@ function scripted(question, role, date) {
     blocked: false,
   };
 }
+
+// Build (or reuse) a station for a past day from Wikipedia: POST /stations.
+// Returns { pack, date, facts, ... } or null when the host is down or has no page.
+export async function buildStation(date) {
+  try {
+    const res = await fetch(`${HOST_URL}/stations`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ date }),
+      signal: AbortSignal.timeout(30000),
+    });
+    return res.ok ? await res.json() : null;
+  } catch {
+    return null;
+  }
+}
