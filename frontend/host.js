@@ -96,3 +96,16 @@ export async function buildStation(date) {
     return null;
   }
 }
+
+// Photos people texted to the station (GET /memories.json), newest first.
+// `since` is the received_at of the newest one already shown.
+export async function fetchMemories(since) {
+  try {
+    const q = since ? `?since=${encodeURIComponent(since)}` : '';
+    const res = await fetch(`${HOST_URL}/memories.json${q}`, { signal: AbortSignal.timeout(5000) });
+    return res.ok ? (await res.json()).items || [] : [];
+  } catch {
+    return [];
+  }
+}
+export const hostAsset = (path) => `${HOST_URL}/${path.replace(/^\/+/, '')}`;

@@ -83,6 +83,12 @@
         <div class="grain" aria-hidden="true"></div>
         <div class="warp-year" id="warpYear" aria-hidden="true"></div>
         <div class="caption" id="caption" aria-live="polite" hidden></div>
+        <!-- A photo someone just texted to the station, on the air for a few seconds -->
+        <figure class="on-air-card" id="onAirCard" aria-live="polite" hidden>
+          <span class="on-air-tag">On the air</span>
+          <img id="onAirPhoto" alt="">
+          <figcaption><span id="onAirCaption"></span><small id="onAirFrom"></small></figcaption>
+        </figure>
         <!-- 2026: this week's headlines crawl across the bottom, cable-news style -->
         <div class="ticker" id="ticker" hidden>
           <span class="ticker-tag">Live · This week</span>
