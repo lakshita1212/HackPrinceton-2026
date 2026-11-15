@@ -1293,3 +1293,29 @@ a.chip:hover { border-style: solid; border-color: var(--red); color: var(--red);
 @media (prefers-reduced-motion: reduce) {
   .signal-lost.on, .timelock.pulse { animation: none; }
 }
+/* Any day: a date field under the dial. */
+.any-day { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: -6px; font-family: var(--label); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--brass-light); }
+.any-day input {
+  padding: 4px 8px; border: 1px solid rgba(241, 212, 140, .6); border-radius: 4px;
+  background: #f4ead2; color: #2a1a0b; font-family: var(--label); font-size: 13px; letter-spacing: .5px;
+}
+.any-day input:focus-visible { outline: 2px solid var(--glow); }
+/* Small sets (the 1960s TVs) get a shorter headline; past days say NEWS, not LIVE. */
+.screen.news-card.era-1962 p, .screen.news-card.era-1969 p { -webkit-line-clamp: 4; font-size: clamp(7px, .7vw, 11px); }
+.screen.news-card.era-1962, .screen.news-card.era-1969 { place-items: center; padding: 8%; }
+.screen.news-card.past-news p::before { content: "NEWS"; }
+
+/* Review fixes on top of extras.js styles */
+.timelock { pointer-events: auto; }                     /* .scene-top ignores the mouse; the tooltip needs it */
+/* The dot sits exactly on Gemini's point; the label hangs off to one side. */
+.pin { transform: translate(-8px, -50%); }
+.pin.left { transform: translate(calc(-100% + 8px), -50%); }
+@keyframes pin-drop { from { opacity: 0; margin-top: -28px; } }
+.on-air-era:empty { display: none !important; }
+/* The call panel is light paper: dark ink for the archival bubble. */
+.archival-tag { color: #a3201a; font-weight: 700; }
+.archival-title { color: var(--ink-soft); }
+.archival-quote { color: var(--ink); }
+.archival-quote .unsaid { opacity: .4; }
+.archival-bar { background: rgba(42, 33, 24, .15); }
+.archival-bar span { background: #a3201a; }

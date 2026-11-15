@@ -4,7 +4,6 @@
 //   2. Gemini's pinned captions dropping onto a photo texted to the station.
 //   3. The real archival recording, as a bubble in the call thread.
 import { fetchKnowledge } from './host.js';
-import { sfx } from './audio.js';
 
 const $ = (id) => document.getElementById(id);
 const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -41,7 +40,7 @@ export async function updateTimeLock({ pack, date }, roleId, roleName) {
 export function signalLost() {
   const el = $('signalLost');
   if (!el) return;
-  sfx.staticBurst?.();
+  // Visual only: no static burst (the team took static sounds out of the app).
   el.hidden = false;
   el.classList.remove('on');
   void el.offsetWidth;
@@ -89,7 +88,7 @@ export function onAirMs(memory) {
 
 // ── 3. The real recording, after the answer ──────────────────────────────
 // Returns a function that plays it (used to play it right after a spoken answer).
-export function archivalBubble(li, clip) {
+export function archivalBubble(li, clip, { onStart = () => {}, onEnd = () => {} } = {}) {
   if (!clip) return null;
   const box = document.createElement('div');
   box.className = 'archival';
@@ -113,13 +112,22 @@ export function archivalBubble(li, clip) {
   const button = box.querySelector('.archival-play');
   const length = clip.end - clip.start;
 
+  const stop = () => {
+    audio.pause();
+    button.textContent = '▶';
+    box.classList.remove('playing');
+    quote.textContent = clip.quote;
+    onEnd();
+  };
   const play = () => {
-    if (audio && !audio.paused) { audio.pause(); button.textContent = '▶'; return; }
+    if (audio && !audio.paused) { stop(); return; }
     audio = audio || new Audio(clip.src);
     const start = () => { audio.currentTime = clip.start; audio.play().catch(() => {}); };
     if (audio.readyState >= 1) start(); else audio.addEventListener('loadedmetadata', start, { once: true });
     button.textContent = '❚❚';
     box.classList.add('playing');
+    onStart();
+    audio.onended = stop;
     audio.ontimeupdate = () => {
       const t = Math.max(0, audio.currentTime - clip.start);
       bar.style.width = `${Math.min(100, (t / length) * 100)}%`;
@@ -132,12 +140,7 @@ export function archivalBubble(li, clip) {
       rest.className = 'unsaid';
       rest.textContent = ' ' + words.slice(shown).join(' ');
       quote.append(said, rest);
-      if (audio.currentTime >= clip.end) {
-        audio.pause();
-        button.textContent = '▶';
-        box.classList.remove('playing');
-        quote.textContent = clip.quote;
-      }
+      if (audio.currentTime >= clip.end) stop();
     };
   };
   button.addEventListener('click', play);

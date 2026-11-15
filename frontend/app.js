@@ -2,7 +2,7 @@ import { STATIONS, ROLES } from './stations.js';
 import { ROOMS, ROOM_IMAGES } from './rooms.js';
 import { clipsFor, channelName, checkLocal } from './media.js';
 import { createDial } from './dial.js';
-import { ask, tuneStation, fetchTranscript, callByVoice, fetchMemories, hostAsset } from './host.js';
+import { ask, tuneStation, fetchTranscript, callByVoice, fetchMemories, hostAsset, buildStation } from './host.js';
 import { sfx } from './audio.js';
 import { createFx } from './fx.js';
 import { playIntro } from './intro.js';
@@ -19,7 +19,8 @@ let captionTimer = 0;
 let tuneTimer = 0;
 
 const fx = createFx($('stage'), $('roomLayer'));
-const station = () => STATIONS[state.station];
+let anyDay = null;  // a station built for any date (the picker under the dial); null = the dial
+const station = () => anyDay || STATIONS[state.station];
 const role = () => ROLES[state.role];
 
 // ── Scene ────────────────────────────────────────────────────────────────
@@ -123,6 +124,13 @@ function renderScene() {
 // ticker shows the same days' headlines and the call panel says where they're from.
 async function readyLive(s) {
   if (!s.live || s.pack) return s;
+  if (s.anyDay) {
+    s.building ||= buildStation(s.date);
+    const st = await s.building;
+    if (st?.pack) s.pack = st.pack;
+    else s.failed = true;
+    return s;
+  }
   const st = await liveStation();
   if (st) {
     s.pack = st.pack;
@@ -139,8 +147,11 @@ async function showLive(s) {
   $('ticker').hidden = !s.live;
   $('liveNote').hidden = !s.live;
   if (!s.live) return;
+  $('tickerTag').textContent = s.anyDay ? `Wikipedia · ${s.label}` : 'Live · This week';
   await readyLive(s);
   if (station() !== s) return; // tuned away meanwhile
+  updateTimeLock(s, role().id, role().name);  // its pack exists only now
+  if (s.failed) showCaption("Wikipedia has no day-by-day page for that day, so there's no station. Try another date.", 6000);
   $('day').textContent = s.day;
   if (s.pack) tuneStation({ role: role().id, date: s.date, pack: s.pack });
   const items = await headlines(s.date);
@@ -157,6 +168,7 @@ async function showLive(s) {
     $('onAir').textContent = s.onAir;
     $('screen').classList.remove('painted', 'static');
     $('screen').classList.add('news-card');
+    $('screen').classList.toggle('past-news', !!s.anyDay);
   }
   // Crawl at a steady reading speed, however long the news is.
   el.style.animationDuration = `${Math.max(25, text.length / 9)}s`;
@@ -205,7 +217,7 @@ function startTvRotation(s) {
   clearInterval(tvTimer);
   showTvFrame(null);
   const photos = memories.slice(0, MEMORIES_ON_TV);
-  if (!s.live || !photos.length) return;
+  if (!s.live || s.anyDay || !photos.length) return;
   const frames = [null, ...photos];
   let i = 0;
   tvTimer = setInterval(() => {
@@ -226,7 +238,7 @@ function showTvFrame(m) {
   img.src = hostAsset(m.image);
   img.alt = m.alt_text || m.caption || 'A photo texted to the station';
   const cap = document.createElement('figcaption');
-  cap.textContent = m.caption || `From ${m.from}`;
+  cap.textContent = [m.caption || `From ${m.from}`, eraLine(m)].filter(Boolean).join(' · ');
   fig.append(img, cap);
   screen.append(fig);
 }
@@ -415,7 +427,7 @@ async function openPaper(prop) {
   let title;
   let items;
   let foot = '';
-  if (prop.kind === 'culture') {
+  if (prop.kind === 'culture' && !s.anyDay) {
     const card = cultureFor(s.era, s.date);
     style = 'culture';
     kicker = prop.label;
@@ -425,9 +437,10 @@ async function openPaper(prop) {
     // 2026: this week's headlines, the same ones the host knows.
     await readyLive(s);
     style = 'feed';
-    kicker = 'This week · auto-built from Wikipedia, not reviewed';
-    title = r.id === 'official' ? 'No classified files: only what is public' : 'This week';
-    items = (await headlines(s.date)).map((h) => ({ date: h.date, text: h.text, source: 'Wikipedia: 2026', url: 'https://en.wikipedia.org/wiki/2026' }));
+    kicker = `${s.anyDay ? 'That week' : 'This week'} · auto-built from Wikipedia, not reviewed`;
+    title = r.id === 'official' ? 'No classified files: only what is public' : s.anyDay ? s.label : 'This week';
+    const yr = s.date.slice(0, 4);
+    items = (await headlines(s.date)).map((h) => ({ date: h.date, text: h.text, source: `Wikipedia: ${yr}`, url: `https://en.wikipedia.org/wiki/${yr}` }));
   } else {
     const look = PAPER_STYLE[r.id];
     style = look.style;
@@ -535,6 +548,7 @@ const dial = createDial($('dial'), {
   stations: STATIONS,
   onChange: (i) => {
     state.station = i;
+    if (anyDay) { anyDay = null; $('anyDay').value = ''; }
     const s = STATIONS[i];
     if (booted && s.era !== shownEra) {
       shownEra = s.era;
@@ -550,6 +564,33 @@ const dial = createDial($('dial'), {
     }
   },
 });
+
+// ── Any day: build a station for a date from Wikipedia (POST /stations) ──
+// The room is drawn for the nearest decade we have paintings for; the TV,
+// ticker and papers show that day's headlines. Turning the dial goes back.
+const eraFor = (year) => (year < 1966 ? '1962' : year < 1980 ? '1969' : year < 2008 ? '1989' : '2026');
+{
+  const input = $('anyDay');
+  const yesterday = new Date(Date.now() - 864e5);
+  input.max = `${yesterday.getFullYear()}-${String(yesterday.getMonth() + 1).padStart(2, '0')}-${String(yesterday.getDate()).padStart(2, '0')}`;
+  input.addEventListener('change', () => {
+    const date = input.value;
+    if (!date) return;
+    const d = new Date(`${date}T12:00:00`);
+    anyDay = {
+      date,
+      label: d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+      day: `${d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })} · from Wikipedia`,
+      era: eraFor(d.getFullYear()),
+      pack: null,
+      live: true,
+      anyDay: true,
+      onAir: 'Tuning in…',
+    };
+    showCaption(`Tuning to ${anyDay.label}: building the station from Wikipedia…`, 3000);
+    renderScene();
+  });
+}
 
 const roleButtons = ROLES.map((r, i) => {
   const b = document.createElement('button');
@@ -661,8 +702,12 @@ function showAnswer(li, reply) {
     textOf(li).textContent = reply.answer;
     addSources(msgOf(li), reply.sources || []);
     // The real recording behind the answer, if there is one; voice calls play it next.
-    li.playArchival = archivalBubble(msgOf(li), reply.archival);
+    li.playArchival = archivalBubble(msgOf(li), reply.archival, {
+      onStart: () => { ambience.duck(true); updateTvSound(); },
+      onEnd: () => { ambience.duck(false); updateTvSound(); },
+    });
   }
+  li.scrollIntoView({ block: 'end' });  // sources and the recording make the line taller
 }
 
 const roleName = (id) => ROLES.find((r) => r.id === id)?.name || id;
@@ -689,6 +734,7 @@ $('askForm').addEventListener('submit', async (e) => {
   const reply = await ask({ question, role: r.id, date: s.date, pack: s.pack });
   button.disabled = false;
   showAnswer(pending, reply);
+  pending.playArchival?.();  // the real recording right after a typed answer
 });
 
 // ── Switchboard: texts and calls that reach the station from outside ─────
