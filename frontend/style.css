@@ -1319,3 +1319,46 @@ a.chip:hover { border-style: solid; border-color: var(--red); color: var(--red);
 .archival-quote .unsaid { opacity: .4; }
 .archival-bar { background: rgba(42, 33, 24, .15); }
 .archival-bar span { background: #a3201a; }
+
+/* ── Room polish (polish.js): steam from the mugs, passing headlights ──── */
+#steam { position: absolute; inset: 0; pointer-events: none; }
+.steam-spot { position: absolute; width: 0; height: 0; }
+.steam-spot i {
+  position: absolute;
+  bottom: 0;
+  width: 10px;
+  height: 26px;
+  margin-left: -5px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(255, 250, 240, .55), rgba(255, 250, 240, 0) 70%);
+  filter: blur(3px);
+  opacity: 0;
+  animation: steam-rise 4.2s ease-out infinite;
+}
+@keyframes steam-rise {
+  0% { opacity: 0; transform: translate(0, 0) scale(.6, .7); }
+  20% { opacity: .7; }
+  60% { opacity: .35; transform: translate(4px, -28px) scale(1, 1.2) rotate(8deg); }
+  100% { opacity: 0; transform: translate(-3px, -52px) scale(1.4, 1.5) rotate(-6deg); }
+}
+.headlights {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: screen;
+  background: linear-gradient(100deg, transparent 35%, rgba(255, 244, 214, .16) 46%, rgba(255, 250, 230, .24) 50%, rgba(255, 244, 214, .16) 54%, transparent 65%);
+  background-size: 250% 100%;
+}
+.headlights.sweep { animation: headlights 3.2s ease-in-out; }
+.headlights.sweep.reverse { animation-direction: reverse; }
+@keyframes headlights {
+  0% { opacity: 0; background-position: 120% 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { opacity: 0; background-position: -20% 0; }
+}
+@media (prefers-reduced-motion: reduce) { .steam-spot i, .headlights.sweep { animation: none; } }
+/* With the 2026 ticker along the bottom, captions sit above it instead of on it. */
+.stage:has(.ticker:not([hidden])) .caption { bottom: calc(clamp(28px, 3.4vw, 40px) + 14px); }

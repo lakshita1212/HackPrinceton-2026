@@ -10,6 +10,7 @@ import { liveStation, headlines } from './news.js';
 import { PAPERS } from './papers.js';
 import { cultureFor } from './culture.js';
 import { ambience } from './ambience.js';
+import * as polish from './polish.js';
 import { updateTimeLock, signalLost, renderPins, eraLine, onAirMs, archivalBubble } from './extras.js';
 
 const $ = (id) => document.getElementById(id);
@@ -47,6 +48,7 @@ function drawRoom(roleId, era) {
     place(b, prop);
     $('props').append(b);
   }
+  polish.setRoom(pic);
   if (pic) {
     $('art').innerHTML = '';
     $('photo').src = pic.src;
