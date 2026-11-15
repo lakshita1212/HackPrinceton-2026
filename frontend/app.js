@@ -9,7 +9,6 @@ import { playIntro } from './intro.js';
 
 const $ = (id) => document.getElementById(id);
 const state = { station: 0, role: 0 };
-const radioAudio = new Audio();
 let drawn = '';          // role + era of the room currently drawn
 let captionTimer = 0;
 let tuneTimer = 0;
@@ -105,57 +104,54 @@ function showCaption(text, ms = 0) {
   if (ms) captionTimer = setTimeout(() => { $('caption').hidden = true; }, ms);
 }
 
+// ── Big screen: the TV and the radio open a player over the room ────────
+// The TV plays the day's footage in a large vintage set; the radio opens a
+// matching radio. With no clip yet, the screen shows that day's broadcast line.
+function openViewer(kind) {
+  sfx.unlock();
+  const s = station();
+  const r = role();
+  const clip = mediaFor(s.date, r.id, kind === 'tv' ? 'video' : 'audio');
+  const viewer = $('viewer');
+  viewer.dataset.kind = kind;
+  viewer.classList.toggle('has-clip', !!clip);
+  $('viewerTitle').textContent = clip ? clip.title : kind === 'tv' ? 'On television' : 'On the radio';
+  $('viewerMeta').textContent = [s.day, ROOMS[r.id].name, clip?.source].filter(Boolean).join(' · ');
+  $('viewerCard').textContent = s.onAir;
+  $('viewerStamp').textContent = clip?.label || '';
+  $('viewerStamp').hidden = !clip;
+  const video = $('viewerVideo');
+  const audio = $('viewerAudio');
+  video.hidden = !(clip && kind === 'tv');
+  audio.hidden = !(clip && kind === 'radio');
+  viewer.hidden = false;
+  if (clip && kind === 'tv') { video.src = clip.src; video.play(); }
+  if (clip && kind === 'radio') { audio.src = clip.src; audio.play(); }
+  $('viewerClose').focus();
+}
+
+function closeViewer() {
+  for (const el of [$('viewerVideo'), $('viewerAudio')]) {
+    el.pause();
+    el.removeAttribute('src');
+    el.load();
+  }
+  $('viewer').hidden = true;
+}
+
 function stopMedia() {
-  const video = $('video');
-  video.pause();
-  video.removeAttribute('src');
-  video.hidden = true;
-  radioAudio.pause();
-  $('tvBadge').hidden = true;
+  if (!$('viewer').hidden) closeViewer();
   $('caption').hidden = true;
 }
 
-function playTv() {
-  sfx.unlock();
-  const video = $('video');
-  if (!video.hidden) {
-    if (video.paused) video.play(); else video.pause();
-    return;
-  }
-  const clip = mediaFor(station().date, role().id, 'video');
-  if (!clip) {
-    sfx.staticBurst();
-    showCaption('Nothing on this channel yet.', 2500);
-    return;
-  }
-  radioAudio.pause();
-  video.src = clip.src;
-  video.hidden = false;
-  $('screen').classList.remove('static');
-  $('tvBadge').textContent = clip.label;
-  $('tvBadge').hidden = false;
-  showCaption(clip.title, 4000);
-  video.play();
-}
-
-function playRadio() {
-  sfx.unlock();
-  const clip = mediaFor(station().date, role().id, 'audio');
-  if (!clip) {
-    sfx.staticBurst();
-    showCaption(`On the radio: ${station().onAir}`, 4000);
-    return;
-  }
-  if (!radioAudio.paused) {
-    radioAudio.pause();
-    $('caption').hidden = true;
-    return;
-  }
-  $('video').pause();
-  if (!radioAudio.src.endsWith(clip.src)) radioAudio.src = clip.src;
-  showCaption(`Radio: ${clip.title} (${clip.label})`);
-  radioAudio.play();
-}
+const playTv = () => openViewer('tv');
+const playRadio = () => openViewer('radio');
+$('viewerClose').addEventListener('click', closeViewer);
+$('viewer').addEventListener('click', (e) => { if (e.target === $('viewer')) closeViewer(); });
+window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !$('viewer').hidden) closeViewer(); });
+// the radio's speaker bars dance only while it's playing
+$('viewerAudio').addEventListener('play', () => $('viewer').classList.add('playing'));
+$('viewerAudio').addEventListener('pause', () => $('viewer').classList.remove('playing'));
 
 $('screen').addEventListener('click', playTv);
 $('screen').addEventListener('keydown', (e) => {
@@ -195,7 +191,6 @@ const dial = createDial($('dial'), {
       warpTimer = setTimeout(() => { warpPending = false; renderScene(); }, 380);
     } else {
       shownEra = s.era;
-      sfx.staticBurst();
       if (!warpPending) renderScene();   // a pending warp will draw the latest station
     }
   },
@@ -306,7 +301,6 @@ async function pollSwitchboard() {
       addLine('caller', `${kind} from ${it.caller} · ${who}`);
       addLine('q from-caller', it.question);
       showAnswer(addLine('a', '', who), it);
-      sfx.tick();
       showCaption(`${kind} coming in from ${it.caller}`, 3000);
     }
   }
