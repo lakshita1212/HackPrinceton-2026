@@ -10,6 +10,7 @@ import { liveStation, headlines } from './news.js';
 import { PAPERS } from './papers.js';
 import { cultureFor } from './culture.js';
 import { ambience } from './ambience.js';
+import { updateTimeLock, signalLost } from './extras.js';
 
 const $ = (id) => document.getElementById(id);
 const state = { station: 0, role: 0 };
@@ -110,7 +111,10 @@ function renderScene() {
   // Tell the host where the dial is, so texts are answered by this room.
   // Waits until the dial settles instead of sending every tick.
   clearTimeout(tuneTimer);
-  tuneTimer = setTimeout(() => tuneStation({ role: r.id, date: s.date, pack: s.pack }), 400);
+  tuneTimer = setTimeout(() => {
+    tuneStation({ role: r.id, date: s.date, pack: s.pack });
+    updateTimeLock(s, r.id, r.name);
+  }, 400);
   $('mic').disabled = !s.pack && !s.live;
   showLive(s);
 }
@@ -708,6 +712,7 @@ function showAnswer(li, reply) {
     // The host sends an in-character refusal; fall back to our own line if it's empty.
     li.className = 'a blocked with-avatar';
     textOf(li).textContent = reply.answer || "The line crackles. That hasn't happened yet.";
+    if (reply.blocked_reason === 'future') signalLost();
   } else {
     li.className = `${reply.live === false ? 'a scripted' : 'a'} with-avatar`;
     textOf(li).textContent = reply.answer;

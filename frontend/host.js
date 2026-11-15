@@ -4,7 +4,8 @@
 // If the host is down or rejects the request, a scripted answer comes back instead
 // (live: false), so the screen keeps working during the demo.
 const HOST_URL = (new URLSearchParams(location.search).get('host') || 'http://localhost:8000').replace(/\/+$/, '');
-const TIMEOUT_MS = 20000;
+// Long enough for the host to wait out a rate limit rather than fail.
+const TIMEOUT_MS = 45000;
 
 export async function ask({ question, role, date, pack }) {
   if (!pack) return { ...scripted(question, role, date), live: false };
@@ -17,9 +18,25 @@ export async function ask({ question, role, date, pack }) {
     });
     if (!res.ok) throw new Error(`host returned ${res.status}`);
     const data = await res.json();
-    return { answer: data.answer || '', sources: data.sources || [], blocked: !!data.blocked, archival: data.archival || null, live: true };
+    return {
+      answer: data.answer || '', sources: data.sources || [], blocked: !!data.blocked,
+      blocked_reason: data.blocked_reason || null, archival: data.archival || null, live: true,
+    };
   } catch {
     return { ...scripted(question, role, date), live: false };
+  }
+}
+
+// The time lock as numbers: how many facts each role could know on this day.
+// { total, roles: { citizen: n, ... }, today: {...}, later } or null.
+export async function fetchKnowledge({ pack, date }) {
+  if (!pack) return null;
+  try {
+    const res = await fetch(`${HOST_URL}/knowledge?pack=${encodeURIComponent(pack)}&date=${date}`,
+      { signal: AbortSignal.timeout(5000) });
+    return res.ok ? await res.json() : null;
+  } catch {
+    return null;
   }
 }
 

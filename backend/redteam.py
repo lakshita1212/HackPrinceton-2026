@@ -131,8 +131,12 @@ CASES = {
 def leaks(answer: str, role: str, day: date) -> list[str]:
     if role == "historian":
         return []
+    found = []
+    for sentence in re.split(r"(?<=[.!?;])\s+", answer.lower()):
+        if _DENIAL.search(sentence):
+            continue  # "I haven't heard any report of tactical nuclear weapons" is not a leak
+        found += [pat for known, pat in FUTURE_TELLS if day < known and re.search(pat, sentence)]
     text = answer.lower()
-    found = [pat for known, pat in FUTURE_TELLS if day < known and re.search(pat, text)]
     if role != "official" and day < D("1962-10-22") and re.search(SECRET_BEFORE_22, text):
         found.append("official secret before Oct 22")
     return found

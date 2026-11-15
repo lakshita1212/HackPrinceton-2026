@@ -23,7 +23,7 @@ import station
 import voice
 import wiki_station
 import wiki_source
-from packs import PackNotFound
+from packs import PackNotFound, load_pack
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger("app")
@@ -214,6 +214,29 @@ def list_memories(since: Optional[str] = None):
     `image` is a path on this host (e.g. memories/ab12.jpg). Poll with ?since=<received_at>.
     """
     return {"items": memories.all_memories(since)}
+
+
+@app.get("/knowledge")
+def knowledge(pack: Pack, date: Date):
+    """What each role could know on this day: the time lock, as numbers for the screen.
+
+    {pack, date, total, roles: {citizen: n, ...}, today: {citizen: n, ...}, later: n}
+    `total` is every fact in the pack; `later` is how many are still in the future.
+    """
+    try:
+        facts = load_pack(pack)
+    except PackNotFound:
+        raise HTTPException(404, f"No story pack {pack!r}")
+    roles = {}
+    today = {}
+    for r in ("citizen", "journalist", "official", "historian"):
+        seen = retrieval.visible_facts(facts, r, date)
+        roles[r] = len(seen)
+        today[r] = sum(1 for f in seen if f.date == date)
+    return {
+        "pack": pack, "date": date.isoformat(), "total": len(facts),
+        "roles": roles, "today": today, "later": sum(1 for f in facts if f.date > date),
+    }
 
 
 @app.get("/voice/status")

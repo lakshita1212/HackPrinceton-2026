@@ -65,6 +65,7 @@
       <div class="scene-top">
         <span class="room" id="room">Living room</span>
         <span class="day" id="day">Tuesday, October 16, 1962</span>
+        <span class="timelock" id="timelock" aria-live="polite" hidden></span>
         <button class="sound-toggle" id="soundToggle" type="button" aria-pressed="true" title="Room sound on or off">Sound on</button>
       </div>
       <div class="stage" id="stage">
@@ -89,6 +90,11 @@
           <div class="on-air-frame" id="onAirFrame"><img id="onAirPhoto" alt=""></div>
           <figcaption><span id="onAirCaption"></span><small class="on-air-era" id="onAirEra"></small><small id="onAirFrom"></small></figcaption>
         </figure>
+        <!-- A question that reaches past the station's day: the signal drops out -->
+        <div class="signal-lost" id="signalLost" aria-live="assertive" hidden>
+          <span class="signal-lost-title">Signal lost</span>
+          <span class="signal-lost-sub">That hasn't happened yet. Turn the dial forward.</span>
+        </div>
         <!-- 2026: this week's headlines crawl across the bottom, cable-news style -->
         <div class="ticker" id="ticker" hidden>
           <span class="ticker-tag" id="tickerTag">Live · This week</span>
