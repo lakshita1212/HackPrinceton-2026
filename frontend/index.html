@@ -60,6 +60,21 @@
       </div>
     </div>
   </div>
+  <!-- The call screen: a telephone and big, readable lines during a voice call (extras.js) -->
+  <div class="call-screen" id="callScreen" role="dialog" aria-modal="true" aria-labelledby="callWho" hidden>
+    <div class="call-box">
+      <div class="call-phone" id="callPhone"></div>
+      <div class="call-info">
+        <span class="call-status" id="callStatus" aria-live="polite"></span>
+        <h3 class="call-who" id="callWho"></h3>
+        <div class="call-log" id="callLog" aria-live="polite"></div>
+        <div class="call-actions">
+          <button class="call-talk" id="callTalk" type="button">🎙 Hold to talk <small>or hold the space bar</small></button>
+          <button class="call-hangup" id="callHangup" type="button">Hang up</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <main class="app">
     <section class="scene" id="scene">
       <div class="scene-top">
@@ -144,10 +159,8 @@
         <ol class="transcript" id="transcript"></ol>
         <form class="ask" id="askForm">
           <input id="question" autocomplete="off" placeholder="Ask the citizen a question…" required>
-          <button type="button" class="mic" id="mic" aria-label="Hold to talk" title="Hold to talk (or hold the space bar)">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M9 21h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          </button>
-          <button type="submit">Call</button>
+          <button type="button" class="mic call-open" id="mic" aria-label="Call the station" title="Call the station: talk to them on the phone">📞 Call</button>
+          <button type="submit">Ask</button>
         </form>
       </section>
     </aside>
