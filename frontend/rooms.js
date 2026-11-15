@@ -533,30 +533,36 @@ export const ROOMS = { citizen, journalist, official, historian };
 //   sprites  cut-out pieces of the painting that animate on top of it
 // A role and era with no entry here falls back to the drawn room above.
 // face: where the person in the painting is (% of the image), used for chat avatars.
+// props: things you can click (% of the image). 'paper' opens that role's reading for
+// the day (papers.js); 'culture' opens what was popular then (culture.js).
 const painting = (role, era, spec) => ({ src: `rooms/${role}-${era}.jpg`, ...spec });
 
 export const ROOM_IMAGES = {
   citizen: {
     1962: painting('citizen', 1962, {
       face: { x: 11, y: 60 },
+      props: [{ x: 16, y: 61, w: 18, h: 19, kind: 'paper', label: 'Newspaper' }, { x: 53, y: 62, w: 31, h: 26, kind: 'culture', label: 'Toys' }],
       tv: { x: 77.0, y: 38.5, w: 12.5, h: 15.5 },
       radio: { x: 14.5, y: 47.5, w: 16, h: 11 },
       lamps: [{ x: 53.6, y: 35.2, r: 24 }, { x: 46.5, y: 8.8, r: 12 }, { x: 61.8, y: 10.7, r: 12 }],
     }),
     1969: painting('citizen', 1969, {
       face: { x: 55, y: 63 },
+      props: [{ x: 47, y: 83, w: 15, h: 11, kind: 'paper', label: 'Magazine' }, { x: 68, y: 30, w: 7, h: 17, kind: 'culture', label: 'Lava lamp' }],
       tv: { x: 75.2, y: 38.2, w: 13.5, h: 15.5 },
       radio: { x: 11.5, y: 54, w: 11, h: 7.5 },
       lamps: [{ x: 49.5, y: 33, r: 24 }, { x: 46.4, y: 7.8, r: 12 }, { x: 62.4, y: 9.8, r: 12 }],
     }),
     1989: painting('citizen', 1989, {
       face: { x: 15, y: 36 },
+      props: [{ x: 69, y: 72, w: 16, h: 9, kind: 'paper', label: 'Magazines' }, { x: 53, y: 41, w: 14, h: 11, kind: 'culture', label: 'Boombox' }],
       tv: { x: 73.5, y: 37, w: 16, h: 19 }, painted: true,
       radio: { x: 53.2, y: 42, w: 12.8, h: 9.6 },
       lamps: [{ x: 3.9, y: 34.8, r: 20 }],
     }),
     2026: painting('citizen', 2026, {
       face: { x: 16, y: 40 },
+      props: [{ x: 30, y: 49, w: 14, h: 21, kind: 'paper', label: 'Laptop' }],
       tv: { x: 70.3, y: 9.5, w: 29, h: 33 }, painted: true,
       radio: { x: 69.5, y: 45.5, w: 4, h: 4 },
       lamps: [{ x: 8.1, y: 18.2, r: 20 }],
@@ -565,48 +571,56 @@ export const ROOM_IMAGES = {
   journalist: {
     1962: painting('journalist', 1962, {
       face: { x: 33, y: 47 },
+      props: [{ x: 57, y: 37, w: 16, h: 45, kind: 'paper', label: 'Teletype' }],
       tv: { x: 81, y: 27.3, w: 13.4, h: 16.7 },
       radio: { x: 3.9, y: 42, w: 15.6, h: 13.5 },
       lamps: [{ x: 43.9, y: 7.8, r: 16 }, { x: 48.2, y: 51.8, r: 14 }],
     }),
     1969: painting('journalist', 1969, {
       face: { x: 35, y: 37 },
+      props: [{ x: 52, y: 71, w: 36, h: 15, kind: 'paper', label: 'Wire copy' }],
       tv: { x: 79.7, y: 21.9, w: 12.3, h: 15.2 }, painted: true,
       radio: { x: 52.3, y: 55.5, w: 10.5, h: 9 },
       lamps: [{ x: 47.1, y: 45, r: 14 }],
     }),
     1989: painting('journalist', 1989, {
       face: { x: 25, y: 39 },
+      props: [{ x: 53, y: 74, w: 38, h: 17, kind: 'paper', label: 'Newspaper' }],
       tv: { x: 76.8, y: 7, w: 13, h: 16 }, painted: true,
       radio: { x: 77.5, y: 34.2, w: 13.6, h: 8.2 },
       lamps: [{ x: 57.3, y: 38.7, r: 14 }],
     }),
     2026: painting('journalist', 2026, {
       face: { x: 19, y: 37 },
+      props: [{ x: 59, y: 32, w: 23, h: 28, kind: 'paper', label: 'News feed' }],
       tv: { x: 77.7, y: 4.5, w: 21.5, h: 22.5 }, painted: true,
     }),
   },
   official: {
     1962: painting('official', 1962, {
       face: { x: 35, y: 47 },
+      props: [{ x: 39, y: 16, w: 22, h: 34, kind: 'paper', label: 'Map of Cuba' }],
       tv: { x: 77.5, y: 34.2, w: 16, h: 19.5 },
       radio: { x: 12.3, y: 45.8, w: 11.5, h: 12.8 },
       lamps: [{ x: 53.4, y: 6.8, r: 14 }, { x: 64.5, y: 52.7, r: 16 }],
     }),
     1969: painting('official', 1969, {
       face: { x: 19, y: 38 },
+      props: [{ x: 71, y: 62, w: 20, h: 13, kind: 'paper', label: 'Mission file' }],
       tv: { x: 79.7, y: 30.3, w: 13, h: 17.6 }, painted: true,
       radio: { x: 60.4, y: 41, w: 9.5, h: 7.8 },
       lamps: [{ x: 58.2, y: 3.5, r: 14 }, { x: 48, y: 44, r: 16 }],
     }),
     1989: painting('official', 1989, {
       face: { x: 15, y: 38 },
+      props: [{ x: 63, y: 69, w: 27, h: 15, kind: 'paper', label: 'Briefing folder' }],
       tv: { x: 82, y: 6.4, w: 17, h: 22.5 }, painted: true,
       radio: { x: 70.7, y: 37.7, w: 15.2, h: 10.7 },
       lamps: [{ x: 33.2, y: 37.7, r: 14 }],
     }),
     2026: painting('official', 2026, {
       face: { x: 23, y: 42 },
+      props: [{ x: 31, y: 54, w: 12, h: 17, kind: 'paper', label: 'Tablet' }],
       tv: { x: 75.1, y: 9.4, w: 24.1, h: 25.4 }, painted: true,
       radio: { x: 69.5, y: 58, w: 4, h: 8 },
       lamps: [{ x: 38, y: 36.7, r: 14 }],
@@ -615,23 +629,27 @@ export const ROOM_IMAGES = {
   historian: {
     1962: painting('historian', 1962, {
       face: { x: 38, y: 46 },
+      props: [{ x: 67, y: 66, w: 20, h: 12, kind: 'paper', label: 'Books' }],
       tv: { x: 77.7, y: 23.4, w: 15.8, h: 20.6 },
       radio: { x: 3.9, y: 41, w: 16.3, h: 13.7 },
       lamps: [{ x: 47.9, y: 6.8, r: 14 }, { x: 56, y: 47.9, r: 14 }],
     }),
     1969: painting('historian', 1969, {
       face: { x: 17, y: 39 },
+      props: [{ x: 78, y: 63, w: 21, h: 22, kind: 'paper', label: 'Books' }],
       tv: { x: 81, y: 25.4, w: 11.7, h: 17.6 }, painted: true,
       lamps: [{ x: 31.5, y: 27.3, r: 20 }],
     }),
     1989: painting('historian', 1989, {
       face: { x: 14, y: 44 },
+      props: [{ x: 79, y: 53, w: 20, h: 23, kind: 'paper', label: 'Books' }],
       tv: { x: 79.7, y: 19.1, w: 16, h: 20.5 }, painted: true,
       radio: { x: 56, y: 38.7, w: 13, h: 10.7 },
       lamps: [{ x: 33.2, y: 27, r: 20 }],
     }),
     2026: painting('historian', 2026, {
       face: { x: 20, y: 40 },
+      props: [{ x: 77, y: 53, w: 22, h: 30, kind: 'paper', label: 'Books' }],
       tv: { x: 71.2, y: 7.4, w: 28, h: 28.3 }, painted: true,
       lamps: [{ x: 69.3, y: 34.8, r: 10 }],
     }),

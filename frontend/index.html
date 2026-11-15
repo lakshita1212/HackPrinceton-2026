@@ -22,6 +22,17 @@
     </div>
     <div class="intro-flash"></div>
   </div>
+  <!-- Reading: the newspaper, wire copy, files or books in the room, and pop-culture cards -->
+  <div class="paper-view" id="paperView" hidden>
+    <article class="paper" id="paper" role="dialog" aria-modal="true" aria-labelledby="paperTitle">
+      <button class="viewer-close paper-close" id="paperClose" type="button" aria-label="Close">✕</button>
+      <p class="paper-kicker" id="paperKicker"></p>
+      <h3 id="paperTitle"></h3>
+      <p class="paper-date" id="paperDate"></p>
+      <ol class="paper-items" id="paperItems"></ol>
+      <p class="paper-foot" id="paperFoot"></p>
+    </article>
+  </div>
   <!-- Big screen for the TV and the radio -->
   <div class="viewer" id="viewer" hidden>
     <div class="viewer-box" role="dialog" aria-modal="true" aria-labelledby="viewerTitle">
@@ -54,6 +65,7 @@
       <div class="scene-top">
         <span class="room" id="room">Living room</span>
         <span class="day" id="day">Tuesday, October 16, 1962</span>
+        <button class="sound-toggle" id="soundToggle" type="button" aria-pressed="true" title="Room sound on or off">Sound on</button>
       </div>
       <div class="stage" id="stage">
         <!-- The room: tilts slightly with the mouse (fx.js) -->
@@ -63,6 +75,7 @@
           <div id="sprites" aria-hidden="true"></div>
           <div class="glow" id="glow" aria-hidden="true"></div>
           <button class="radio-hit" id="radioHit" type="button" aria-label="Radio" hidden></button>
+          <div id="props"></div>
           <div class="screen static" id="screen" role="button" tabindex="0" aria-label="Television: open the big screen">
             <p id="onAir"></p>
           </div>
