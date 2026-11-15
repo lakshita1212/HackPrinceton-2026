@@ -16,6 +16,7 @@ import httpx
 from dotenv import load_dotenv
 
 import host
+import memories
 import station
 from packs import PackNotFound
 
@@ -31,7 +32,8 @@ HELP = (
     "To pick someone yourself, start with a role and a day:\n"
     "  official oct 16: what's happening?\n"
     "  citizen oct 22: are we going to war?\n\n"
-    "Roles: citizen, journalist, official, historian."
+    "Roles: citizen, journalist, official, historian.\n\n"
+    "Send a photo with a caption to put your own memory on the air, on the 2026 station."
 )
 
 ROLE_LABEL = {
@@ -103,15 +105,46 @@ class ImessageAgent:
             log.error("reply failed %s: %s", r.status_code, r.text[:500])
         r.raise_for_status()
 
+    def download(self, attachment_id: str) -> bytes:
+        """An attachment's bytes. Photon may need a few seconds to make it available."""
+        for _ in range(4):
+            r = self.http.get(f"/attachments/{attachment_id}/content", timeout=60)
+            if r.status_code == 409:  # not ready yet
+                time.sleep(int(r.headers.get("Retry-After", "5")))
+                continue
+            r.raise_for_status()
+            return r.content
+        raise RuntimeError("attachment never became ready")
+
     def handle(self, msg: dict) -> None:
         content = msg.get("content") or {}
         sender = msg.get("sentBy") or {}
-        if content.get("type") != "text" or sender.get("kind") == "agent":
+        if sender.get("kind") == "agent":
+            return
+        handle = sender.get("handle", "?")
+        caller = _mask(handle)
+
+        # A photo, alone or grouped with its caption, becomes a memory on the 2026 station.
+        parts = content.get("parts", []) if content.get("type") == "group" else [content]
+        photos = [p for p in parts if p.get("type") == "attachment"]
+        caption = " ".join(p.get("text", "") for p in parts if p.get("type") == "text").strip()
+        if photos:
+            self.save_memories(msg, handle, caller, photos, caption)
+            return
+        if content.get("type") != "text":
             return
         text = content.get("text", "").strip()
-        caller = _mask(sender.get("handle", "?"))
         log.info("text from %s: %s", caller, text)
 
+        if text.upper() == "DELETE":
+            gone = memories.delete_latest(handle)
+            self.reply(msg, "Done. Your latest memory is off the air." if gone else "You don't have any memories on the air.")
+            return
+        if memories.waiting_for_caption(handle):
+            m = memories.set_caption(handle, text)
+            note = f'Captioned: "{m["caption"]}"' if m and m["caption"] else "Saved without a caption."
+            self.reply(msg, f"{note}\n\nYour memory is on the air: turn the dial to 2026 to see it. Text DELETE to take it down.")
+            return
         if not text or text.lower() in ("help", "hi", "hello", "start", "?", "ping"):
             self.reply(msg, HELP)
             return
@@ -126,6 +159,21 @@ class ImessageAgent:
             result = {"answer": "That station isn't on the air yet.", "sources": [], "blocked": True, "blocked_reason": "unsupported"}
         station.log_exchange("imessage", caller, question, st, result)
         self.reply(msg, format_reply(result, st))
+
+    def save_memories(self, msg: dict, handle: str, caller: str, photos: list[dict], caption: str) -> None:
+        saved = []
+        for p in photos[:4]:
+            try:
+                saved.append(memories.add_photo(self.download(p["attachmentId"]), handle, caption or None))
+            except Exception:
+                log.exception("couldn't save a photo from %s", caller)
+        log.info("memory from %s: %d photo(s), caption %r", caller, len(saved), caption)
+        if not saved:
+            self.reply(msg, "The line crackled and that photo didn't come through. Try sending it again?")
+        elif caption:
+            self.reply(msg, f'Your memory is on the air: "{caption}". Turn the dial to 2026 to see it. Text DELETE to take it down.')
+        else:
+            self.reply(msg, "Got your photo! Text a caption for this memory, like \"Grandma's kitchen, 1969\", or SKIP.")
 
     def run_once(self) -> None:
         for msg in self.poll():

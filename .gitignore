@@ -26,3 +26,6 @@ frontend/rooms/*.png
 
 # Cached answers (regenerate with backend/warm_cache.py)
 backend/cache/
+
+# Photos people text to the station (their own memories, not ours to publish)
+backend/memories/
