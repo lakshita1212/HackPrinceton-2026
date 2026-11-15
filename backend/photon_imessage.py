@@ -33,7 +33,8 @@ HELP = (
     "  official oct 16: what's happening?\n"
     "  citizen oct 22: are we going to war?\n\n"
     "Roles: citizen, journalist, official, historian.\n\n"
-    "Send a photo with a caption to put your own memory on the air, on the 2026 station."
+    "Send a photo with a caption to put your own memory on the air, on the 2026 station. "
+    "Google Gemini pins captions on what's in it (it never identifies people). Text DELETE anytime to take it down."
 )
 
 ROLE_LABEL = {
@@ -170,7 +171,13 @@ class ImessageAgent:
         log.info("memory from %s: %d photo(s), caption %r", caller, len(saved), caption)
         if not saved:
             self.reply(msg, "The line crackled and that photo didn't come through. Try sending it again?")
-        elif caption:
+            return
+        pins = [p["label"] for m in saved for p in m.get("pins", [])][:5]
+        if pins:
+            era = saved[0].get("era_guess")
+            self.reply(msg, "📍 Pinned on your photo: " + ", ".join(pins) + "."
+                       + (f"\nLooks like the {era} to us (a guess)." if era else ""))
+        if caption:
             self.reply(msg, f'Your memory is on the air: "{caption}". Turn the dial to 2026 to see it. Text DELETE to take it down.')
         else:
             self.reply(msg, "Got your photo! Text a caption for this memory, like \"Grandma's kitchen, 1969\", or SKIP.")

@@ -19,6 +19,8 @@ from pathlib import Path
 import pillow_heif
 from PIL import Image, ImageOps
 
+import gemini_vision
+
 pillow_heif.register_heif_opener()  # iPhone photos arrive as HEIC
 
 DIR = Path(__file__).parent / "memories"
@@ -55,7 +57,11 @@ def add_photo(image_bytes: bytes, sender: str, caption: str | None) -> dict:
     img.thumbnail((1600, 1600))
     mid = uuid.uuid4().hex[:12]
     DIR.mkdir(exist_ok=True)
-    img.save(DIR / f"{mid}.jpg", "JPEG", quality=85)
+    jpeg = io.BytesIO()
+    img.save(jpeg, "JPEG", quality=85)
+    (DIR / f"{mid}.jpg").write_bytes(jpeg.getvalue())
+    # Gemini pins captions on the objects in the photo, writes alt text and guesses the era.
+    vision = gemini_vision.analyze(jpeg.getvalue(), caption or "") or {}
     memory = {
         "id": mid,
         "image": f"memories/{mid}.jpg",
@@ -66,6 +72,11 @@ def add_photo(image_bytes: bytes, sender: str, caption: str | None) -> dict:
         "received_at": datetime.now().isoformat(timespec="seconds"),
         "width": img.width,
         "height": img.height,
+        "pins": vision.get("pins", []),  # [{label, x, y, box}], x/y as fractions of width/height
+        "alt_text": vision.get("alt_text", ""),
+        "era_guess": vision.get("era_guess", ""),
+        "era_reason": vision.get("era_reason", ""),
+        "annotated_by": vision.get("model"),  # None if Gemini wasn't available
     }
     with _lock:
         items = _load()

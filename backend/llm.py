@@ -12,8 +12,8 @@ the moment one is rate-limited, and only the last model waits out a limit:
 With GROQ_API_KEY_2 set (a teammate's free key), the same models are tried
 again on that account before anything waits.
 
-LLM_PROVIDER=gemini sends every job to Gemini instead (separate free quota; it was
-timing out when tested on Nov 14, so treat it as untested).
+LLM_PROVIDER=gemini sends every job to Gemini instead (separate free quota).
+Gemini also annotates texted photos (gemini_vision.py).
 """
 import os
 
@@ -30,7 +30,7 @@ GROQ_JOBS = {
 # If both models for a job are rate-limited, try the third Groq model, and let
 # that last one wait out the limit (Groq says when to retry) instead of failing.
 LAST_RESORT = {"answer": "qwen/qwen3.8-27b", "check": "openai/gpt-oss-120b", "agent": None}
-GEMINI_MODEL = "gemini-3.8-flash"
+GEMINI_MODEL = "gemini-3-flash-preview"
 
 
 def _provider() -> str:

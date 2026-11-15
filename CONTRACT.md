@@ -176,9 +176,25 @@ caption ("Grandma's kitchen, 1969") becomes the memory's `year`. Texting
 { "items": [
   { "id": "a1b2c3d4e5f6", "image": "memories/a1b2c3d4e5f6.jpg",
     "caption": "Our team at HackPrinceton, 2026", "year": 2026,
-    "from": "•••1234", "received_at": "2026-11-15T01:40:12", "width": 1600, "height": 1067 }
+    "from": "•••1234", "received_at": "2026-11-15T01:40:12", "width": 1600, "height": 1067,
+    "pins": [
+      { "label": "the whiteboard", "x": 0.42, "y": 0.31, "box": [0.30, 0.12, 0.55, 0.50] }
+    ],
+    "alt_text": "A group of people around a table covered in laptops and snacks ...",
+    "era_guess": "2020s",
+    "era_reason": "Thin laptops, phones and LED lighting.",
+    "annotated_by": "gemini-3-flash-preview" }
 ] }
 ```
+
+**Pinned captions from Google Gemini.** Each photo is annotated by Gemini vision:
+- `pins`: objects worth a pinned caption. `x`, `y` are the pin's position as fractions
+  of the image's width and height (0 to 1, from the top left); `box` is
+  `[left, top, right, bottom]` in the same units. Draw a dot at (x, y) with the label.
+- `alt_text`: use it as the image's `alt` attribute, for screen readers.
+- `era_guess` / `era_reason`: show as "Looks like the 1970s (a guess)".
+- Gemini is told never to identify or describe specific people, only objects and setting.
+- If Gemini is unavailable, `pins` is `[]` and the other fields are empty: show the photo anyway.
 
 - Newest first. Poll every few seconds with `?since=<received_at of the newest you have>`
   so a photo appears on the dial moments after it's texted.
