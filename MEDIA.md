@@ -35,6 +35,20 @@ No public-domain footage of the Wall opening exists (the TV coverage belongs to 
 | `berlin-border-1961.mp4` | TV, every role | U.S. tanks and military police at the new sector border, Aug 23–24, 1961 (silent). | [archive.org `111-lc-44802`](https://archive.org/details/111-lc-44802), Army Signal Corps, [NARA 28459](https://catalog.archives.gov/id/28459) | Public domain (U.S. government work) |
 | `kennedy-ich-bin-ein-berliner-1963.mp3` | Radio, every role | Kennedy's "Ich bin ein Berliner" speech, June 26, 1963, 8:37. | [archive.org `jfks19630626`](https://archive.org/details/jfks19630626) | Public domain (official presidential address) |
 
+## Room sound
+
+Background sound for the offices and the study (`frontend/media/ambience/`, used by `frontend/ambience.js`). From Wikimedia Commons; the CC BY and CC BY-SA files need the credit shown here, which also goes on the Devpost.
+
+| File | Room | Source | License |
+|---|---|---|---|
+| `typewriter-smith-corona.ogg` | Newsroom, 1962 and 1969 | ["Smith-Corona Prestige Auto 12 typing"](https://commons.wikimedia.org/wiki/File:Smith-Corona_Prestige_Auto_12_typing.ogg) by lonemonk | CC BY 3.0 |
+| `keyboard-model-m-1986.ogg` | Newsroom and office, 1989 | ["Typing - Model M 1986"](https://commons.wikimedia.org/wiki/File:Typing_-_Model_M_1986.ogg) by Raymangold22 | CC0 |
+| `keyboard-modern.ogg` | Newsroom and office, 2026 | ["Keyboard noise"](https://commons.wikimedia.org/wiki/File:Keyboard_noise.ogg) | Public domain |
+| `clock-ticking.ogg` | Government office | ["Clock ticking"](https://commons.wikimedia.org/wiki/File:Clock_ticking.ogg) by natalie | Public domain |
+| `grandfather-clock.ogg` | Historian's study | ["Grandfather Clock Ticking"](https://commons.wikimedia.org/wiki/File:Grandfather_Clock_Ticking.ogg) by Jud McCranie | CC BY-SA 4.0 |
+
+In the living rooms, the TV on the set plays softly instead. A "Sound on/off" button at the top right of the room mutes all of it.
+
 ## How the clips were made
 
 All cuts were made with macOS `avconvert`: `PresetPassthrough` where the source was already small (no re-encoding), `PresetAppleM4VWiFi` for the two large films, and `PresetAppleM4A` for audio. The restored NASA clips start 6 seconds in, to skip NASA's title card. The moments in the NASA audio were found by transcribing samples.

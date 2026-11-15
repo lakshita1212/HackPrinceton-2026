@@ -7,6 +7,9 @@ import { sfx } from './audio.js';
 import { createFx } from './fx.js';
 import { playIntro } from './intro.js';
 import { liveStation, headlines } from './news.js';
+import { PAPERS } from './papers.js';
+import { cultureFor } from './culture.js';
+import { ambience } from './ambience.js';
 
 const $ = (id) => document.getElementById(id);
 const state = { station: 0, role: 0 };
@@ -31,6 +34,17 @@ function drawRoom(roleId, era) {
   $('art').hidden = !!pic;
   $('radioHit').hidden = !pic?.radio;
   $('sprites').replaceChildren();
+  $('props').replaceChildren();
+  for (const prop of pic?.props || []) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'prop-hit';
+    b.setAttribute('aria-label', prop.label);
+    b.dataset.label = prop.label;
+    b.addEventListener('click', () => openPaper(prop));
+    place(b, prop);
+    $('props').append(b);
+  }
   if (pic) {
     $('art').innerHTML = '';
     $('photo').src = pic.src;
@@ -85,6 +99,7 @@ function renderScene() {
   if (ROOM_IMAGES[r.id]?.[era]?.painted) $('screen').classList.replace('static', 'painted');
   stopMedia();
   startAmbient();
+  ambience.setRoom(r.id, era);
 
   const stage = $('stage');
   stage.className = `stage era-${era}${ROOM_IMAGES[r.id]?.[era] ? ' has-photo' : ''}`;
@@ -175,6 +190,7 @@ function openViewer(kind) {
   $('chanDownLabel').textContent = kind === 'tv' ? 'Channel ▼' : 'Tune ◀';
   $('viewerCard').textContent = s.onAir;
   pauseAmbient();
+  ambience.duck(true);
   viewer.hidden = false;
   showClip();
   $('viewerClose').focus();
@@ -249,11 +265,14 @@ function closeViewer() {
     el.load();
   }
   $('viewer').hidden = true;
+  ambience.duck(!$('paperView').hidden);
   resumeAmbient();
+  updateTvSound();
 }
 
 function stopMedia() {
   if (!$('viewer').hidden) closeViewer();
+  if (!$('paperView').hidden) closePaper();
   $('caption').hidden = true;
 }
 
@@ -277,16 +296,124 @@ function startAmbient() {
   }, { once: true });
   $('screen').prepend(v);
   v.play().catch(() => {});
+  updateTvSound();
   $('screen').setAttribute('aria-label', `Television, ${ambientClip.title}: open the big screen`);
 }
 function pauseAmbient() { $('screen').querySelector('video')?.pause(); }
+// At home the set is on in the background, so you hear it softly; in the
+// offices the room has its own noise instead (ambience.js).
+function updateTvSound() {
+  const v = $('screen').querySelector('video');
+  if (!v) return;
+  const audible = role().id === 'citizen' && ambience.enabled && ambience.unlocked && !ambience.ducked;
+  v.muted = !audible;
+  v.volume = Math.min(1, 0.12 * (ambientClip?.gain || 1));
+}
 function resumeAmbient() { $('screen').querySelector('video')?.play().catch(() => {}); }
 
 const playTv = () => openViewer('tv');
 const playRadio = () => openViewer('radio');
 $('viewerClose').addEventListener('click', closeViewer);
 $('viewer').addEventListener('click', (e) => { if (e.target === $('viewer')) closeViewer(); });
-window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !$('viewer').hidden) closeViewer(); });
+window.addEventListener('keydown', (e) => {
+  if (e.key !== 'Escape') return;
+  if (!$('viewer').hidden) closeViewer();
+  else if (!$('paperView').hidden) closePaper();
+});
+
+// ── Things in the room: the newspaper, wire copy, files, books, toys ─────
+// 'paper' props show that role's reading for the day, built from the story
+// packs (papers.js), so it follows the same no-spoiler rules as the host.
+// 'culture' props show what was popular at home then (culture.js).
+const PAPER_STYLE = {
+  citizen: { style: 'newspaper', kicker: { 1962: 'The Evening Dispatch', 1969: 'Picture Weekly', 1989: 'The Weekly Review' }, title: "Today's news" },
+  journalist: { style: 'wire', kicker: 'Wire service · bulletins', title: 'Off the wire' },
+  official: { style: 'files', kicker: 'Eyes only', title: 'Briefing file' },
+  historian: { style: 'books', kicker: 'From the history books', title: 'What we know now' },
+};
+const shortDate = (d) => new Date(`${d}T12:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+async function openPaper(prop) {
+  const s = station();
+  const r = role();
+  let style;
+  let kicker;
+  let title;
+  let items;
+  let foot = '';
+  if (prop.kind === 'culture') {
+    const card = cultureFor(s.era, s.date);
+    style = 'culture';
+    kicker = prop.label;
+    title = card?.title || 'At home';
+    items = card?.items || [];
+  } else if (s.live) {
+    // 2026: this week's headlines, the same ones the host knows.
+    await readyLive(s);
+    style = 'feed';
+    kicker = 'This week · auto-built from Wikipedia, not reviewed';
+    title = r.id === 'official' ? 'No classified files: only what is public' : 'This week';
+    items = (await headlines(s.date)).map((h) => ({ date: h.date, text: h.text, source: 'Wikipedia: 2026', url: 'https://en.wikipedia.org/wiki/2026' }));
+  } else {
+    const look = PAPER_STYLE[r.id];
+    style = look.style;
+    kicker = typeof look.kicker === 'string' ? look.kicker : look.kicker[s.era] || look.kicker[1962];
+    title = look.title;
+    items = PAPERS[s.date]?.[r.id] || [];
+    if (r.id === 'historian') foot = 'Written long after the fact. Nobody on this day knew any of it.';
+  }
+  const paper = $('paper');
+  paper.dataset.style = style;
+  $('paperKicker').textContent = kicker;
+  $('paperTitle').textContent = title;
+  $('paperDate').textContent = prop.kind === 'culture' ? '' : s.day;
+  $('paperFoot').textContent = foot;
+  $('paperItems').replaceChildren(...items.map((it) => {
+    const li = document.createElement('li');
+    const p = document.createElement('p');
+    p.textContent = it.text;
+    li.append(p);
+    if (it.quote) {
+      const q = document.createElement('blockquote');
+      q.textContent = `"${it.quote}"`;
+      li.append(q);
+    }
+    const src = document.createElement(it.url ? 'a' : 'span');
+    src.className = 'paper-source';
+    src.textContent = [it.source, style === 'books' && it.date ? shortDate(it.date) : ''].filter(Boolean).join(' · ');
+    if (it.url) { src.href = it.url; src.target = '_blank'; src.rel = 'noopener'; }
+    li.append(src);
+    return li;
+  }));
+  if (!items.length) $('paperItems').innerHTML = '<li><p>Nothing here yet.</p></li>';
+  $('paperView').hidden = false;
+  ambience.duck(true);
+  updateTvSound();
+  $('paperClose').focus();
+}
+
+function closePaper() {
+  $('paperView').hidden = true;
+  ambience.duck(!$('viewer').hidden);
+  updateTvSound();
+}
+$('paperClose').addEventListener('click', closePaper);
+$('paperView').addEventListener('click', (e) => { if (e.target === $('paperView')) closePaper(); });
+
+// ── Room sound: on after the first click (browsers require one), with a switch ──
+function showSoundSwitch() {
+  $('soundToggle').textContent = ambience.enabled ? 'Sound on' : 'Sound off';
+  $('soundToggle').setAttribute('aria-pressed', String(ambience.enabled));
+}
+showSoundSwitch();
+$('soundToggle').addEventListener('click', () => {
+  ambience.setEnabled(!ambience.enabled);
+  showSoundSwitch();
+  updateTvSound();
+});
+const unlockSound = () => { ambience.unlock(); updateTvSound(); };
+window.addEventListener('pointerdown', unlockSound, { once: true });
+window.addEventListener('keydown', unlockSound, { once: true });
 $('chanUp').addEventListener('click', () => changeChannel(1));
 $('chanDown').addEventListener('click', () => changeChannel(-1));
 window.addEventListener('keydown', (e) => {
@@ -559,10 +686,16 @@ async function sendCall(blob) {
 function speakAnswer(reply) {
   if (reply.audio) {
     answerAudio = new Audio(`data:audio/wav;base64,${reply.audio}`);
+    ambience.duck(true);
+    updateTvSound();
+    answerAudio.addEventListener('ended', () => { ambience.duck(false); updateTvSound(); }, { once: true });
     answerAudio.play();
   } else if (reply.answer) {
     const u = new SpeechSynthesisUtterance(reply.answer);
     u.rate = 0.95;
+    ambience.duck(true);
+    updateTvSound();
+    u.addEventListener('end', () => { ambience.duck(false); updateTvSound(); });
     speechSynthesis.speak(u);
   }
 }
