@@ -234,8 +234,12 @@ function addSources(li, sources) {
   if (!sources.length) return;
   const chips = document.createElement('div');
   chips.className = 'chips';
+  const seen = new Set();
   for (const src of sources) {
     const label = typeof src === 'string' ? src : [src.title, src.date].filter(Boolean).join(', ');
+    // Several facts often cite the same document; show each source once.
+    if (seen.has(label)) continue;
+    seen.add(label);
     const chip = document.createElement(src.url ? 'a' : 'span');
     chip.className = 'chip';
     if (src.citation) chip.title = src.citation;
